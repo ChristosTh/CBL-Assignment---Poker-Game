@@ -1,4 +1,4 @@
-public class Poker{
+public class Pot{
 
     // this is an updated comment.
 
