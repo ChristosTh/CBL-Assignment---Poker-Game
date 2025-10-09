@@ -1,4 +1,4 @@
-/** Wallet class for user. */
+/** Wallet class for user and bots. */
 public class Wallet {
     private int wallet = 0; 
 
