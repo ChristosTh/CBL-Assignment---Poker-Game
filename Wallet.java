@@ -1,4 +1,4 @@
-/** Wallet class for user and bot. */
+/** Wallet class for user and bots. */
 public class Wallet {
     private int wallet = 0; 
 
@@ -13,6 +13,15 @@ public class Wallet {
             return true; 
         }
         return false;
+    }
+
+    /** Method to call on a raise. */
+    boolean call(int currentRaise) {
+        if (currentRaise < wallet) {
+            wallet -= currentRaise; 
+            return true; 
+        }
+        return false; 
     }
 
     boolean allIn() {
