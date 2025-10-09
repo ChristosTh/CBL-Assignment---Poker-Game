@@ -1,6 +1,12 @@
 import javax.smartcardio.Card;
 
 public class Player {
+
+    private Wallet wallet;
+
+    public Player(Integer money) {
+        wallet = new Wallet(money);
+    }
     
     public class pairOfCards {
 
@@ -19,7 +25,7 @@ public class Player {
         public void receiveSecondCard(Card card) {
             secondCard = card;
         }
-        
+
     }
 
 }
