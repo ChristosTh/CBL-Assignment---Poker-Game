@@ -2,33 +2,35 @@
 public class Player {
 
     private Wallet wallet;
+    private Card firstCard;
+    private Card secondCard;
 
     /** Player constructor to initalize its wallet and pair of cards to null. */
     public Player(Integer money) {
         wallet = new Wallet(money);
-        PairOfCards pairOfCards = new PairOfCards();
+        firstCard = null;
+        secondCard = null;
     }
     
-    /** Class for the pair of cards the player is holding. */
-    public class PairOfCards {
+    public void receiveFirstCard(Card card) {
+        firstCard = card;
+    }
 
-        private Card firstCard;
-        private Card secondCard;
+    public void receiveSecondCard(Card card) {
+        secondCard = card;
+    }
 
-        /** Constructor for the pair of cards class. Just initializing the cards. */
-        public PairOfCards() {
-            firstCard = null;
-            secondCard = null;
-        }
+    public void clearCards() {
+        firstCard = null;
+        secondCard = null;
+    }
 
-        public void receiveFirstCard(Card card) {
-            firstCard = card;
-        }
+    public Card getFirstCard() {
+        return firstCard;
+    }
 
-        public void receiveSecondCard(Card card) {
-            secondCard = card;
-        }
-
+    public Card getSecondCard() {
+        return secondCard;
     }
 
 }

@@ -9,8 +9,17 @@ public class Deck {
 
     ArrayDeque<Card> cards;
     
-    public Deck(ArrayDeque<Card> cards) {
-        this.cards = new ArrayDeque<Card>(cards);
+    /** Deck constructor creating a new full deck of cards. */
+    public Deck() {
+        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        char[] ranks = {'1', '2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K'};
+
+        for (String suit : suits) {
+            for (char rank : ranks) {
+                cards.add(new Card(rank, suit));
+            }
+        }
+
     }
 
     /** Procedure to shuffle the cards in the deck. */
@@ -30,7 +39,7 @@ public class Deck {
     }
     
     /** Procedure to get a card from the table and add it to the deck. */
-    public void getCard(Card cardGot) {
+    public void takeCard(Card cardGot) {
         cards.addLast(cardGot);
     }
 
