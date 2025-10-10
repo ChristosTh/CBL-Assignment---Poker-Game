@@ -1,23 +1,24 @@
-import java.util.ArrayList;
+
+/** TO-DO: Complete the small blind and big blind functions.  */
+
+
 
 /** Pot class to sum and keep track of all the bets. */
 public class Pot {
     private int potTotal = 0; 
-    private int sBlind = 0; 
-    private int bBlind = 0; 
+    private int smallBlind = 0; 
+    private int bigBlind = 0; 
     private int currentRaise = 0; 
-    ArrayList<Wallet> bets = new ArrayList<>(); // ArrayList to keep track of the user's last bet. 
 
     /** Pot constructor. */
-    public Pot() {
+    public Pot(int smallBlind, int bigBlind) {
         currentRaise = 0; 
         // give values later to sBlind & bBlind.
-        sBlind = 0; 
-        bBlind = 0; 
-        potTotal = sBlind + bBlind; 
+        this.smallBlind = smallBlind; 
+        this.bigBlind = bigBlind; 
     }
 
-    /** in main method check if raise is possible and then run Pot.raised */ 
+    /** Raise method for pot. */ 
     int potRaise(int x) {
         potTotal += x; 
         currentRaise = x; 
@@ -28,6 +29,16 @@ public class Pot {
     int potCall(int x) {
         potTotal += x; 
         return potTotal; 
+    }
+
+    /** All in method for pot.  */
+    int potAllIn(int x) {
+        if (x > currentRaise) {
+            currentRaise = x; 
+        } 
+        potTotal += x; 
+        return potTotal; 
+
     }
 
     /** Method to add small blind to the pot. */

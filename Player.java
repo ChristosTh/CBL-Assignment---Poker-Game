@@ -6,8 +6,9 @@ public class Player {
     private Card secondCard;
 
     /** Player constructor to initalize its wallet and pair of cards to null. */
-    public Player(Integer money) {
-        wallet = new Wallet(money);
+    public Player(Integer money, int small, int big) {
+        wallet = new Wallet(money, small, big); 
+        // the 0's above are placeholders for when we will actually ask user smallBlind & bigBlind.
         firstCard = null;
         secondCard = null;
     }
