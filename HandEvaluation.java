@@ -79,8 +79,14 @@ public class HandEvaluation {
 
         int[] rankCount = getRankCounts();
         
-        for (int count : rankCount) {
-            if (count == 3) {
+        /*for (int count : rankCount) {
+            if (count == 4) {
+                return true;
+            }
+        }*/
+
+        for (int i = 0; i < rankCount.length; i++) {
+            if (rankCount[i] == 4) {
                 return true;
             }
         }
@@ -126,8 +132,14 @@ public class HandEvaluation {
         
         int[] rankCount = getRankCounts();
         
-        for (int count : rankCount) {
+        /*for (int count : rankCount) {
             if (count == 3) {
+                return true;
+            }
+        }*/
+
+        for (int i = 0; i < rankCount.length; i++) {
+            if (rankCount[i] == 3) {
                 return true;
             }
         }
@@ -142,8 +154,14 @@ public class HandEvaluation {
         int[] rankCount = getRankCounts();
         int pairs = 0;
 
-        for (int count : rankCount) {
+        /*for (int count : rankCount) {
             if (count == 2) {
+                pairs++;
+            }
+        }*/
+
+        for (int i = 0; i < rankCount.length; i++) {
+            if (rankCount[i] == 2 && i != 0) {
                 pairs++;
             }
         }
@@ -157,8 +175,14 @@ public class HandEvaluation {
         int[] rankCount = getRankCounts();
         int pairs = 0;
 
-        for (int count : rankCount) {
+        /*for (int count : rankCount) {
             if (count == 2) {
+                pairs++;
+            }
+        }*/
+
+        for (int i = 0; i < rankCount.length; i++) {
+            if (rankCount[i] == 2 && i != 0) {
                 pairs++;
             }
         }
