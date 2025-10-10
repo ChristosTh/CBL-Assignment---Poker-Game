@@ -12,7 +12,7 @@ public class Deck {
     /** Deck constructor creating a new full deck of cards. */
     public Deck() {
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
-        char[] ranks = {'1', '2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K'};
+        char[] ranks = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'}; // T is 10
 
         for (String suit : suits) {
             for (char rank : ranks) {
