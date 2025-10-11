@@ -13,6 +13,12 @@ public class Poker {
 
     public static void main(String[] args) {
         // console asks how much money
+
+        Card card = new Card('2', "spades");
+
+        // Display the card's image in a window
+        card.displayCard();
+        
         System.out.println("Please enter three integers separated by a single space: "
                 + "How much money you'd like to play with, the small blind, and the big blind."); 
         Scanner input = new Scanner(System.in); 

@@ -15,7 +15,7 @@ public class HandEvaluation {
     private static final char[] RANK_ORDER = 
         // T is 10 - just to use char
         {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
-    private static final String[] SUITS = {"Hearts", "Diamonds", "Clubs", "Spades"};
+    private static final String[] SUITS = {"hearts", "diamonds", "clubs", "spades"};
 
     /** Calculates the integer value for the power of the card. */
     private int getRankValue(char rank) {
