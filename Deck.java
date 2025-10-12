@@ -7,7 +7,7 @@ import java.util.List;
  * that are related to it and need to be applied. */
 public class Deck {
 
-    ArrayDeque<Card> cards;
+    ArrayDeque<Card> cards = new ArrayDeque<Card>();
     
     /** Deck constructor creating a new full deck of cards. */
     public Deck() {
