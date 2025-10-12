@@ -203,7 +203,7 @@ public class HandEvaluation {
         //System.out.println("High card: " + highCard);
         return false; // need to identify what a high card is
 
-        // this function is not currently working
+        // this function is not currently working - we have to decide what a high card is
 
     }
 
