@@ -2,11 +2,14 @@
 public class Wallet extends Pot {
     private int wallet = 0; 
     private int lastBet = 0; 
-
+    private int sBlindWallet = 0; 
+    private int bBlindWallet = 0; 
     /** When asking user how much money they want to play with, 
      *  also ask what should the small blind and the big blind be. */
     public Wallet(int x, int smallBlind, int bigBlind) {
         super(smallBlind, bigBlind); 
+        sBlindWallet = smallBlind;
+        bBlindWallet = bigBlind; 
         wallet = x; 
         lastBet = 0; 
     }
@@ -44,4 +47,31 @@ public class Wallet extends Pot {
         }
         return false; 
     }
+
+    /** Method for the small blind, if the player can't afford the small blind, 
+     *  they are forced to go all-in.  */
+    boolean smallBlind() {
+        if (wallet >= sBlindWallet) {
+            wallet -= sBlindWallet; 
+            smallBlind(sBlindWallet); 
+            return true; 
+        }
+        allIn(); 
+        return false;
+    }
+
+    /** Method for the big blind, if a player's stack is bigger 
+     * than small blind but smaller than the big blind, they go all-in 
+     * as long as they aren't the current small blind. 
+     */
+    boolean bigBlind() {
+        if (wallet >= bBlindWallet) {
+            wallet -= bBlindWallet; 
+            bigBlind(bBlindWallet); 
+            return true; 
+        }
+        allIn(); 
+        return false; 
+    }
+
 }
