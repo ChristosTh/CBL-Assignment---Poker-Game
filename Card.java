@@ -41,5 +41,6 @@ public class Card {
         frame.setLocationRelativeTo(null); // Center the window
         frame.setVisible(true);
     }
+    
 
 }

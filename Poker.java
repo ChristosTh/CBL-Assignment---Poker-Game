@@ -16,8 +16,8 @@ public class Poker {
         // console asks how much money
 
         deck.shuffleCards();
-        //Card card = deck.giveCard();
-        //card.displayCard();
+        Card card = deck.giveCard();
+        card.displayCard();
 
         
         /*System.out.println("Please enter three integers separated by a single space: "
