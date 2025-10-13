@@ -1,8 +1,3 @@
-
-/** TO-DO: Complete the small blind and big blind functions.  */
-
-
-
 /** Pot class to sum and keep track of all the bets. */
 public class Pot {
     private int potTotal = 0; 
