@@ -3,8 +3,10 @@ public class Wallet extends Pot {
     private int wallet = 0; 
     private int lastBet = 0; 
 
+    /** When asking user how much money they want to play with, 
+     *  also ask what should the small blind and the big blind be. */
     public Wallet(int x, int smallBlind, int bigBlind) {
-        super(smallBlind, bigBlind); // When asking user how much money they want to play with, also ask what should the small blind and the big blind be.
+        super(smallBlind, bigBlind); 
         wallet = x; 
         lastBet = 0; 
     }
@@ -32,6 +34,7 @@ public class Wallet extends Pot {
         return false; 
     }
 
+    /** Method to go all in. */
     boolean allIn() {
         if (wallet > 0) {
             lastBet += wallet; 
