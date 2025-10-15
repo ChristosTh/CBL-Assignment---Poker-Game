@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 /** Class for the user interface. */
@@ -30,7 +32,17 @@ public class StartMenu {
         startMenu.setLocationRelativeTo(null);
         startMenu.setVisible(true); 
 
- 
+        ActionListener actions = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // overrides actionPerformed method.
+                startMenu.setVisible(false); 
+                startMenu = null; 
+                GameSetup setup = new GameSetup(); 
+            }
+            
+        }; 
+        goToSetup.addActionListener(actions); 
 
 
     }
