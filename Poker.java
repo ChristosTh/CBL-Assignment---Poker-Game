@@ -17,7 +17,8 @@ public class Poker {
 
         deck.shuffleCards();
         Card card = deck.giveCard();
-        card.displayCard();
+        // card.displayCard();
+        new StartMenu(); 
         
         System.out.println("Please enter three integers separated by a single space: "
                 + "How much money you'd like to play with, the small blind, and the big blind.");
