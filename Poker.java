@@ -16,6 +16,8 @@ public class Poker {
     public void giveCardsToUsers() {
         player.receiveFirstCard(deck.giveCard());
         player.receiveSecondCard(deck.giveCard());
+        //bot.receiveFirstCard(new Card('2', "diamonds"));
+        //bot.receiveSecondCard(new Card('2', "spades"));
         bot.receiveFirstCard(deck.giveCard());
         bot.receiveSecondCard(deck.giveCard());
     }
@@ -60,6 +62,10 @@ public class Poker {
         for (int i = 0; i < 3; i++) {
             communityCards.add(deck.giveCard());
         }
+
+        /*communityCards.add(new Card('3', "spades"));
+        communityCards.add(new Card('3', "diamonds"));
+        communityCards.add(new Card('3', "hearts"));*/
 
         poker.outputCommunityCards();
 

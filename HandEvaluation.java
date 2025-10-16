@@ -202,7 +202,7 @@ public class HandEvaluation {
         int pairs = 0;
 
         for (int i = 0; i < rankCount.length; i++) {
-            if (rankCount[i] == 1 && i != 0) {
+            if (rankCount[i] == 2 && i != 0) {
                 pairs++;
             }
         }
@@ -319,6 +319,11 @@ public class HandEvaluation {
 
         cardsToCheck.add(player2.getFirstCard());
         cardsToCheck.add(player2.getSecondCard());
+
+        /*for (Card c : cardsToCheck) {
+            System.out.print(c.getRank() + " ");
+        }
+        System.out.println();*/
 
         int player2Calc = cardsCalculation();
 
