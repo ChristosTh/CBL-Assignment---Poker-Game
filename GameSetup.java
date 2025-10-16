@@ -105,6 +105,7 @@ public class GameSetup {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                gameSetup.setVisible(false); 
                 gameSetup = null; 
                 mat = new PokerMat(Double.parseDouble(moneyAmount.getText()), 
                     Double.parseDouble(sBlindAmount.getText()), 

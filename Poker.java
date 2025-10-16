@@ -8,7 +8,9 @@ public class Poker {
     static Bot bot = new Bot(100, 1, 2, 0.5);
     static ArrayList<Card> communityCards = new ArrayList<Card>();
 
-    StartMenu menu = new StartMenu(); 
+    static Pot pot; 
+    static StartMenu menu; 
+
     /** Method to distribute 2 cards to the user. */
     public void giveCardsToUsers() {
         player.receiveFirstCard(deck.giveCard());
@@ -27,9 +29,15 @@ public class Poker {
         System.out.println();
     }
 
-    public static void main(String[] args) {
-        Poker poker = new Poker();
+    public void setPot(double smallBlind, double bigBlind) {
+        pot.setBlinds(smallBlind, bigBlind); 
+    }
 
+
+
+    public static void main(String[] args) {
+        menu = new StartMenu(); 
+        Poker poker = new Poker();
         deck.shuffleCards();
         Card card = deck.giveCard();
         // card.displayCard();

@@ -1,9 +1,15 @@
 /** Pot class to sum and keep track of all the bets. */
 public class Pot {
     private int potTotal = 0; 
-    private int smallBlind = 0; 
-    private int bigBlind = 0; 
+    private double smallBlind = 0; 
+    private double bigBlind = 0; 
     private int currentRaise = 0; 
+
+    /** Method to set blinds. */
+    void setBlinds(double s, double b) {
+        smallBlind = s; 
+        bigBlind = b; 
+    }
 
     /** Pot constructor. */
     public Pot(int smallBlind, int bigBlind) {
