@@ -115,9 +115,9 @@ public class Bot extends Player {
         
         // --- Step 5: Weak hand logic — fold or bluff occasionally
         double bluffChance = 0.05; // baseline bluff chance
-        if (position == Position.LATE) {
+        /*if (position == Position.LATE) {
             bluffChance += 0.10; // more likely to bluff late
-        }
+        }*/
         bluffChance += aggressionLevel * 0.05; // more aggressive bot bluffs more
 
         if (Math.random() < bluffChance) {

@@ -210,19 +210,12 @@ public class HandEvaluation {
     }
 
     /** Function to check if just have a high card. */
-    public boolean isHighCard() {
+    /*public Card isHigherCard() {
 
-        if (isPair() || isTwoPair() || isThreeKind() || isStraight() ||
-            isFlush() || isFullHouse() || isFourKind() || isStraightFlush() || isRoyalFlush()) {
-            return false;
-        }
+        return;
 
-        //char highCard = RANK_ORDER[highestIndex];
-        //System.out.println("High card: " + highCard);
-        return false; // need to identify what a high card is
+        // have to check which is the higher card between
 
-        // this function is not currently working - we have to decide what a high card is
-
-    }
+    }*/
 
 }
