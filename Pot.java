@@ -3,7 +3,16 @@ public class Pot {
     private double potTotal = 0; 
     private double smallBlind = 0; 
     private double bigBlind = 0; 
-    private double currentRaise = 0; 
+    private double currentRaise; 
+
+    /** Pot constructor. */
+    public Pot() {
+        currentRaise = 0; 
+    }
+
+    double getCurrentRaise() {
+        return currentRaise; 
+    }
 
     /** Method to set blinds. */
     void setBlinds(double s, double b) {
@@ -19,24 +28,23 @@ public class Pot {
         return bigBlind;
     }
 
-    /** Pot constructor. */
-    public Pot() {
-        currentRaise = 0; 
-    }
 
     /** Raise method for pot. */ 
     double potRaise(double x) {
         potTotal += x; 
         currentRaise = x; 
+        System.out.println("1: " + currentRaise); 
         return potTotal; 
     }
 
+    
     /** Call method for pot. */
     double potCall(double x) {
         potTotal += x; 
         return potTotal; 
     }
 
+   
     /** All in method for pot.  */
     double potAllIn(double x) {
         if (x > currentRaise) {
@@ -47,6 +55,8 @@ public class Pot {
 
     }
 
+    
+    
     /** Method to add small blind to the pot. */
     double potSmallBlind() {
         potTotal += smallBlind; 

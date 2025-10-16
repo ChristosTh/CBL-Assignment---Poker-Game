@@ -104,6 +104,7 @@ public class PokerMat {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Poker.player.raise(Double.parseDouble(raiseAmount.getText())); 
+                        System.out.println("wtf" + Poker.pot.getCurrentRaise()); 
                         closeFrame(raiseFrame); 
                     }
                 });
@@ -125,11 +126,24 @@ public class PokerMat {
         raiseButton.setLocation(300, 510);
         //#endregion
 
+        //#region Call functionality
+        callButton = new JButton("Call"); 
+        callButton.setSize(100, 30); 
+        callButton.setLocation(300, 550); 
+        callButton.addMouseListener(new MouseAdapter() {
+            @Override 
+            public void mouseClicked(MouseEvent e) {
+                Poker.player.call(Poker.pot.getCurrentRaise()); 
+            }
+        });
+        //#endregion
+        
         // pokerMat.add(sBlindDisplay); 
         pokerMat.add(imageContainer);
         pokerMat.add(card1Container); 
         pokerMat.add(card2Container); 
         pokerMat.add(raiseButton);
+        pokerMat.add(callButton); 
         pokerMat.setLayout(new BorderLayout()); 
 
 

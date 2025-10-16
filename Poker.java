@@ -9,7 +9,7 @@ public class Poker {
     static ArrayList<Card> communityCards = new ArrayList<Card>();
 
     static Poker poker = new Poker();
-    static Pot pot; 
+    static Pot pot = new Pot(); 
     static StartMenu menu; 
 
     /** Method to distribute 2 cards to the user. */
@@ -42,7 +42,6 @@ public class Poker {
 
     public static void main(String[] args) {
         player = new Player(); 
-        pot = new Pot(); 
         menu = new StartMenu(); 
         deck.shuffleCards();
         Card card = deck.giveCard();

@@ -13,6 +13,10 @@ public class Player {
         secondCard = null;
     }
     
+    public double getWallet() {
+        return wallet.getWallet(); 
+    }
+
     public void setWallet(double cash) {
         wallet.setWallet(cash); 
     }
@@ -56,11 +60,13 @@ public class Player {
         if (!(wallet.actionRaise(x))) {
             System.err.println("bob");
         }
+        System.out.println(wallet.getWallet()); 
     }
 
     /** Method for player to call. */
-    public void call() {
-
+    public void call(double currentRaise) {
+        wallet.actionCall(currentRaise); 
+        System.out.println(wallet.getWallet()); 
     }
 
     /** Method for player to go all in. */

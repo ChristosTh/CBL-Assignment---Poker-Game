@@ -13,6 +13,10 @@ public class Wallet extends Pot {
         wallet = cash; 
     }
 
+    double getWallet() {
+        return wallet; 
+    }
+
     /** in main method check if raise is possible and then run Pot.raised */
     boolean actionRaise(double x) {
         if (x < wallet) {
