@@ -62,7 +62,15 @@ public class Poker {
         }
 
         poker.outputCommunityCards();
+
+        HandEvaluation determineWinner = new HandEvaluation(communityCards);
+        Player winner = determineWinner.winner(player, bot);
         
+        if (winner == player) {
+            System.out.println("Winner is the player!");
+        } else {
+            System.out.println("Winner is the bot!");
+        }
 
     }
 }

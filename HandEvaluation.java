@@ -63,10 +63,38 @@ public class HandEvaluation {
     
     /** Constructor to know what cards we need to check. */
     public HandEvaluation(ArrayList<Card> cardsToCheck) {
+        this.cardsToCheck = new ArrayList<Card>();
+        this.cardsToCheck.clear();
         this.cardsToCheck.addAll(cardsToCheck);
         playerCardsRank = getSortedRanks();
         highestIndex = playerCardsRank[playerCardsRank.length - 1];
         playersCardsSuit = getSuitCounts();
+    }
+
+    /** Method to calculate which player has the better comp. */
+    public int cardsCalculation() {
+        if (isPair()) {
+            return 1;
+        } else if (isTwoPair()) {
+            return 2;
+        } else if (isThreeKind()) {
+            return 3;
+        } else if (isStraight()) {
+            return 4;
+        } else if (isFlush()) {
+            return 5;
+        } else if (isFullHouse()) {
+            return 6;
+        } else if (isFourKind()) {
+            return 7;
+        } else if (isStraightFlush()) {
+            return 8;
+        } else if (isRoyalFlush()) {
+            return 9;
+        } else {
+            return 0;
+        }
+
     }
 
     /** Function to check if we have a royal flush. */
@@ -90,12 +118,6 @@ public class HandEvaluation {
     public boolean isFourKind() {
 
         int[] rankCount = getRankCounts();
-        
-        /*for (int count : rankCount) {
-            if (count == 4) {
-                return true;
-            }
-        }*/
 
         for (int i = 0; i < rankCount.length; i++) {
             if (rankCount[i] == 4) {
@@ -127,8 +149,6 @@ public class HandEvaluation {
     /** Function to check if we have a straight. */
     public boolean isStraight() {
 
-        //boolean consecutive = true;
-
         int consecutiveCounter = 0;
 
         for (int i = 0; i < playerCardsRank.length - 1; i++) {
@@ -149,12 +169,6 @@ public class HandEvaluation {
     public boolean isThreeKind() {
         
         int[] rankCount = getRankCounts();
-        
-        /*for (int count : rankCount) {
-            if (count == 3) {
-                return true;
-            }
-        }*/
 
         for (int i = 0; i < rankCount.length; i++) {
             if (rankCount[i] == 3) {
@@ -172,12 +186,6 @@ public class HandEvaluation {
         int[] rankCount = getRankCounts();
         int pairs = 0;
 
-        /*for (int count : rankCount) {
-            if (count == 2) {
-                pairs++;
-            }
-        }*/
-
         for (int i = 0; i < rankCount.length; i++) {
             if (rankCount[i] == 2 && i != 0) {
                 pairs++;
@@ -193,12 +201,6 @@ public class HandEvaluation {
         int[] rankCount = getRankCounts();
         int pairs = 0;
 
-        /*for (int count : rankCount) {
-            if (count == 2) {
-                pairs++;
-            }
-        }*/
-
         for (int i = 0; i < rankCount.length; i++) {
             if (rankCount[i] == 2 && i != 0) {
                 pairs++;
@@ -210,12 +212,75 @@ public class HandEvaluation {
     }
 
     /** Function to check if just have a high card. */
-    /*public Card isHigherCard() {
+    public Player hasHigherCard(Player player1, Player player2) {
 
-        return;
+        int player1HighestCardInt = 0;
+        int player2HighestCardInt = 0;
 
-        // have to check which is the higher card between
+        for (int i = 1; i < RANK_ORDER.length; i++) {
+            if (RANK_ORDER[i] == player1.getFirstCard().getRank()) {
+                player1HighestCardInt = i;
+            }
+        }
 
-    }*/
+        for (int i = 1; i < RANK_ORDER.length; i++) {
+            if (RANK_ORDER[i] == player1.getSecondCard().getRank()) {
+                if (i > player1HighestCardInt) {
+                    player1HighestCardInt = i;
+                }
+            }
+        }
+
+        for (int i = 1; i < RANK_ORDER.length; i++) {
+            if (RANK_ORDER[i] == player2.getFirstCard().getRank()) {
+                player1HighestCardInt = i;
+            }
+        }
+
+        for (int i = 1; i < RANK_ORDER.length; i++) {
+            if (RANK_ORDER[i] == player2.getSecondCard().getRank()) {
+                if (i > player1HighestCardInt) {
+                    player1HighestCardInt = i;
+                }
+            }
+        }
+
+
+        if (player1HighestCardInt < player2HighestCardInt) {
+            return player1;
+        } else {
+            return player2;
+        }
+
+    }
+
+    /** Function to determine the winner. */
+    public Player winner(Player player1, Player player2) {
+
+        cardsToCheck.add(player1.getFirstCard());
+        cardsToCheck.add(player1.getSecondCard());
+
+        int player1Calc = cardsCalculation();
+
+        cardsToCheck.removeLast();
+        cardsToCheck.removeLast();
+
+        cardsToCheck.add(player2.getFirstCard());
+        cardsToCheck.add(player2.getSecondCard());
+
+        int player2Calc = cardsCalculation();
+
+        cardsToCheck.removeLast();
+        cardsToCheck.removeLast();
+
+        if (player1Calc > player2Calc) {
+            return player1;
+        } else if (player2Calc > player1Calc) {
+            return player2;
+        } else {
+            return hasHigherCard(player1, player2);
+        }
+
+    }
 
 }
