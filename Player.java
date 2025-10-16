@@ -13,6 +13,10 @@ public class Player {
         secondCard = null;
     }
     
+    public void setWallet(double cash) {
+        wallet.setWallet(cash); 
+    }
+
     /** Procedure to get one of the two cards. */
     public void receiveFirstCard(Card card) {
         firstCard = card;

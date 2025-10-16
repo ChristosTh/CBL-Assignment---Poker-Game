@@ -1,9 +1,9 @@
 /** Pot class to sum and keep track of all the bets. */
 public class Pot {
-    private int potTotal = 0; 
+    private double potTotal = 0; 
     private double smallBlind = 0; 
     private double bigBlind = 0; 
-    private int currentRaise = 0; 
+    private double currentRaise = 0; 
 
     /** Method to set blinds. */
     void setBlinds(double s, double b) {
@@ -12,28 +12,25 @@ public class Pot {
     }
 
     /** Pot constructor. */
-    public Pot(int smallBlind, int bigBlind) {
+    public Pot() {
         currentRaise = 0; 
-        // give values later to sBlind & bBlind.
-        this.smallBlind = smallBlind; 
-        this.bigBlind = bigBlind; 
     }
 
     /** Raise method for pot. */ 
-    int potRaise(int x) {
+    double potRaise(double x) {
         potTotal += x; 
         currentRaise = x; 
         return potTotal; 
     }
 
     /** Call method for pot. */
-    int potCall(int x) {
+    double potCall(double x) {
         potTotal += x; 
         return potTotal; 
     }
 
     /** All in method for pot.  */
-    int potAllIn(int x) {
+    double potAllIn(double x) {
         if (x > currentRaise) {
             currentRaise = x; 
         } 
@@ -43,13 +40,13 @@ public class Pot {
     }
 
     /** Method to add small blind to the pot. */
-    int smallBlind(int x) {
+    double smallBlind(double x) {
         potTotal += x; 
         return potTotal;
     }
 
     /** Method to add big blind to the pot. */
-    int bigBlind(int x) {
+    double bigBlind(double x) {
         potTotal += x; 
         return potTotal; 
     }

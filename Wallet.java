@@ -1,17 +1,22 @@
 /** Wallet class for user and bots. */
 public class Wallet extends Pot {
-    private int wallet = 0; 
-    private int lastBet = 0; 
-    private int sBlindWallet = 0; 
-    private int bBlindWallet = 0; 
+    private double wallet = 0; 
+    private double lastBet = 0; 
+    private double sBlindWallet = 0; 
+    private double bBlindWallet = 0; 
+
+
     /** When asking user how much money they want to play with, 
      *  also ask what should the small blind and the big blind be. */
     public Wallet(int x, int smallBlind, int bigBlind) {
-        super(smallBlind, bigBlind); 
         sBlindWallet = smallBlind;
         bBlindWallet = bigBlind; 
         wallet = x; 
         lastBet = 0; 
+    }
+
+    void setWallet(double cash) {
+        wallet = cash; 
     }
 
     /** in main method check if raise is possible and then run Pot.raised */
@@ -26,8 +31,8 @@ public class Wallet extends Pot {
     }
 
     /** Method to call on a raise. */
-    boolean actionCall(int currentRaise) {
-        int betDifference = currentRaise - lastBet; 
+    boolean actionCall(double currentRaise) {
+        double betDifference = currentRaise - lastBet; 
         if (betDifference < wallet) {
             wallet -= betDifference; 
             lastBet += betDifference; 
