@@ -25,6 +25,9 @@ public class Card {
         return suit;
     }
 
+    String getCardPath() {
+        return imagePath; 
+    }
     
     // Method to display the card as an image in a Swing window
     public void displayCard() {

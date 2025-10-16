@@ -18,6 +18,8 @@ public class Poker {
         player.receiveSecondCard(deck.giveCard());
         bot.receiveFirstCard(deck.giveCard());
         bot.receiveSecondCard(deck.giveCard());
+
+        PokerMat.setCards(player.getCard1Path(), player.getCard2Path()); 
     }
 
     /** Method to output the cards on the table. */
