@@ -82,7 +82,6 @@ public class PokerMat {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                // overrides actionPerformed method.
                 JFrame raiseFrame = new JFrame("Raising"); 
                 JButton closeRaiseFrame = new JButton("Raise"); 
                 JTextField raiseAmount = new JTextField("Type raise amount here"); 
@@ -104,6 +103,7 @@ public class PokerMat {
                 closeRaiseFrame.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        Poker.player.raise(Double.parseDouble(raiseAmount.getText())); 
                         closeFrame(raiseFrame); 
                     }
                 });

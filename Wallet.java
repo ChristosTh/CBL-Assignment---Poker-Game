@@ -14,7 +14,7 @@ public class Wallet extends Pot {
     }
 
     /** in main method check if raise is possible and then run Pot.raised */
-    boolean actionRaise(int x) {
+    boolean actionRaise(double x) {
         if (x < wallet) {
             wallet -= x; 
             lastBet = x; 
