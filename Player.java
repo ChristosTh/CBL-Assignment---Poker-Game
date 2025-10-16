@@ -38,9 +38,17 @@ public class Player {
         return firstCard;
     }
 
+    public String getCard1Path() {
+        return firstCard.getCardPath(); 
+    }
+
     /** Function to get the other of the two cards. */
     public Card getSecondCard() {
         return secondCard;
+    }
+    
+    public String getCard2Path() {
+        return secondCard.getCardPath(); 
     }
 
     /** Method for player to raise. */
