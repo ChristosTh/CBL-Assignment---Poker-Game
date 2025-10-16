@@ -13,7 +13,7 @@ public class PokerMat {
     JLabel sBlindDisplay; 
 
     ImageIcon faceDownCard = new ImageIcon("CardsPNG\\faceDownCard.png"); 
-    Image scalingImage = faceDownCard.getImage().getScaledInstance(160, 160, Image.SCALE_DEFAULT);
+    Image scalingImage = faceDownCard.getImage().getScaledInstance(157, 160, Image.SCALE_DEFAULT);
     ImageIcon scaledImage = new ImageIcon(scalingImage); 
     JLabel imageContainer = new JLabel(scaledImage);  
 
@@ -26,11 +26,11 @@ public class PokerMat {
         playerCard2 = new ImageIcon(cardPath2);  
     }
 
-    Image scalingCard1 = playerCard1.getImage().getScaledInstance(125, 160, Image.SCALE_DEFAULT); 
+    Image scalingCard1 = playerCard1.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
     ImageIcon scaledCard1 = new ImageIcon(scalingCard1); 
     JLabel card1Container = new JLabel(scaledCard1); 
         
-    Image scalingCard2 = playerCard2.getImage().getScaledInstance(180, 180, Image.SCALE_DEFAULT); 
+    Image scalingCard2 = playerCard2.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
     ImageIcon scaledCard2 = new ImageIcon(scalingCard2); 
     JLabel card2Container = new JLabel(scaledCard2); 
 
@@ -46,17 +46,21 @@ public class PokerMat {
         pokerMat.getContentPane().setBackground(new Color(6, 117, 8));
         pokerMat.setLocationRelativeTo(null);
 
+        /* display small blind:
         sBlindDisplay = new JLabel(Double.toString(Poker.poker.pot.getSmallBlind())); 
         sBlindDisplay.setSize(200, 200); 
-        sBlindDisplay.setLocation(400, 400); 
+        sBlindDisplay.setLocation(400, 400); */
 
         imageContainer.setSize(180, 180); 
         imageContainer.setLocation(100, 250); 
 
-        card1Container.setSize(125, 160); 
-        card1Container.setLocation(500, 250); 
+        card1Container.setSize(115, 160); 
+        card1Container.setLocation(420, 500); 
 
-        pokerMat.add(sBlindDisplay); 
+        card2Container.setSize(115, 160); 
+        card2Container.setLocation(550, 500);
+
+        // pokerMat.add(sBlindDisplay); 
         pokerMat.add(imageContainer);
         pokerMat.add(card1Container); 
         pokerMat.add(card2Container); 
