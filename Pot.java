@@ -11,6 +11,14 @@ public class Pot {
         bigBlind = b; 
     }
 
+    double getSmallBlind() {
+        return smallBlind;
+    }
+    
+    double getBigBlind() {
+        return bigBlind;
+    }
+
     /** Pot constructor. */
     public Pot() {
         currentRaise = 0; 
@@ -40,14 +48,14 @@ public class Pot {
     }
 
     /** Method to add small blind to the pot. */
-    double smallBlind(double x) {
-        potTotal += x; 
+    double potSmallBlind() {
+        potTotal += smallBlind; 
         return potTotal;
     }
 
     /** Method to add big blind to the pot. */
-    double bigBlind(double x) {
-        potTotal += x; 
+    double potBigBlind(double x) {
+        potTotal += bigBlind; 
         return potTotal; 
     }
 }

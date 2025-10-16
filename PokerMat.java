@@ -8,6 +8,7 @@ public class PokerMat {
     /** PokerMat page constructor. */
     public PokerMat(double moneyAmount, double smallBlind, double bigBlind) {
         Poker.poker.setBlinds(smallBlind, bigBlind); 
+        Poker.player.setWallet(moneyAmount); 
         pokerMat = new JFrame("Poker"); 
         pokerMat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 /** Main class for poker. */
 public class Poker {
-    static Player player = new Player(100, 1, 2);
+    static Player player = new Player();
     static Deck deck = new Deck();
     static Bot bot = new Bot(100, 1, 2, 0.5);
     static ArrayList<Card> communityCards = new ArrayList<Card>();
@@ -37,20 +37,12 @@ public class Poker {
 
 
     public static void main(String[] args) {
+        player = new Player(); 
         pot = new Pot(); 
         menu = new StartMenu(); 
         deck.shuffleCards();
         Card card = deck.giveCard();
         // card.displayCard();
-        
-        System.out.println("Please enter three integers separated by a single space: "
-                + "How much money you'd like to play with, the small blind, and the big blind.");
-        Scanner input = new Scanner(System.in);
-        int moneyAmount = input.nextInt(); 
-        int small = input.nextInt();
-        int big = input.nextInt(); 
-        player = new Player(moneyAmount, small, big);
-        input.close(); 
 
         poker.giveCardsToUsers();
 
