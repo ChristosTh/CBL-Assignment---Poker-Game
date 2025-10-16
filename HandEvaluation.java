@@ -73,29 +73,29 @@ public class HandEvaluation {
 
     /** Method to calculate which player has the better comp. */
     public int cardsCalculation() {
-        if (isPair()) {
-            return 1;
-        } else if (isTwoPair()) {
-            return 2;
-        } else if (isThreeKind()) {
-            return 3;
-        } else if (isStraight()) {
-            return 4;
-        } else if (isFlush()) {
-            return 5;
-        } else if (isFullHouse()) {
-            return 6;
-        } else if (isFourKind()) {
-            return 7;
+        if (isRoyalFlush()) {
+            return 9;
         } else if (isStraightFlush()) {
             return 8;
-        } else if (isRoyalFlush()) {
-            return 9;
+        } else if (isFourKind()) {
+            return 7;
+        } else if (isFullHouse()) {
+            return 6;
+        } else if (isFlush()) {
+            return 5;
+        } else if (isStraight()) {
+            return 4;
+        } else if (isThreeKind()) {
+            return 3;
+        } else if (isTwoPair()) {
+            return 2;
+        } else if (isPair()) {
+            return 1;
         } else {
             return 0;
         }
-
     }
+
 
     /** Function to check if we have a royal flush. */
     public boolean isRoyalFlush() {
@@ -187,7 +187,7 @@ public class HandEvaluation {
         int pairs = 0;
 
         for (int i = 0; i < rankCount.length; i++) {
-            if (rankCount[i] == 2 && i != 0) {
+            if (rankCount[i] >= 2 && i != 0) {
                 pairs++;
             }
         }
@@ -202,7 +202,7 @@ public class HandEvaluation {
         int pairs = 0;
 
         for (int i = 0; i < rankCount.length; i++) {
-            if (rankCount[i] == 2 && i != 0) {
+            if (rankCount[i] == 1 && i != 0) {
                 pairs++;
             }
         }
