@@ -1,11 +1,14 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.*;
 
 /** Javadoc. */
 public class GameSetup {
+    PokerMat mat; 
+
     JFrame gameSetup; 
 
     JLabel instructions;
@@ -98,6 +101,16 @@ public class GameSetup {
         finishSetup.setLocation(345, 235); 
         finishSetup.setSize(150, 90); 
         finishSetup.setVisible(true); 
+        finishSetup.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameSetup = null; 
+                mat = new PokerMat(Double.parseDouble(moneyAmount.getText()), 
+                    Double.parseDouble(sBlindAmount.getText()), 
+                    Double.parseDouble(bBlindAmount.getText()));
+            } 
+        });
 
         gameSetup.add(instructions); 
         gameSetup.add(moneyInstructions); 
