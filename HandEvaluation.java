@@ -255,9 +255,9 @@ public class HandEvaluation {
 
 
         if (player1HighestCardInt < player2HighestCardInt) {
-            return player1;
-        } else if (player1HighestCardInt > player2HighestCardInt) {
             return player2;
+        } else if (player1HighestCardInt > player2HighestCardInt) {
+            return player1;
         } else {
 
             if (player1HighestCardInt != player1Card1) {
@@ -324,6 +324,9 @@ public class HandEvaluation {
 
         cardsToCheck.removeLast();
         cardsToCheck.removeLast();
+
+        System.out.println(player1Calc);
+        System.out.println(player2Calc);
 
         if (player1Calc > player2Calc) {
             return player1;
