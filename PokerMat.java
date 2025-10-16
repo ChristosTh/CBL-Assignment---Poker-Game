@@ -1,11 +1,14 @@
 import java.awt.*; 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.*;
 
 
 /** Javadoc. */
 public class PokerMat {
-
-
     JFrame pokerMat; 
 
     JLabel walletDisplay; 
@@ -26,6 +29,12 @@ public class PokerMat {
         playerCard2 = new ImageIcon(cardPath2);  
     }
 
+    /** Closing JFrame. */
+    void closeFrame(JFrame frame) {
+        frame.setVisible(false); 
+        frame = null; 
+    }
+
     Image scalingCard1 = playerCard1.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
     ImageIcon scaledCard1 = new ImageIcon(scalingCard1); 
     JLabel card1Container = new JLabel(scaledCard1); 
@@ -33,6 +42,11 @@ public class PokerMat {
     Image scalingCard2 = playerCard2.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
     ImageIcon scaledCard2 = new ImageIcon(scalingCard2); 
     JLabel card2Container = new JLabel(scaledCard2); 
+
+    JButton raiseButton; 
+    JButton callButton; 
+    JButton foldButton; 
+    JButton allInButton; 
 
     /** PokerMat page constructor. */
     public PokerMat(double moneyAmount, double smallBlind, double bigBlind) {
@@ -51,6 +65,7 @@ public class PokerMat {
         sBlindDisplay.setSize(200, 200); 
         sBlindDisplay.setLocation(400, 400); */
 
+        //#region Displaying cards.
         imageContainer.setSize(180, 180); 
         imageContainer.setLocation(100, 250); 
 
@@ -59,12 +74,66 @@ public class PokerMat {
 
         card2Container.setSize(115, 160); 
         card2Container.setLocation(550, 500);
+        //#endregion
+
+        //#region Raise functionality.
+        raiseButton = new JButton("Raise");
+        raiseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                // overrides actionPerformed method.
+                JFrame raiseFrame = new JFrame("Raising"); 
+                JButton closeRaiseFrame = new JButton("Raise"); 
+                JTextField raiseAmount = new JTextField("Type raise amount here"); 
+
+                raiseAmount.setForeground(Color.GRAY); 
+                raiseAmount.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        raiseAmount.setForeground(Color.BLACK);
+                        raiseAmount.setText(""); 
+                    }
+                });
+                raiseAmount.setSize(100, 20); 
+                raiseAmount.setLocation(80, 100);
+
+                closeRaiseFrame.setSize(100, 20); 
+                closeRaiseFrame.setLocation(170, 225); 
+
+                closeRaiseFrame.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        closeFrame(raiseFrame); 
+                    }
+                });
+                
+                
+                raiseFrame.setFocusable(true); 
+                raiseFrame.setSize(300, 300); 
+                raiseFrame.setLocationRelativeTo(null); 
+                raiseFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                raiseFrame.setVisible(true); 
+
+
+                raiseFrame.add(closeRaiseFrame); 
+                raiseFrame.add(raiseAmount); 
+                raiseFrame.setLayout(new BorderLayout()); 
+            } 
+        });
+        raiseButton.setSize(100, 30); 
+        raiseButton.setLocation(300, 510);
+        //#endregion
 
         // pokerMat.add(sBlindDisplay); 
         pokerMat.add(imageContainer);
         pokerMat.add(card1Container); 
         pokerMat.add(card2Container); 
+        pokerMat.add(raiseButton);
         pokerMat.setLayout(new BorderLayout()); 
+
+
+        
 
     }
 }
