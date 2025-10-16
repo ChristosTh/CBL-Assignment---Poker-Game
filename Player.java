@@ -39,4 +39,19 @@ public class Player {
         return secondCard;
     }
 
+    /** Method for player to raise. */
+    public void raise() {
+
+    }
+
+    /** Method for player to call. */
+    public void call() {
+
+    }
+
+    /** Method for player to go all in. */
+    public void allIn() {
+
+    }
+
 }

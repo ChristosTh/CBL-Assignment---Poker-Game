@@ -6,10 +6,10 @@ public class HandEvaluation {
 
     ArrayList<Card> cardsToCheck;
 
-    private int[] playerCardsRank = getSortedRanks();
-    private int highestIndex = playerCardsRank[playerCardsRank.length - 1];
+    private int[] playerCardsRank;
+    private int highestIndex;
 
-    private int[] playersCardsSuit = getSuitCounts();
+    private int[] playersCardsSuit;
 
     /** Stores the ranks of the cards in order. */
     private static final char[] RANK_ORDER = 
@@ -64,10 +64,22 @@ public class HandEvaluation {
     /** Constructor to know what cards we need to check. */
     public HandEvaluation(ArrayList<Card> cardsToCheck) {
         this.cardsToCheck.addAll(cardsToCheck);
+        playerCardsRank = getSortedRanks();
+        highestIndex = playerCardsRank[playerCardsRank.length - 1];
+        playersCardsSuit = getSuitCounts();
     }
 
+    /** Function to check if we have a royal flush. */
     public boolean isRoyalFlush() {
-        return isFlush() && isStraight() && playerCardsRank[0] == 'T';
+        
+        if (cardsToCheck.size() == 5) {
+            return isFlush() && isStraight() && playerCardsRank[0] == 'T';
+        } else if (cardsToCheck.size() == 6) {
+            return isFlush() && isStraight() && playerCardsRank[1] == 'T';
+        } else {
+            return isFlush() && isStraight() && playerCardsRank[2] == 'T';
+        }
+
     }
 
     public boolean isStraightFlush() {
@@ -115,16 +127,22 @@ public class HandEvaluation {
     /** Function to check if we have a straight. */
     public boolean isStraight() {
 
-        boolean consecutive = true;
+        //boolean consecutive = true;
+
+        int consecutiveCounter = 0;
 
         for (int i = 0; i < playerCardsRank.length - 1; i++) {
-            if (playerCardsRank[i + 1] - playerCardsRank[i] != 1) {
-                consecutive = false;
-                break;
+            if (playerCardsRank[i + 1] - playerCardsRank[i] == 1) {
+                consecutiveCounter++;
+            } else if (consecutiveCounter != 5) {
+                consecutiveCounter = 0;
             }
         }
 
-        return consecutive;
+        if (consecutiveCounter == 5) {
+            return true;
+        }
+        return false;
     }
 
     /** Function to check if we have three of a kind. */
