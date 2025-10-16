@@ -214,11 +214,16 @@ public class HandEvaluation {
     /** Function to check if just have a high card. */
     public Player hasHigherCard(Player player1, Player player2) {
 
+        int player1Card1 = 0;
+        int player1Card2 = 0;
+        int player2Card1 = 0;
+        int player2Card2 = 0;
         int player1HighestCardInt = 0;
         int player2HighestCardInt = 0;
 
         for (int i = 1; i < RANK_ORDER.length; i++) {
             if (RANK_ORDER[i] == player1.getFirstCard().getRank()) {
+                player1Card1 = i;
                 player1HighestCardInt = i;
             }
         }
@@ -228,28 +233,75 @@ public class HandEvaluation {
                 if (i > player1HighestCardInt) {
                     player1HighestCardInt = i;
                 }
+                player1Card2 = i;
             }
         }
 
         for (int i = 1; i < RANK_ORDER.length; i++) {
             if (RANK_ORDER[i] == player2.getFirstCard().getRank()) {
-                player1HighestCardInt = i;
+                player2Card1 = i;
+                player2HighestCardInt = i;
             }
         }
 
         for (int i = 1; i < RANK_ORDER.length; i++) {
             if (RANK_ORDER[i] == player2.getSecondCard().getRank()) {
-                if (i > player1HighestCardInt) {
-                    player1HighestCardInt = i;
+                if (i > player2HighestCardInt) {
+                    player2HighestCardInt = i;
                 }
+                player2Card2 = i;
             }
         }
 
 
         if (player1HighestCardInt < player2HighestCardInt) {
             return player1;
-        } else {
+        } else if (player1HighestCardInt > player2HighestCardInt) {
             return player2;
+        } else {
+
+            if (player1HighestCardInt != player1Card1) {
+
+                if (player2HighestCardInt != player2Card1) {
+                    
+                    if (player1Card1 > player2Card1) {
+                        return player1;
+                    } else {
+                        return player2;
+                    }
+
+                } else {
+
+                    if (player1Card1 > player2Card2) {
+                        return player1;
+                    } else {
+                        return player2;
+                    }
+
+                }
+
+            } else {
+               
+                if (player2HighestCardInt != player2Card1) {
+                    
+                    if (player1Card2 > player2Card1) {
+                        return player1;
+                    } else {
+                        return player2;
+                    }
+
+                } else {
+
+                    if (player1Card2 > player2Card2) {
+                        return player1;
+                    } else {
+                        return player2;
+                    }
+
+                }
+
+            }
+
         }
 
     }
