@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Poker {
     static Player player = new Player(100, 1, 2);
     static Deck deck = new Deck();
-    static Bot bot = new Bot(100, 1, 2);
+    static Bot bot = new Bot(100, 1, 2, 0.5);
     static ArrayList<Card> communityCards = new ArrayList<Card>();
 
     /** Method to distribute 2 cards to the user. */

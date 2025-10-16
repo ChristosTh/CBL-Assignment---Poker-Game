@@ -54,4 +54,8 @@ public class Player {
 
     }
 
+    public void fold() {
+        
+    }
+
 }

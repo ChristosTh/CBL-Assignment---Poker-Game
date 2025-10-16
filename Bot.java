@@ -2,10 +2,19 @@ import java.util.ArrayList;
 
 /** Bot class for bot that the user will play against. */
 public class Bot extends Player {
+
+    private double aggressionLevel;
+    private Position position;
+
+    public enum Position {
+        EARLY, MIDDLE, LATE
+    }
     
     /** Bot constructor inheriting the super class. */
-    public Bot(int money, int small, int big) {
+    public Bot(int money, int small, int big, double aggressionLevel) {
         super(money, small, big);
+        this.aggressionLevel = aggressionLevel;
+        this.position = position;
     }
 
     /** Method for bot to bluff. */
@@ -42,7 +51,7 @@ public class Bot extends Player {
     }
 
     /** Method for bot to calculate the power of the cards its holding. */
-    public int handPower(ArrayList<Card> communityCards) {
+    public double handPower(ArrayList<Card> communityCards) {
 
         ArrayList<Card> cardsToCheck = new ArrayList<Card>();
         cardsToCheck.clear();
@@ -58,14 +67,69 @@ public class Bot extends Player {
 
     }
 
-    public void decision(ArrayList<Card> communityCards) {
+    /** Method for the bot to decide what to do. */
+    public void decideAction(double potSize, double callAmount, ArrayList<Card> communityCards) {
+        double potOdds = callAmount / (potSize + callAmount);
+        double handStrength = handPower(communityCards);
+        double adjustedAggression = (0.5 + aggressionLevel * 0.5);
+        // to calculate the probability of action
+        double ev = expectedValue(handStrength, potSize, callAmount);
 
-        if (communityCards.size() == 3) {
-            if (handPower(communityCards) >= 2) {
+        switch (position) {
+            case EARLY -> handStrength = handStrength * 0.9;
+            case MIDDLE -> handStrength = handStrength * 1.0;
+            case LATE -> handStrength = handStrength * 1.1;
+        }
+
+        if (ev > 0) {
+
+            if (Math.random() < adjustedAggression) {
                 raise();
+            } else {
+                call();
+            }
+
+        } else if (handStrength >= 0.65) {
+
+            if (potOdds < 0.6) {
+                if (Math.random() < adjustedAggression) {
+                    raise();
+                } else {
+                    call();
+                }
+            } else {
+                call();
+            }
+
+        } else if (handStrength >= 0.45) {
+            if (potOdds < 0.3) {
+                call();
+            } else if (position == Position.LATE && Math.random() < 0.25 * adjustedAggression) {
+                bluff();
+            } else {
+                fold();
             }
         }
 
+        
+        // --- Step 5: Weak hand logic — fold or bluff occasionally
+        double bluffChance = 0.05; // baseline bluff chance
+        if (position == Position.LATE) {
+            bluffChance += 0.10; // more likely to bluff late
+        }
+        bluffChance += aggressionLevel * 0.05; // more aggressive bot bluffs more
+
+        if (Math.random() < bluffChance) {
+            bluff();
+        } else {
+            fold();
+        }
+        
+
+    }
+
+    public double expectedValue(double winProbability, double potSize, double callAmount) {
+        return (winProbability * (potSize + callAmount)) - ((1 - winProbability) * callAmount);
     }
 
     /*
