@@ -1,0 +1,49 @@
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.*;
+
+/** Class for the user interface. */
+public class StartMenu {
+    JFrame startMenu; 
+
+    JButton goToSetup;
+    JButton rules; // Do this after, when every necessary thing works. 
+
+    /** Public Constructor for the UI. */
+    public StartMenu() {
+        // Start menu (the page the user is shown after opening the application): 
+        startMenu = new JFrame("Start Menu");
+        startMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        startMenu.setSize(600, 600); 
+        startMenu.setLayout(new BoxLayout(startMenu.getContentPane(), BoxLayout.Y_AXIS)); 
+
+        goToSetup = new JButton("Setup Game");
+        goToSetup.setSize(200, 75);  
+        goToSetup.setLocation(185, 110); 
+
+        rules = new JButton("Texas Holdem Rules"); 
+        rules.setSize(200, 75); 
+        rules.setLocation(185, 325); 
+
+        startMenu.add(goToSetup); 
+        startMenu.add(rules); 
+        startMenu.setLayout(new BorderLayout());
+        startMenu.setLocationRelativeTo(null);
+        startMenu.setVisible(true); 
+
+        ActionListener actions = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // overrides actionPerformed method.
+                startMenu.setVisible(false); 
+                startMenu = null; 
+                GameSetup setup = new GameSetup(); 
+            }
+            
+        }; 
+        goToSetup.addActionListener(actions); 
+
+
+    }
+}
