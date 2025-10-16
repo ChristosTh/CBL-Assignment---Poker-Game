@@ -8,6 +8,7 @@ public class Poker {
     static Bot bot = new Bot(100, 1, 2, 0.5);
     static ArrayList<Card> communityCards = new ArrayList<Card>();
 
+    StartMenu menu = new StartMenu(); 
     /** Method to distribute 2 cards to the user. */
     public void giveCardsToUsers() {
         player.receiveFirstCard(deck.giveCard());
@@ -32,7 +33,6 @@ public class Poker {
         deck.shuffleCards();
         Card card = deck.giveCard();
         // card.displayCard();
-        new StartMenu(); 
         
         System.out.println("Please enter three integers separated by a single space: "
                 + "How much money you'd like to play with, the small blind, and the big blind.");

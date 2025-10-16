@@ -5,6 +5,8 @@ import javax.swing.*;
 
 /** Class for the user interface. */
 public class StartMenu {
+    GameSetup setup;
+    
     JFrame startMenu; 
 
     JButton goToSetup;
@@ -38,7 +40,7 @@ public class StartMenu {
                 // overrides actionPerformed method.
                 startMenu.setVisible(false); 
                 startMenu = null; 
-                GameSetup setup = new GameSetup(); 
+                setup = new GameSetup(); 
             }
             
         }; 
