@@ -3,7 +3,7 @@ public class Pot {
     private double potTotal = 0; 
     private double smallBlind = 0; 
     private double bigBlind = 0; 
-    private double currentRaise; 
+    private double currentRaise = 0; 
 
     /** Pot constructor. */
     public Pot() {
@@ -64,7 +64,7 @@ public class Pot {
     }
 
     /** Method to add big blind to the pot. */
-    double potBigBlind(double x) {
+    double potBigBlind() {
         potTotal += bigBlind; 
         return potTotal; 
     }

@@ -22,19 +22,19 @@ public class Wallet extends Pot {
         if (x < wallet) {
             wallet -= x; 
             lastBet = x; 
-            potRaise(x); 
+            Poker.pot.potRaise(x); 
             return true; 
         }
         return false;
     }
 
     /** Method to call on a raise. */
-    boolean actionCall(double currentRaise) {
-        double betDifference = currentRaise - lastBet; 
+    boolean actionCall(double newRaise) {
+        double betDifference = newRaise - lastBet; 
         if (betDifference < wallet) {
             wallet -= betDifference; 
             lastBet += betDifference; 
-            potCall(betDifference); 
+            Poker.pot.potCall(betDifference); 
             return true; 
         }
         return false; 
@@ -44,7 +44,7 @@ public class Wallet extends Pot {
     boolean allIn() {
         if (wallet > 0) {
             lastBet += wallet; 
-            potAllIn(wallet); 
+            Poker.pot.potAllIn(wallet); 
             wallet = 0; 
             return true; 
         }
@@ -56,7 +56,7 @@ public class Wallet extends Pot {
     boolean smallBlind() {
         if (wallet >= getSmallBlind()) {
             wallet -= getSmallBlind(); 
-            potSmallBlind(); 
+            Poker.pot.potSmallBlind(); 
             return true; 
         }
         allIn(); 
@@ -70,7 +70,7 @@ public class Wallet extends Pot {
     boolean bigBlind() {
         if (wallet >= getBigBlind()) {
             wallet -= getBigBlind(); 
-            bigBlind(); 
+            Poker.pot.potBigBlind(); 
             return true; 
         }
         allIn(); 
