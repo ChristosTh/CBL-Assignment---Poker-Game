@@ -6,6 +6,7 @@ public class Bot extends Player {
     private double aggressionLevel;
     private Position position;
 
+    /** Enum to check when is the bot playing. */
     public enum Position {
         EARLY, MIDDLE, LATE
     }
