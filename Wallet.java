@@ -41,7 +41,7 @@ public class Wallet extends Pot {
     }
 
     /** Method to go all in. */
-    boolean allIn() {
+    boolean actionAllIn() {
         if (wallet > 0) {
             lastBet += wallet; 
             Poker.pot.potAllIn(wallet); 
@@ -59,7 +59,7 @@ public class Wallet extends Pot {
             Poker.pot.potSmallBlind(); 
             return true; 
         }
-        allIn(); 
+        actionAllIn(); 
         return false;
     }
 
@@ -73,7 +73,7 @@ public class Wallet extends Pot {
             Poker.pot.potBigBlind(); 
             return true; 
         }
-        allIn(); 
+        actionAllIn(); 
         return false; 
     }
 

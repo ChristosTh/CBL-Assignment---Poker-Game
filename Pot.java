@@ -52,7 +52,6 @@ public class Pot {
         } 
         potTotal += x; 
         return potTotal; 
-
     }
 
     

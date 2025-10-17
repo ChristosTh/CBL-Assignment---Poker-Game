@@ -138,16 +138,38 @@ public class PokerMat {
         });
         //#endregion
          
+        //#region AllIn functionality
+        allInButton = new JButton("All in"); 
+        allInButton.setSize(100, 30); 
+        allInButton.setLocation(685, 510); 
+        allInButton.addActionListener(new ActionListener() {
+            @Override 
+            public void actionPerformed(ActionEvent e) {
+                Poker.player.allIn(); 
+            }
+        }); 
+        //#endregion
+
+        //#region Fold functionality (not finished); 
+        foldButton = new JButton("Fold"); 
+        foldButton.setSize(100, 30); 
+        foldButton.setLocation(685, 550);
+        foldButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Make player fold, end the hand. 
+            }
+        });
+        //#endregion
+
         // pokerMat.add(sBlindDisplay); 
         pokerMat.add(imageContainer);
         pokerMat.add(card1Container); 
         pokerMat.add(card2Container); 
         pokerMat.add(raiseButton);
         pokerMat.add(callButton); 
-        pokerMat.setLayout(new BorderLayout()); 
-
-
-        
-
+        pokerMat.add(foldButton); 
+        pokerMat.add(allInButton); 
+        pokerMat.setLayout(new BorderLayout());
     }
 }
