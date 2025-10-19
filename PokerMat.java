@@ -47,6 +47,7 @@ public class PokerMat {
     JButton callButton; 
     JButton foldButton; 
     JButton allInButton; 
+    JButton checkButton; 
 
     /** PokerMat page constructor. */
     public PokerMat(double moneyAmount, double smallBlind, double bigBlind) {
@@ -160,6 +161,22 @@ public class PokerMat {
                 // Make player fold, end the hand. 
             }
         });
+        //#endregion
+
+        //#region Check functionality (edit once UI is complete for System.println...)
+        checkButton = new JButton("Check"); 
+        checkButton.setSize(100, 30); 
+        checkButton.setLocation(300, 590);  
+        checkButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if (Poker.pot.getCurrentRaise() == 0) {
+                    Poker.player.call(0); 
+                } else {
+                    System.out.println("You are not able to Check. Please either bet or fold.");
+                }
+            }
+        }); 
         //#endregion
 
         // pokerMat.add(sBlindDisplay); 
