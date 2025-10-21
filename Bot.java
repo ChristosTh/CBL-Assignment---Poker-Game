@@ -4,29 +4,33 @@ import java.util.ArrayList;
 public class Bot extends Player {
 
     private double aggressionLevel;
-    private Position position;
+    /*private Position position;
 
-    /** Enum to check when is the bot playing. */
+    // Enum to check when is the bot playing.
     public enum Position {
         EARLY, MIDDLE, LATE
-    }
+    }*/
     
     /** Bot constructor inheriting the super class. */
-    public Bot(int money, int small, int big, double aggressionLevel) {
+    public Bot(int money, double aggressionLevel) {
         this.aggressionLevel = aggressionLevel;
-        this.position = position;
+        //this.position = position;
     }
 
     /** Method for bot to bluff. */
-    public void bluff() {
-
+    public void bluff(double potOdds, double callAmount) {
+        if (potOdds < 0.1) {
+            raise(getWallet() * 0.1);
+        } else {
+            call(callAmount);
+        }
     }
 
     /** Metho to calculate what cards the bot is holding. */
     public double handCalculation(ArrayList<Card> cardsToCheck) {
         HandEvaluation handEvaluation = new HandEvaluation(cardsToCheck);
 
-        if (handEvaluation.isPair()){
+        if (handEvaluation.isPair()) {
             return 0.25;
         } else if (handEvaluation.isTwoPair()) {
             return 0.35;
@@ -75,37 +79,37 @@ public class Bot extends Player {
         // to calculate the probability of action
         double ev = expectedValue(handStrength, potSize, callAmount);
 
-        switch (position) {
+        /*switch (position) {
             case EARLY -> handStrength = handStrength * 0.9;
             case MIDDLE -> handStrength = handStrength * 1.0;
             case LATE -> handStrength = handStrength * 1.1;
-        }
+        }*/
 
         if (ev > 0) {
 
             if (Math.random() < adjustedAggression) {
-                raise();
+                raise(0.1 * getWallet() * Math.random() + 0.2);
             } else {
-                call();
+                call(callAmount);
             }
 
         } else if (handStrength >= 0.65) {
 
             if (potOdds < 0.6) {
                 if (Math.random() < adjustedAggression) {
-                    raise();
+                    raise(0.1 * getWallet() * Math.random() + 0.2);
                 } else {
-                    call();
+                    call(callAmount);
                 }
             } else {
-                call();
+                call(callAmount);
             }
 
         } else if (handStrength >= 0.45) {
             if (potOdds < 0.3) {
-                call();
-            } else if (position == Position.LATE && Math.random() < 0.25 * adjustedAggression) {
-                bluff();
+                call(callAmount);
+            } else if (Math.random() < 0.25 * adjustedAggression) {
+                bluff(potOdds, callAmount);
             } else {
                 fold();
             }
@@ -120,7 +124,7 @@ public class Bot extends Player {
         bluffChance += aggressionLevel * 0.05; // more aggressive bot bluffs more
 
         if (Math.random() < bluffChance) {
-            bluff();
+            bluff(potOdds, callAmount);
         } else {
             fold();
         }

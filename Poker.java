@@ -46,7 +46,7 @@ public class Poker {
         player = new Player(); 
         menu = new StartMenu(); 
         deck.shuffleCards();
-        Card card = deck.giveCard();
+        //Card card = deck.giveCard();
         // card.displayCard();
 
         poker.giveCardsToUsers();

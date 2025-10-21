@@ -80,4 +80,8 @@ public class Player {
         
     }
 
+    public void check() {
+
+    }
+
 }
