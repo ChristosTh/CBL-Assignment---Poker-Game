@@ -226,6 +226,6 @@ public class PokerMat {
         pokerMat.add(chipContainer); 
         pokerMat.add(moneyDisplay); 
         pokerMat.add(boxContainer); 
-        pokerMat.setLayout(new BorderLayout());
+        // pokerMat.setLayout(new BorderLayout());
     }
 }
