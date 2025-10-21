@@ -57,10 +57,7 @@ public class Player {
 
     /** Method for player to raise. */
     public void raise(double x) {
-        if (!(wallet.actionRaise(x))) {
-            System.err.println("bob");
-        }
-        System.out.println(wallet.getWallet()); 
+        wallet.actionRaise(x);
     }
 
     /** Method for player to call. */
