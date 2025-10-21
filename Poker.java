@@ -40,10 +40,17 @@ public class Poker {
         pot.setBlinds(smallBlind, bigBlind); 
     }
 
+    /** Set flop cards. */
+    public void giveFlop() {
+        for (int i = 0; i < 3; i++) {
+            communityCards.add(deck.giveCard());
+        }
+    }
 
 
     public static void main(String[] args) {
         player = new Player(); 
+        Bot bot = new Bot(player.getWallet(), 0.5); 
         menu = new StartMenu(); 
         deck.shuffleCards();
         Card card = deck.giveCard();
@@ -60,11 +67,6 @@ public class Poker {
             + bot.getFirstCard().getRank() + " " + bot.getFirstCard().getSuit());
         System.out.println("Bot Card 2: " 
             + bot.getSecondCard().getRank() + " " + bot.getSecondCard().getSuit());
-
-
-        for (int i = 0; i < 3; i++) {
-            communityCards.add(deck.giveCard());
-        }
 
         /*communityCards.add(new Card('8', "spades"));
         communityCards.add(new Card('K', "diamonds"));

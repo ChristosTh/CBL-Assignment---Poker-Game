@@ -25,6 +25,7 @@ public class PokerMat {
         frame = null; 
     }
 
+    /** Updating the wallet display. */
     void updateWalletDisplay(JLabel label) {
         String newWallet = Double.toString(Poker.player.getWallet()); 
         if (newWallet.substring(newWallet.length() - 2).equals(".0")) {
