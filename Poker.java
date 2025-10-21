@@ -53,7 +53,7 @@ public class Poker {
         Bot bot = new Bot(player.getWallet(), 0.5); 
         menu = new StartMenu(); 
         deck.shuffleCards();
-        Card card = deck.giveCard();
+        //Card card = deck.giveCard();
         // card.displayCard();
 
         poker.giveCardsToUsers();
