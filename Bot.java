@@ -12,7 +12,7 @@ public class Bot extends Player {
     }*/
     
     /** Bot constructor inheriting the super class. */
-    public Bot(int money, double aggressionLevel) {
+    public Bot(double money, double aggressionLevel) {
         this.aggressionLevel = aggressionLevel;
         //this.position = position;
     }

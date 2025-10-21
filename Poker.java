@@ -5,12 +5,14 @@ import java.util.Scanner;
 public class Poker {
     static Player player = new Player();
     static Deck deck = new Deck();
-    static Bot bot = new Bot(100, 1, 2, 0.5);
+    static Bot bot;
     static ArrayList<Card> communityCards = new ArrayList<Card>();
 
     static Poker poker = new Poker();
     static Pot pot = new Pot(); 
     static StartMenu menu; 
+
+    static ArrayList<Player> players = new ArrayList<>(); 
 
     /** Method to distribute 2 cards to the user. */
     public void giveCardsToUsers() {
@@ -50,9 +52,11 @@ public class Poker {
 
     public static void main(String[] args) {
         player = new Player(); 
-        Bot bot = new Bot(player.getWallet(), 0.5); 
+        bot = new Bot(player.getWallet(), 0.5); 
         menu = new StartMenu(); 
         deck.shuffleCards();
+        players.add(player); 
+        players.add(bot); 
         //Card card = deck.giveCard();
         // card.displayCard();
 
@@ -71,6 +75,7 @@ public class Poker {
         /*communityCards.add(new Card('8', "spades"));
         communityCards.add(new Card('K', "diamonds"));
         communityCards.add(new Card('4', "hearts"));*/
+        System.out.println(bot.getCard1Path()); 
 
         poker.outputCommunityCards();
 
