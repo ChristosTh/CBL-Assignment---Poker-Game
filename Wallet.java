@@ -17,6 +17,10 @@ public class Wallet extends Pot {
         return wallet; 
     }
 
+    public double getLastBet() {
+        return lastBet;
+    }
+
     /** in main method check if raise is possible and then run Pot.raised */
     boolean actionRaise(double x) {
         if (x < wallet) {
@@ -53,7 +57,7 @@ public class Wallet extends Pot {
 
     /** Method for the small blind, if the player can't afford the small blind, 
      *  they are forced to go all-in.  */
-    boolean smallBlind() {
+    boolean actionSmallBlind() {
         if (wallet >= getSmallBlind()) {
             wallet -= getSmallBlind(); 
             Poker.pot.potSmallBlind(); 
@@ -67,7 +71,7 @@ public class Wallet extends Pot {
      * than small blind but smaller than the big blind, they go all-in 
      * as long as they aren't the current small blind. 
      */
-    boolean bigBlind() {
+    boolean actionBigBlind() {
         if (wallet >= getBigBlind()) {
             wallet -= getBigBlind(); 
             Poker.pot.potBigBlind(); 

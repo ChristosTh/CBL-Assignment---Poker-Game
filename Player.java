@@ -13,6 +13,10 @@ public class Player {
         secondCard = null;
     }
     
+    public double getLastBet() {
+        return wallet.getLastBet();
+    }
+
     public double getWallet() {
         return wallet.getWallet(); 
     }
@@ -71,6 +75,14 @@ public class Player {
         if (wallet.getWallet() > 0) {
             wallet.actionAllIn(); 
         }
+    }
+
+    public void smallBlind() {
+        wallet.actionSmallBlind(); 
+    }
+
+    public void bigBlind() {
+        wallet.actionBigBlind();
     }
 
     public void fold() {

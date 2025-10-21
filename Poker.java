@@ -7,6 +7,7 @@ public class Poker {
     static Deck deck = new Deck();
     static Bot bot;
     static ArrayList<Card> communityCards = new ArrayList<Card>();
+    static Round round; 
 
     static Poker poker = new Poker();
     static Pot pot = new Pot(); 
@@ -15,7 +16,7 @@ public class Poker {
     static ArrayList<Integer> blindsTrack = new ArrayList<>(); 
 
     /** Method to distribute 2 cards to the user. */
-    public void giveCardsToUsers() {
+    public static void giveCardsToUsers() {
         player.receiveFirstCard(deck.giveCard());
         player.receiveSecondCard(deck.giveCard());
         //player.receiveFirstCard(new Card('A', "diamonds"));
@@ -27,6 +28,7 @@ public class Poker {
 
         PokerMat.setCards(player.getCard1Path(), player.getCard2Path()); 
     }
+
 
     /** Method to output the cards on the table. */
     public void outputCommunityCards() {
@@ -43,31 +45,28 @@ public class Poker {
     }
 
     /** Set flop cards. */
-    public void giveFlop() {
+    public static void giveFlop() {
+        String[] cardPaths = new String[3]; 
         for (int i = 0; i < 3; i++) {
             communityCards.add(deck.giveCard());
+            cardPaths[i] = communityCards.get(i).getCardPath(); 
         }
+        PokerMat.setFlop(cardPaths[0], cardPaths[1], cardPaths[2]);
     }
 
 
     public static void main(String[] args) {
         blindsTrack.add(1); 
         blindsTrack.add(0); 
-        
+
         player = new Player(); 
         bot = new Bot(player.getWallet(), 0.5); 
+        round = new Round(); 
+
         menu = new StartMenu(); 
-        deck.shuffleCards();
 
-        //Card card = deck.giveCard();
-        // card.displayCard();
-
-        poker.giveCardsToUsers();
-
-        System.out.println("Card 1: " 
-            + player.getFirstCard().getRank() + " " + player.getFirstCard().getSuit());
-        System.out.println("Card 2: " 
-            + player.getSecondCard().getRank() + " " + player.getSecondCard().getSuit());
+        Round round = new Round(); 
+        round.flop(); 
 
         System.out.println("Bot Card 1: " 
             + bot.getFirstCard().getRank() + " " + bot.getFirstCard().getSuit());
