@@ -12,7 +12,7 @@ public class Poker {
     static Pot pot = new Pot(); 
     static StartMenu menu; 
 
-    static ArrayList<Player> players = new ArrayList<>(); 
+    static ArrayList<Integer> blindsTrack = new ArrayList<>(); 
 
     /** Method to distribute 2 cards to the user. */
     public void giveCardsToUsers() {
@@ -51,12 +51,14 @@ public class Poker {
 
 
     public static void main(String[] args) {
+        blindsTrack.add(1); 
+        blindsTrack.add(0); 
+        
         player = new Player(); 
         bot = new Bot(player.getWallet(), 0.5); 
         menu = new StartMenu(); 
         deck.shuffleCards();
-        players.add(player); 
-        players.add(bot); 
+
         //Card card = deck.giveCard();
         // card.displayCard();
 
@@ -75,7 +77,6 @@ public class Poker {
         /*communityCards.add(new Card('8', "spades"));
         communityCards.add(new Card('K', "diamonds"));
         communityCards.add(new Card('4', "hearts"));*/
-        System.out.println(bot.getCard1Path()); 
 
         poker.outputCommunityCards();
 
