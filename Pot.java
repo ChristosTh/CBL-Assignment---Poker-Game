@@ -59,15 +59,12 @@ public class Pot {
     /** Method to add small blind to the pot. */
     double potSmallBlind() {
         potTotal += smallBlind; 
-        PokerMat.updateWalletDisplay(PokerMat.moneyDisplay); 
         return potTotal;
     }
 
     /** Method to add big blind to the pot. */
     double potBigBlind() {
         potTotal += bigBlind; 
-        currentRaise = bigBlind; 
-        PokerMat.updateWalletDisplay(PokerMat.moneyDisplay); 
         return potTotal; 
     }
 }

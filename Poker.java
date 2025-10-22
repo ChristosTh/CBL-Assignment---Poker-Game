@@ -51,7 +51,7 @@ public class Poker {
             communityCards.add(deck.giveCard());
             cardPaths[i] = communityCards.get(i).getCardPath(); 
         }
-        PokerMat.setFlop(cardPaths);
+        PokerMat.setFlop(cardPaths[0], cardPaths[1], cardPaths[2]);
     }
 
 
@@ -61,11 +61,12 @@ public class Poker {
 
         player = new Player(); 
         bot = new Bot(player.getWallet(), 0.5); 
+        round = new Round(); 
 
-        menu = new StartMenu();  
+        menu = new StartMenu(); 
 
-        round = new Round();   
-        round.blinds(); 
+        Round round = new Round(); 
+        round.flop(); 
 
         System.out.println("Bot Card 1: " 
             + bot.getFirstCard().getRank() + " " + bot.getFirstCard().getSuit());
