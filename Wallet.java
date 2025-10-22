@@ -26,7 +26,7 @@ public class Wallet extends Pot {
         if (x < wallet) {
             wallet -= x; 
             lastBet = x; 
-            Poker.pot.potRaise(x); 
+            Round.pot.potRaise(x); 
             return true; 
         }
         return false;
@@ -38,7 +38,7 @@ public class Wallet extends Pot {
         if (betDifference < wallet) {
             wallet -= betDifference; 
             lastBet += betDifference; 
-            Poker.pot.potCall(betDifference); 
+            Round.pot.potCall(betDifference); 
             return true; 
         }
         return false; 
@@ -48,7 +48,7 @@ public class Wallet extends Pot {
     boolean actionAllIn() {
         if (wallet > 0) {
             lastBet += wallet; 
-            Poker.pot.potAllIn(wallet); 
+            Round.pot.potAllIn(wallet); 
             wallet = 0; 
             return true; 
         }
@@ -60,7 +60,7 @@ public class Wallet extends Pot {
     boolean actionSmallBlind() {
         if (wallet >= getSmallBlind()) {
             wallet -= getSmallBlind(); 
-            Poker.pot.potSmallBlind(); 
+            Round.pot.potSmallBlind(); 
             return true; 
         }
         actionAllIn(); 
@@ -74,7 +74,7 @@ public class Wallet extends Pot {
     boolean actionBigBlind() {
         if (wallet >= getBigBlind()) {
             wallet -= getBigBlind(); 
-            Poker.pot.potBigBlind(); 
+            Round.pot.potBigBlind(); 
             return true; 
         }
         actionAllIn(); 
