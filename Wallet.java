@@ -60,6 +60,7 @@ public class Wallet extends Pot {
     boolean actionSmallBlind() {
         if (wallet >= getSmallBlind()) {
             wallet -= getSmallBlind(); 
+            lastBet = getSmallBlind(); 
             Poker.pot.potSmallBlind(); 
             return true; 
         }
@@ -74,6 +75,7 @@ public class Wallet extends Pot {
     boolean actionBigBlind() {
         if (wallet >= getBigBlind()) {
             wallet -= getBigBlind(); 
+            lastBet = getBigBlind(); 
             Poker.pot.potBigBlind(); 
             return true; 
         }
