@@ -15,17 +15,10 @@ public class PokerMat {
     static ImageIcon playerCard1; 
     static ImageIcon playerCard2; 
     
-    static ImageIcon ccCard1;  
-    static ImageIcon ccCard2; 
-    Image scalingCC2; 
-    ImageIcon scaledCC2; 
-    JLabel cc2Container; 
-    static ImageIcon ccCard3; 
-    Image scalingCC3; 
-    ImageIcon scaledCC3; 
-    JLabel cc3Container; 
-    static ImageIcon ccCard4; 
-    static ImageIcon ccCard5; 
+    static ImageIcon[] baseCC = new ImageIcon[5];
+    static Image[] scalingCC = new Image[5]; 
+    static ImageIcon[] scaledCC = new ImageIcon[5]; 
+    static ArrayList<JLabel> ccContainer = new ArrayList<>();
 
     JButton showFlop = new JButton("Show flop");
 
@@ -35,15 +28,19 @@ public class PokerMat {
         playerCard2 = new ImageIcon(cardPath2);  
     }
 
-    static void setFlop(String cardPath1, String cardPath2, String cardPath3) {
-        ccCard1 = new ImageIcon(cardPath1); 
-        ccCard2 = new ImageIcon(cardPath2); 
-        ccCard2 = new ImageIcon(cardPath3); 
+    /** Method to set flop. */
+    static void setFlop(String[] cardPaths) {
+        for (int i = 0; i < 3; i++) {
+            baseCC[i] = new ImageIcon(cardPaths[i]); 
+            scalingCC[i] = baseCC[i].getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
+            scaledCC[i] = new ImageIcon(scalingCC[i]); 
+            JLabel holder = new JLabel(scaledCC[i]); 
+            ccContainer.add(holder); 
+            ccContainer.get(i).setSize(115, 160); 
+            ccContainer.get(i).setLocation(285 + 145 * i, 260); 
+            ccContainer.get(i).setVisible(false); 
+        }
     }
-
-    Image scalingCC1 = ccCard1.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
-    ImageIcon scaledCC1 = new ImageIcon(scalingCC1); 
-    JLabel cc1Container = new JLabel(scaledCC1);
 
     /** Closing JFrame. */
     void closeFrame(JFrame frame) {
@@ -241,16 +238,14 @@ public class PokerMat {
         }); 
         //#endregion
 
-        cc1Container.setLocation(300, 250); 
-        cc1Container.setSize(115, 160);
-        cc1Container.setVisible(false);  
-
         showFlop.setSize(100, 30); 
         showFlop.setLocation(50, 50); 
         showFlop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cc1Container.setVisible(true); 
+                for (int i = 0; i < ccContainer.size(); i++) {
+                    ccContainer.get(i).setVisible(true); 
+                }
             }
         });
 
@@ -266,8 +261,10 @@ public class PokerMat {
         pokerMat.add(chipContainer); 
         pokerMat.add(moneyDisplay); 
         pokerMat.add(boxContainer);
-        pokerMat.add(showFlop); 
-        pokerMat.add(cc1Container); 
+        pokerMat.add(showFlop);
+        for (int i = 0; i < ccContainer.size(); i++) {
+            pokerMat.add(ccContainer.get(i)); 
+        } 
         pokerMat.setLayout(new BorderLayout());
 
         //pokerMat.revalidate();

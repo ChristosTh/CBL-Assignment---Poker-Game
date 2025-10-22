@@ -51,7 +51,7 @@ public class Poker {
             communityCards.add(deck.giveCard());
             cardPaths[i] = communityCards.get(i).getCardPath(); 
         }
-        PokerMat.setFlop(cardPaths[0], cardPaths[1], cardPaths[2]);
+        PokerMat.setFlop(cardPaths);
     }
 
 
