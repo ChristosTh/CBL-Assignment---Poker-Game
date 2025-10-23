@@ -64,6 +64,8 @@ public class Round {
         blindsTrack.add(0);
 
         giveCardsToUsers(player, bot);
+        
+        blinds(player, bot);
 
         System.out.println("Bot Card 1: " 
             + bot.getFirstCard().getRank() + " " + bot.getFirstCard().getSuit());
@@ -85,14 +87,16 @@ public class Round {
             System.out.println("Winner is the bot!");
         }
 
-        blinds(player, bot);
+        while (true) {
+            System.out.println("Pot total: " + pot.getPotTotal());
+        }
 
     }
 
     /** Method to start the round, paying the blinds. */
     void blinds(Player player, Bot bot) {
         if (blindsTrack.get(0) == 1) {
-            player.smallBlind(); 
+            player.smallBlind();
             bot.bigBlind(); 
             while (player.getLastBet() < bot.getLastBet()) { }
             flop(); 
