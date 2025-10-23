@@ -20,7 +20,7 @@ public class Poker {
         player = new Player();
         bot = new Bot(0, 0);
 
-        round = new Round(player, bot); 
+        round = new Round(player, bot);
 
 
         //Round round = new Round(); 
