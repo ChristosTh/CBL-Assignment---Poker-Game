@@ -109,7 +109,7 @@ public class GameSetup {
                 gameSetup = null; 
                 Poker.round = new Round(Poker.player, Poker.bot, Double.parseDouble(moneyAmount.getText()), 
                     Double.parseDouble(sBlindAmount.getText()), 
-                    Double.parseDouble(bBlindAmount.getText()));
+                    Double.parseDouble(bBlindAmount.getText()), false);
             } 
         });
 

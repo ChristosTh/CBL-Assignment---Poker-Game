@@ -131,7 +131,7 @@ public class PokerMat {
                 GameSetup.mat.pokerMat = null; 
                 ccContainer.clear(); 
                 Poker.round = new Round(Poker.player, Poker.bot, Poker.player.getWallet(), 
-                    Round.pot.getSmallBlind(), Round.pot.getBigBlind()); 
+                    Round.pot.getSmallBlind(), Round.pot.getBigBlind(), Round.getPlayerFirst()); 
             }
         });
 

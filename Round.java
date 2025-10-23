@@ -10,7 +10,7 @@ public class Round {
     static boolean playerPlayed;
     static boolean botPlayed;
     
-    boolean playerBigBlind; 
+    static boolean playerFirst; 
 
     /** Method to distribute 2 cards to the user. */
     public static void giveCardsToUsers(Player player, Bot bot) {
@@ -52,7 +52,7 @@ public class Round {
         PokerMat.setFlop(cardPaths);
     }
 
-    public Round(Player player, Bot bot, double playerMoneyAmount, double roundSmallBlind, double roundBigBlind) {
+    public Round(Player player, Bot bot, double playerMoneyAmount, double roundSmallBlind, double roundBigBlind, boolean wasPlayerFirst) {
         /*Poker.deck = new Deck(); 
         Poker.deck.shuffleCards(); 
         Poker.giveCardsToUsers(); 
@@ -71,7 +71,13 @@ public class Round {
         giveCardsToUsers(player, bot);
         payBlinds(player, bot);
 
-        playerBigBlind = true;
+        if (!wasPlayerFirst) {
+            playerFirst = true;
+            System.out.println("Player is first");
+        } else {
+            playerFirst = false;
+            System.out.println("Bot is first");
+        }
 
         GameSetup.mat = new PokerMat(Poker.player.getWallet(), pot.getSmallBlind(), pot.getBigBlind()); 
 
@@ -100,7 +106,7 @@ public class Round {
 
     /** Method to start the round, paying the blinds. */
     void payBlinds(Player player, Bot bot) {
-        if (!playerBigBlind) {
+        if (!playerFirst) {
             player.paySmallBlind();
             bot.payBigBlind(); 
             //while (player.getLastBet() < bot.getLastBet()) { }
@@ -132,5 +138,9 @@ public class Round {
         playerPlayed = false;
         botPlayed = false;
     }*/
+
+    static boolean getPlayerFirst() {
+        return playerFirst;
+    }
 
 }
