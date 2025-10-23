@@ -67,7 +67,8 @@ public class Round {
 
         pot = new Pot();
 
-        Poker.player.setWallet(playerMoneyAmount); 
+        Poker.player.setWallet(playerMoneyAmount);
+        Poker.bot.setWallet(playerMoneyAmount);
         pot.setBlinds(roundSmallBlind, roundBigBlind); 
         deck = new Deck();
         communityCards = new ArrayList<Card>();
@@ -77,6 +78,8 @@ public class Round {
 
         giveCardsToUsers(player, bot);
         payBlinds(player, bot);
+
+        System.out.println("Bot wallet: " + bot.getWallet());
 
         if (!wasPlayerFirst) {
             playerFirst = true;
