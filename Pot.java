@@ -57,15 +57,13 @@ public class Pot {
     
     
     /** Method to add small blind to the pot. */
-    double addSmallBlind() {
-        potTotal += smallBlind; 
-        return potTotal;
+    void addSmallBlind() {
+        potTotal += smallBlind;
     }
 
     /** Method to add big blind to the pot. */
-    double addBigBlind() {
+    void addBigBlind() {
         potTotal += bigBlind; 
-        return potTotal; 
     }
 
     double getPotTotal() {
