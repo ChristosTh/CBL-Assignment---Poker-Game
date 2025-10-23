@@ -60,6 +60,7 @@ public class Wallet {
     void actionSmallBlind() {
         if (wallet >= Round.pot.getSmallBlind()) {
             wallet -= Round.pot.getSmallBlind(); 
+            lastBet = Round.pot.getSmallBlind(); 
             Round.pot.addSmallBlind(); 
         } else {
             actionAllIn();

@@ -70,6 +70,7 @@ public class Pot {
     void addBigBlind() {
         System.out.println("big blind added");
         potTotal += bigBlind; 
+        currentRaise = bigBlind;
         PokerMat.updatePotTotalUI();
     }
 
