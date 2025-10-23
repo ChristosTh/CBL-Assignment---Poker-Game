@@ -27,7 +27,13 @@ public class PokerMat {
     JButton newRoundButton = new JButton("New Round"); 
 
     public static void updatePotTotalUI() {
-        potTotalUI.setText(Double.toString(Round.pot.getPotTotal())); 
+        String newText = Double.toString(Round.pot.getPotTotal()); 
+        if (newText.substring(newText.length() - 2).equals(".0")) {
+            newText = newText.substring(0, newText.length() - 2);
+        }
+        newText = "<html><span style='font-size:10.3px'>" 
+            + newText + "</span></html>"; 
+        potTotalUI.setText(newText); 
     }
 
     JButton showFlop = new JButton("Show flop");
@@ -104,6 +110,12 @@ public class PokerMat {
     ImageIcon scaledBox = new ImageIcon(scalingBox); 
     JLabel boxContainer = new JLabel(scaledBox);
 
+    ImageIcon potText = new ImageIcon("CardsPNG\\Money_Box.png"); 
+    Image scalingPotText = potText.getImage()
+        .getScaledInstance(130, 60, Image.SCALE_DEFAULT);
+    ImageIcon scaledPotText = new ImageIcon(scalingPotText);
+    JLabel potTextContainer = new JLabel(scaledPotText);
+
     ImageIcon smallBlindIcon = new ImageIcon("CardsPNG\\smallBlindIcon.png"); 
     Image scalingSBIcon = smallBlindIcon.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT); 
     ImageIcon scaledSBIcon = new ImageIcon(scalingSBIcon); 
@@ -113,6 +125,15 @@ public class PokerMat {
     Image scalingBBIcon = bigBlindIcon.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT); 
     ImageIcon scaledBBIcon = new ImageIcon(scalingBBIcon); 
     JLabel bbContainer = new JLabel(scaledBBIcon); 
+
+    ImageIcon potTotalIcon = new ImageIcon("CardsPNG\\potIcon.png"); 
+    Image scalingPotIcon = potTotalIcon.getImage()
+        .getScaledInstance(50, 50, Image.SCALE_DEFAULT); 
+    ImageIcon scaledPotIcon = new ImageIcon(scalingPotIcon); 
+    JLabel potContainer = new JLabel(scaledPotIcon); 
+
+    JLabel sbText = new JLabel(Double.toString(Round.pot.getSmallBlind()));
+    JLabel bbText = new JLabel(Double.toString(Round.pot.getBigBlind())); 
 
     JButton raiseButton; 
     JButton callButton; 
@@ -124,7 +145,8 @@ public class PokerMat {
     /** PokerMat page constructor. */
     public PokerMat(double moneyAmount, double smallBlind, double bigBlind) {
         potTotalUI.setSize(50, 50); 
-        potTotalUI.setLocation(300, 50);
+        potTotalUI.setLocation(207, 200);
+        potTotalUI.setForeground(new Color(230, 165, 90));
 
         // Poker.round.setBlinds(smallBlind, bigBlind); 
         Poker.player.setWallet(moneyAmount); 
@@ -133,7 +155,7 @@ public class PokerMat {
         //System.out.println("Pot total: " + Poker.round.pot.getPotTotal());
 
         newRoundButton.setSize(100, 30);
-        newRoundButton.setLocation(100, 200); 
+        newRoundButton.setLocation(20, 200); 
         newRoundButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -186,6 +208,14 @@ public class PokerMat {
             bbContainer.setLocation(685, 595); 
         }
 
+        sbText.setSize(50, 50); 
+        sbText.setLocation(200, 20); 
+
+        potContainer.setSize(100, 100); 
+        potContainer.setLocation(85, 175); 
+        
+        potTextContainer.setSize(130, 60); 
+        potTextContainer.setLocation(153, 196);
         
         String initialWallet = Double.toString(Poker.player.getWallet()); 
         if (initialWallet.substring(initialWallet.length() - 2).equals(".0")) {
@@ -315,7 +345,6 @@ public class PokerMat {
             }
         });
 
-        // pokerMat.add(sBlindDisplay); 
         pokerMat.add(imageContainer);
         pokerMat.add(card1Container); 
         pokerMat.add(card2Container); 
@@ -333,13 +362,13 @@ public class PokerMat {
         pokerMat.add(newRoundButton); 
         pokerMat.add(sbContainer); 
         pokerMat.add(bbContainer); 
+        pokerMat.add(sbText);
+        pokerMat.add(potContainer); 
+        pokerMat.add(potTotalUI); 
         for (int i = 0; i < ccContainer.size(); i++) {
             pokerMat.add(ccContainer.get(i)); 
         } 
-        pokerMat.add(potTotalUI); 
+        pokerMat.add(potTextContainer); 
         pokerMat.setLayout(new BorderLayout());
-
-        //pokerMat.revalidate();
-        //pokerMat.repaint();
     }
 }
