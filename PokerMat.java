@@ -24,6 +24,8 @@ public class PokerMat {
 
     static JLabel potTotalUI = new JLabel(Double.toString(Round.pot.getPotTotal())); 
 
+    JButton newRoundButton = new JButton("New Round"); 
+
     public static void updatePotTotalUI() {
         potTotalUI.setText(Double.toString(Round.pot.getPotTotal())); 
     }
@@ -114,11 +116,22 @@ public class PokerMat {
         potTotalUI.setSize(50, 50); 
         potTotalUI.setLocation(300, 50);
 
-        Poker.round.setBlinds(smallBlind, bigBlind); 
+        // Poker.round.setBlinds(smallBlind, bigBlind); 
         Poker.player.setWallet(moneyAmount); 
 
-        Poker.round.payBlinds(Poker.player, Poker.bot);
+        //Poker.round.payBlinds(Poker.player, Poker.bot);
         //System.out.println("Pot total: " + Poker.round.pot.getPotTotal());
+
+        newRoundButton.setSize(100, 30);
+        newRoundButton.setLocation(100, 200); 
+        newRoundButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameSetup.mat.pokerMat.setVisible(false); 
+                GameSetup.mat.pokerMat = null; 
+                Poker.round = new Round(Poker.player, Poker.bot, Poker.player.getWallet(), Round.pot.getSmallBlind(), Round.pot.getBigBlind()); 
+            }
+        });
 
         //#region Poker mat Frame creation/customisation
         pokerMat = new JFrame("Poker"); 
@@ -294,6 +307,7 @@ public class PokerMat {
         pokerMat.add(moneyDisplay); 
         pokerMat.add(boxContainer);
         pokerMat.add(showFlop);
+        pokerMat.add(newRoundButton); 
         for (int i = 0; i < ccContainer.size(); i++) {
             pokerMat.add(ccContainer.get(i)); 
         } 

@@ -35,9 +35,9 @@ public class Round {
         System.out.println();
     }
 
-    public void setBlinds(double smallBlind, double bigBlind) {
+    /* public void setBlinds(double smallBlind, double bigBlind) {
         pot.setBlinds(smallBlind, bigBlind); 
-    }
+    } */
 
     /** Set flop cards. */
     public static void giveFlop() {
@@ -49,15 +49,18 @@ public class Round {
         PokerMat.setFlop(cardPaths);
     }
 
-    public Round(Player player, Bot bot) {
+    public Round(Player player, Bot bot, double playerMoneyAmount, double roundSmallBlind, double roundBigBlind) {
         /*Poker.deck = new Deck(); 
         Poker.deck.shuffleCards(); 
         Poker.giveCardsToUsers(); 
         Poker.giveFlop(); */
 
+        pot = new Pot();
+
+        Poker.player.setWallet(playerMoneyAmount); 
+        pot.setBlinds(roundSmallBlind, roundBigBlind); 
         deck = new Deck();
         communityCards = new ArrayList<Card>();
-        pot = new Pot();
 
         deck.shuffleCards();
 
@@ -65,6 +68,8 @@ public class Round {
         blindsTrack.add(0);
 
         giveCardsToUsers(player, bot);
+        payBlinds(player, bot);
+        GameSetup.mat = new PokerMat(Poker.player.getWallet(), pot.getSmallBlind(), pot.getBigBlind()); 
 
         System.out.println("Bot Card 1: " 
             + bot.getFirstCard().getRank() + " " + bot.getFirstCard().getSuit());

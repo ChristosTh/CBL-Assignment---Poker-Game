@@ -7,7 +7,7 @@ import javax.swing.*;
 
 /** Javadoc. */
 public class GameSetup {
-    PokerMat mat; 
+    static PokerMat mat; 
 
     JFrame gameSetup; 
 
@@ -107,7 +107,7 @@ public class GameSetup {
             public void actionPerformed(ActionEvent e) {
                 gameSetup.setVisible(false); 
                 gameSetup = null; 
-                mat = new PokerMat(Double.parseDouble(moneyAmount.getText()), 
+                Poker.round = new Round(Poker.player, Poker.bot, Double.parseDouble(moneyAmount.getText()), 
                     Double.parseDouble(sBlindAmount.getText()), 
                     Double.parseDouble(bBlindAmount.getText()));
             } 
