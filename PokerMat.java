@@ -109,6 +109,11 @@ public class PokerMat {
     ImageIcon scaledSBIcon = new ImageIcon(scalingSBIcon); 
     JLabel sbContainer = new JLabel(scaledSBIcon); 
 
+    ImageIcon bigBlindIcon = new ImageIcon("CardsPNG\\bigBlindIcon.png"); 
+    Image scalingBBIcon = bigBlindIcon.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT); 
+    ImageIcon scaledBBIcon = new ImageIcon(scalingBBIcon); 
+    JLabel bbContainer = new JLabel(scaledBBIcon); 
+
     JButton raiseButton; 
     JButton callButton; 
     JButton foldButton; 
@@ -172,7 +177,15 @@ public class PokerMat {
         boxContainer.setLocation(947, 20); 
 
         sbContainer.setSize(50, 50); 
-        sbContainer.setLocation(800, 510); 
+        bbContainer.setSize(50, 50); 
+        if (Round.getPlayerFirst()) {
+            sbContainer.setLocation(685, 595); 
+            bbContainer.setLocation(685, 50); 
+        } else {
+            sbContainer.setLocation(685, 50); 
+            bbContainer.setLocation(685, 595); 
+        }
+
         
         String initialWallet = Double.toString(Poker.player.getWallet()); 
         if (initialWallet.substring(initialWallet.length() - 2).equals(".0")) {
@@ -281,7 +294,7 @@ public class PokerMat {
         checkButton.setLocation(300, 590);  
         checkButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 if (Round.pot.getCurrentRaise() == 0) {
                     Poker.player.call(0); 
                 } else {
@@ -319,6 +332,7 @@ public class PokerMat {
         pokerMat.add(showFlop);
         pokerMat.add(newRoundButton); 
         pokerMat.add(sbContainer); 
+        pokerMat.add(bbContainer); 
         for (int i = 0; i < ccContainer.size(); i++) {
             pokerMat.add(ccContainer.get(i)); 
         } 
