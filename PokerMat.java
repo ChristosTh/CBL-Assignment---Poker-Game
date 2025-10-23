@@ -69,7 +69,6 @@ public class PokerMat {
         JLabel holder = new JLabel(scaledCC[3]); 
         ccContainer.add(holder); 
         ccContainer.get(3).setSize(115, 160); 
-        ccContainer.get(3).setLocation(285 + 145 * 3, 260); 
         ccContainer.get(3).setVisible(false); 
     }
 
@@ -407,6 +406,8 @@ public class PokerMat {
         showTurn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                pokerMat.add(ccContainer.get(3)); 
+                ccContainer.get(3).setLocation(285 + 145 * 3, 260); 
                 ccContainer.get(3).setVisible(true); 
             }
         });
@@ -440,6 +441,6 @@ public class PokerMat {
         } 
         pokerMat.add(potTextContainer); 
         pokerMat.add(showTurn); 
-        pokerMat.setLayout(new BorderLayout());
+        pokerMat.setLayout(null);
     }
 }
