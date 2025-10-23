@@ -99,10 +99,21 @@ public class PokerMat {
     ImageIcon scaledBotCard2 = new ImageIcon(scalingBotCard2); 
     JLabel botCard2Container = new JLabel(scaledBotCard2); 
 
-    ImageIcon chipStacks = new ImageIcon("CardsPNG\\Chip_Stacks.png"); 
-    Image scalingChips = chipStacks.getImage().getScaledInstance(46, 46, Image.SCALE_DEFAULT); 
+    ImageIcon chipStack = new ImageIcon("CardsPNG\\Chip_Stacks.png"); 
+    Image scalingChips = chipStack.getImage().getScaledInstance(46, 46, Image.SCALE_DEFAULT); 
     ImageIcon scaledChips = new ImageIcon(scalingChips); 
     JLabel chipContainer = new JLabel(scaledChips); 
+
+    ImageIcon botChip = new ImageIcon("CardsPNG\\Chip_Stacks.png"); 
+    Image scalingBotChip = botChip.getImage().getScaledInstance(46, 46, Image.SCALE_DEFAULT); 
+    ImageIcon scaledBotChip = new ImageIcon(scalingBotChip); 
+    JLabel botChipContainer = new JLabel(scaledBotChip); 
+
+    JLabel botMoneyDisplay; 
+    ImageIcon botMoneyBox = new ImageIcon("CardsPNG\\Money_Box.png"); 
+    Image scalingBotBox = botMoneyBox.getImage().getScaledInstance(130, 60, Image.SCALE_DEFAULT);
+    ImageIcon scaledBotBox = new ImageIcon(scalingBotBox); 
+    JLabel botBoxContainer = new JLabel(scaledBotBox); 
 
     JLabel moneyDisplay; 
     ImageIcon moneyBox = new ImageIcon("CardsPNG\\Money_Box.png"); 
@@ -197,6 +208,17 @@ public class PokerMat {
 
         boxContainer.setSize(130, 60); 
         boxContainer.setLocation(872, 510); 
+
+        botBoxContainer.setSize(130, 60); 
+        botBoxContainer.setLocation(872, 20); 
+
+        botChipContainer.setSize(46, 46); 
+        botChipContainer.setLocation(830, 25); 
+        
+        botMoneyDisplay = new JLabel(Double.toString(Poker.bot.getWallet())); 
+        botMoneyDisplay.setLocation(920, 29); 
+        botMoneyDisplay.setSize(100, 30); 
+        botMoneyDisplay.setForeground(new Color(230, 165, 90));
 
         sbContainer.setSize(50, 50); 
         bbContainer.setSize(50, 50); 
@@ -384,6 +406,9 @@ public class PokerMat {
         pokerMat.add(sbText);
         pokerMat.add(potContainer); 
         pokerMat.add(potTotalUI); 
+        pokerMat.add(botMoneyDisplay); 
+        pokerMat.add(botChipContainer); 
+        pokerMat.add(botBoxContainer); 
         for (int i = 0; i < ccContainer.size(); i++) {
             pokerMat.add(ccContainer.get(i)); 
         } 
