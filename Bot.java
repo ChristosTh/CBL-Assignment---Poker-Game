@@ -108,7 +108,7 @@ public class Bot extends Player {
             }
 
         } else if (handStrength >= 0.45) {
-            if (potOdds < 0.3) {
+            if (potOdds < 0.5) {
                 call(callAmount);
             } else if (Math.random() < 0.25 * adjustedAggression) {
                 bluff(potOdds, callAmount);

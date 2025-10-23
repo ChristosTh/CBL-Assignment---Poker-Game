@@ -150,6 +150,7 @@ public class Round {
 
         if (whoPlays.equals("bot")) {
             bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+            whoPlays = "player";
             System.out.println("Bot decided!");
         }
 
@@ -166,14 +167,15 @@ public class Round {
     }
 
     // Method to start the turn part of the round (4th community card). 
-    void turn(Bot bot) {
+    static void turn(Bot bot) {
 
         if (whoPlays.equals("bot")) {
             bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+            whoPlays = "player";
             System.out.println("Bot decided!");
+            giveTurn();
         }
 
-        giveTurn();
     }
 
     // Method to start the river part of the round (5th community card). 
@@ -181,10 +183,10 @@ public class Round {
 
         if (whoPlays.equals("bot")) {
             bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+            whoPlays = "player";
             System.out.println("Bot decided!");
+            giveRiver();
         }
-
-        giveRiver();
     }
 
     static boolean getPlayerFirst() {

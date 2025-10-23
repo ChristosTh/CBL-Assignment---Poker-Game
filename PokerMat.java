@@ -319,6 +319,7 @@ public class PokerMat {
                             ccContainer.get(i).setVisible(true); 
                         }
                     }
+                    Round.turn(Poker.bot);
                 }
                 
             }
