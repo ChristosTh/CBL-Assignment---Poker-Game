@@ -193,10 +193,10 @@ public class PokerMat {
         botCard2Container.setLocation(550, 40);
 
         chipContainer.setSize(46, 46); 
-        chipContainer.setLocation(903, 25); 
+        chipContainer.setLocation(830, 515); 
 
         boxContainer.setSize(130, 60); 
-        boxContainer.setLocation(947, 20); 
+        boxContainer.setLocation(872, 510); 
 
         sbContainer.setSize(50, 50); 
         bbContainer.setSize(50, 50); 
@@ -225,7 +225,7 @@ public class PokerMat {
             + initialWallet + "</span></html>"; 
         moneyDisplay = new JLabel(initialWallet);
         moneyDisplay.setForeground(new Color(230, 165, 90));
-        moneyDisplay.setLocation(995, 33);  
+        moneyDisplay.setLocation(920, 519);  
         moneyDisplay.setSize(100, 30); 
         //#endregion
 
