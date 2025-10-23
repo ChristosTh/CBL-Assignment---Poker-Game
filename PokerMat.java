@@ -106,6 +106,9 @@ public class PokerMat {
         Poker.round.setBlinds(smallBlind, bigBlind); 
         Poker.player.setWallet(moneyAmount); 
 
+        Poker.round.payBlinds(Poker.player, Poker.bot);
+        System.out.println("Pot total: " + Poker.round.pot.getPotTotal());
+
         //#region Poker mat Frame creation/customisation
         pokerMat = new JFrame("Poker"); 
         pokerMat.setSize(1100, 750); 
