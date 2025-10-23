@@ -150,7 +150,6 @@ public class Round {
         }
 
         giveFlop();
-        giveTurn(); 
         flopShowed = true;
 
         /*if (playerFirst) {
