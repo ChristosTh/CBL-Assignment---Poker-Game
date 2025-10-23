@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
 import javax.swing.*;
 
 
@@ -26,6 +25,7 @@ public class PokerMat {
 
     JButton newRoundButton = new JButton("New Round"); 
 
+    /** updating pot total in UI. */
     public static void updatePotTotalUI() {
         String newText = Double.toString(Round.pot.getPotTotal()); 
         if (newText.substring(newText.length() - 2).equals(".0")) {
@@ -37,6 +37,7 @@ public class PokerMat {
     }
 
     JButton showFlop = new JButton("Show flop");
+    JButton showTurn = new JButton("Show turn"); 
 
     /** Method to show your cards in UI. */
     static void setCards(String cardPath1, String cardPath2, String cardPath3, String cardPath4) {
@@ -59,6 +60,19 @@ public class PokerMat {
             ccContainer.get(i).setVisible(false); 
         }
     }
+
+    /** Method to set turn card. */
+    static void setTurn(String cardPath) {
+        baseCC[3] = new ImageIcon(cardPath); 
+        scalingCC[3] = baseCC[3].getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
+        scaledCC[3] = new ImageIcon(scalingCC[3]); 
+        JLabel holder = new JLabel(scaledCC[3]); 
+        ccContainer.add(holder); 
+        ccContainer.get(3).setSize(115, 160); 
+        ccContainer.get(3).setLocation(285 + 145 * 3, 260); 
+        ccContainer.get(3).setVisible(false); 
+    }
+
 
     /** Closing JFrame. */
     void closeFrame(JFrame frame) {
@@ -159,12 +173,9 @@ public class PokerMat {
         potTotalUI.setLocation(207, 200);
         potTotalUI.setForeground(new Color(230, 165, 90));
 
-        // Poker.round.setBlinds(smallBlind, bigBlind); 
         Poker.player.setWallet(moneyAmount); 
 
-        //Poker.round.payBlinds(Poker.player, Poker.bot);
-        //System.out.println("Pot total: " + Poker.round.pot.getPotTotal());
-
+        //#region New round button.
         newRoundButton.setSize(100, 30);
         newRoundButton.setLocation(20, 200); 
         newRoundButton.addActionListener(new ActionListener() {
@@ -177,6 +188,7 @@ public class PokerMat {
                     Round.pot.getSmallBlind(), Round.pot.getBigBlind(), Round.getPlayerFirst()); 
             }
         });
+        //#endregion
 
         //#region Poker mat Frame creation/customisation
         pokerMat = new JFrame("Poker"); 
@@ -373,6 +385,7 @@ public class PokerMat {
         }); 
         //#endregion
 
+        //#region Showing flop
         showFlop.setSize(100, 30); 
         showFlop.setLocation(50, 50); 
         showFlop.addActionListener(new ActionListener() {
@@ -383,6 +396,18 @@ public class PokerMat {
                 }
             }
         });
+        //#endregion
+
+        //#region
+        showTurn.setSize(100, 30); 
+        showTurn.setLocation(50, 75); 
+        showTurn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ccContainer.get(3).setVisible(true); 
+            }
+        });
+        //#endregion
 
         pokerMat.add(imageContainer);
         pokerMat.add(card1Container); 
@@ -411,6 +436,7 @@ public class PokerMat {
             pokerMat.add(ccContainer.get(i)); 
         } 
         pokerMat.add(potTextContainer); 
+        pokerMat.add(showTurn); 
         pokerMat.setLayout(new BorderLayout());
     }
 }

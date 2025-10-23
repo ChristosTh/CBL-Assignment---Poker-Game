@@ -55,6 +55,13 @@ public class Round {
         PokerMat.setFlop(cardPaths);
     }
 
+    public static void giveTurn() {
+        String cardPath = new String(); 
+        communityCards.add(deck.giveCard()); 
+        cardPath = communityCards.get(3).getCardPath(); 
+        PokerMat.setTurn(cardPath); 
+    }
+
     public Round(Player player, Bot bot, double playerMoneyAmount, double roundSmallBlind, double roundBigBlind, boolean wasPlayerFirst) {
         /*Poker.deck = new Deck(); 
         Poker.deck.shuffleCards(); 
@@ -143,7 +150,7 @@ public class Round {
         }
 
         giveFlop();
-
+        giveTurn(); 
         flopShowed = true;
 
         /*if (playerFirst) {
