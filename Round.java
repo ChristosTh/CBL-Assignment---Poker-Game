@@ -10,7 +10,7 @@ public class Round {
     static boolean playerPlayed;
     static boolean botPlayed;
     
-    static ArrayList<Integer> blindsTrack = new ArrayList<>(); 
+    static boolean playerFirst; 
 
     /** Method to distribute 2 cards to the user. */
     public static void giveCardsToUsers(Player player, Bot bot) {
@@ -52,7 +52,7 @@ public class Round {
         PokerMat.setFlop(cardPaths);
     }
 
-    public Round(Player player, Bot bot, double playerMoneyAmount, double roundSmallBlind, double roundBigBlind) {
+    public Round(Player player, Bot bot, double playerMoneyAmount, double roundSmallBlind, double roundBigBlind, boolean wasPlayerFirst) {
         /*Poker.deck = new Deck(); 
         Poker.deck.shuffleCards(); 
         Poker.giveCardsToUsers(); 
@@ -64,14 +64,21 @@ public class Round {
         pot.setBlinds(roundSmallBlind, roundBigBlind); 
         deck = new Deck();
         communityCards = new ArrayList<Card>();
+        //communityCards.clear();
 
         deck.shuffleCards();
 
-        blindsTrack.add(1); 
-        blindsTrack.add(0);
-
         giveCardsToUsers(player, bot);
         payBlinds(player, bot);
+
+        if (!wasPlayerFirst) {
+            playerFirst = true;
+            System.out.println("Player is first");
+        } else {
+            playerFirst = false;
+            System.out.println("Bot is first");
+        }
+
         GameSetup.mat = new PokerMat(Poker.player.getWallet(), pot.getSmallBlind(), pot.getBigBlind()); 
 
 
@@ -99,7 +106,7 @@ public class Round {
 
     /** Method to start the round, paying the blinds. */
     void payBlinds(Player player, Bot bot) {
-        if (blindsTrack.get(0) == 1) {
+        if (!playerFirst) {
             player.paySmallBlind();
             bot.payBigBlind(); 
             //while (player.getLastBet() < bot.getLastBet()) { }
@@ -131,5 +138,9 @@ public class Round {
         playerPlayed = false;
         botPlayed = false;
     }*/
+
+    static boolean getPlayerFirst() {
+        return playerFirst;
+    }
 
 }
