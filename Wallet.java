@@ -1,5 +1,5 @@
 /** Wallet class for user and bots. */
-public class Wallet extends Pot {
+public class Wallet {
     private double wallet = 0; 
     private double lastBet = 0; 
 
@@ -58,9 +58,9 @@ public class Wallet extends Pot {
     /** Method for the small blind, if the player can't afford the small blind, 
      *  they are forced to go all-in.  */
     boolean actionSmallBlind() {
-        if (wallet >= getSmallBlind()) {
-            wallet -= getSmallBlind(); 
-            Round.pot.potSmallBlind(); 
+        if (wallet >= Round.pot.getSmallBlind()) {
+            wallet -= Round.pot.getSmallBlind(); 
+            Round.pot.addSmallBlind(); 
             return true; 
         }
         actionAllIn(); 
@@ -72,9 +72,9 @@ public class Wallet extends Pot {
      * as long as they aren't the current small blind. 
      */
     boolean actionBigBlind() {
-        if (wallet >= getBigBlind()) {
-            wallet -= getBigBlind(); 
-            Round.pot.potBigBlind(); 
+        if (wallet >= Round.pot.getBigBlind()) {
+            wallet -= Round.pot.getBigBlind(); 
+            Round.pot.addBigBlind(); 
             return true; 
         }
         actionAllIn(); 

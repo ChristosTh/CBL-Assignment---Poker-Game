@@ -77,11 +77,11 @@ public class Player {
         }
     }
 
-    public void smallBlind() {
+    public void paySmallBlind() {
         wallet.actionSmallBlind(); 
     }
 
-    public void bigBlind() {
+    public void payBigBlind() {
         wallet.actionBigBlind();
     }
 
