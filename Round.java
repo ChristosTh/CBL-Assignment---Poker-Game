@@ -20,7 +20,8 @@ public class Round {
         bot.receiveFirstCard(deck.giveCard());
         bot.receiveSecondCard(deck.giveCard());
 
-        PokerMat.setCards(player.getCard1Path(), player.getCard2Path()); 
+        PokerMat.setCards(player.getCard1Path(), player.getCard2Path(),
+            bot.getCard1Path(), bot.getCard2Path()); 
     }
 
 
