@@ -6,6 +6,9 @@ public class Round {
     static Deck deck;
     static ArrayList<Card> communityCards;
     static Pot pot = new Pot(); 
+
+    static boolean playerPlayed;
+    static boolean botPlayed;
     
     static ArrayList<Integer> blindsTrack = new ArrayList<>(); 
 
@@ -110,16 +113,22 @@ public class Round {
     /** Method to start the flop part of the round (first 3 community cards). */
     void flop() {
         giveFlop(); 
+        playerPlayed = false;
+        botPlayed = false;
     }
 
-    /** Method to start the turn part of the round (4th community card). */
+    /** Method to start the turn part of the round (4th community card). 
     void turn() {
+        giveTurn();
+        playerPlayed = false;
+        botPlayed = false;
+    }*/
 
-    }
-
-    /** Method to start the river part of the round (5th community card). */
+    /** Method to start the river part of the round (5th community card). 
     void river() {
-
-    }
+        giveRiver();
+        playerPlayed = false;
+        botPlayed = false;
+    }*/
 
 }

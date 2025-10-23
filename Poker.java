@@ -20,6 +20,11 @@ public class Poker {
         player = new Player();
         bot = new Bot(0, 0);
 
+<<<<<<< HEAD
+=======
+        round = new Round(player, bot);
+
+>>>>>>> 5175fb0cf677764c139f4445363c7ccacd469d81
 
         //Round round = new Round(); 
         //round.flop(); 
