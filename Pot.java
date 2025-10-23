@@ -60,10 +60,9 @@ public class Pot {
     
     
     /** Method to add small blind to the pot. */
-    double addSmallBlind() {
+    void addSmallBlind() {
         potTotal += smallBlind; 
         PokerMat.updatePotTotalUI(); 
-        return potTotal;
     }
 
     /** Method to add big blind to the pot. */
