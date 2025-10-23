@@ -57,28 +57,27 @@ public class Wallet {
 
     /** Method for the small blind, if the player can't afford the small blind, 
      *  they are forced to go all-in.  */
-    boolean actionSmallBlind() {
+    void actionSmallBlind() {
         if (wallet >= Round.pot.getSmallBlind()) {
             wallet -= Round.pot.getSmallBlind(); 
             Round.pot.addSmallBlind(); 
-            return true; 
+        } else {
+            actionAllIn();
         }
-        actionAllIn(); 
-        return false;
     }
 
     /** Method for the big blind, if a player's stack is bigger 
      * than small blind but smaller than the big blind, they go all-in 
      * as long as they aren't the current small blind. 
      */
-    boolean actionBigBlind() {
+    void actionBigBlind() {
         if (wallet >= Round.pot.getBigBlind()) {
             wallet -= Round.pot.getBigBlind(); 
-            Round.pot.addBigBlind(); 
-            return true; 
+            Round.pot.addBigBlind();  
+        } else 
+        {
+            actionAllIn(); 
         }
-        actionAllIn(); 
-        return false; 
     }
 
 }

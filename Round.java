@@ -11,6 +11,10 @@ public class Round {
 
     static String whoPlays;
 
+    static boolean flopShowed;
+    static boolean turnShowed;
+    static boolean riverShowed;
+
     /** Method to distribute 2 cards to the user. */
     public static void giveCardsToUsers(Player player, Bot bot) {
         player.receiveFirstCard(deck.giveCard());
@@ -57,6 +61,10 @@ public class Round {
         Poker.giveCardsToUsers(); 
         Poker.giveFlop(); */
 
+        flopShowed = false;
+        turnShowed = false;
+        riverShowed = false;
+
         pot = new Pot();
 
         Poker.player.setWallet(playerMoneyAmount); 
@@ -83,9 +91,10 @@ public class Round {
         GameSetup.mat = new PokerMat(Poker.player.getWallet(), pot.getSmallBlind(), pot.getBigBlind());
 
 
-        if (whoPlays.equals("bot")) {
+        /*if (whoPlays.equals("bot")) {
             bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
-        }
+            whoPlays = "player";
+        }*/
 
         System.out.println("Bot Card 1: " 
             + bot.getFirstCard().getRank() + " " + bot.getFirstCard().getSuit());
@@ -115,17 +124,32 @@ public class Round {
             player.paySmallBlind();
             bot.payBigBlind(); 
             //while (player.getLastBet() < bot.getLastBet()) { }
-            flop(); 
+            flop(bot); 
         } else {
             player.payBigBlind(); 
             bot.payBigBlind(); 
-            flop(); 
+            flop(bot); 
         }
     }
 
     /** Method to start the flop part of the round (first 3 community cards). */
-    void flop() {
-        giveFlop(); 
+    void flop(Bot bot) {
+
+        if (!playerFirst) {
+            bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+        }
+
+        giveFlop();
+
+        flopShowed = true;
+
+        /*if (playerFirst) {
+            
+            giveFlop();
+        } else {
+            giveFlop();
+        }*/
+
     }
 
     /** Method to start the turn part of the round (4th community card). 
