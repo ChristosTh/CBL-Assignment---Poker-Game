@@ -50,7 +50,7 @@ public class PokerMat {
 
     /** Updating the wallet display. */
     void updateWalletDisplay(JLabel label) {
-        String newWallet = Double.toString(Round.player.getWallet()); 
+        String newWallet = Double.toString(Poker.player.getWallet()); 
         if (newWallet.substring(newWallet.length() - 2).equals(".0")) {
             newWallet = newWallet.substring(0, newWallet.length() - 2);
         }
@@ -94,7 +94,7 @@ public class PokerMat {
     /** PokerMat page constructor. */
     public PokerMat(double moneyAmount, double smallBlind, double bigBlind) {
         Poker.round.setBlinds(smallBlind, bigBlind); 
-        Round.player.setWallet(moneyAmount); 
+        Poker.player.setWallet(moneyAmount); 
 
         //#region Poker mat Frame creation/customisation
         pokerMat = new JFrame("Poker"); 
@@ -121,7 +121,7 @@ public class PokerMat {
         boxContainer.setSize(130, 60); 
         boxContainer.setLocation(947, 20); 
         
-        String initialWallet = Double.toString(Round.player.getWallet()); 
+        String initialWallet = Double.toString(Poker.player.getWallet()); 
         if (initialWallet.substring(initialWallet.length() - 2).equals(".0")) {
             initialWallet = initialWallet.substring(0, initialWallet.length() - 2);
         }
@@ -160,7 +160,7 @@ public class PokerMat {
                 closeRaiseFrame.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        Round.player.raise(Double.parseDouble(raiseAmount.getText())); 
+                        Poker.player.raise(Double.parseDouble(raiseAmount.getText())); 
                         updateWalletDisplay(moneyDisplay);
                         closeFrame(raiseFrame); 
                     }
@@ -190,7 +190,7 @@ public class PokerMat {
         callButton.addMouseListener(new MouseAdapter() {
             @Override 
             public void mouseClicked(MouseEvent e) {
-                Round.player.call(Round.pot.getCurrentRaise()); 
+                Poker.player.call(Round.pot.getCurrentRaise()); 
                 updateWalletDisplay(moneyDisplay);
 
             }
@@ -204,7 +204,7 @@ public class PokerMat {
         allInButton.addActionListener(new ActionListener() {
             @Override 
             public void actionPerformed(ActionEvent e) {
-                Round.player.allIn(); 
+                Poker.player.allIn(); 
                 updateWalletDisplay(moneyDisplay);
             }
         }); 
@@ -230,7 +230,7 @@ public class PokerMat {
             @Override
             public void actionPerformed(ActionEvent e){
                 if (Round.pot.getCurrentRaise() == 0) {
-                    Round.player.call(0); 
+                    Poker.player.call(0); 
                 } else {
                     System.out.println("You are not able to Check. Please either bet or fold.");
                 }

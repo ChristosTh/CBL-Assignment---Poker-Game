@@ -3,6 +3,10 @@ import java.util.Scanner;
 
 /** Main class for poker. */
 public class Poker {
+
+    static Player player; // player and bot should go to the poker class and also change what changed for them in other classes
+    static Bot bot;
+
     static Round round; 
 
     static Poker poker = new Poker();
@@ -12,7 +16,11 @@ public class Poker {
     public static void main(String[] args) {
 
         menu = new StartMenu(); 
-        round = new Round(); 
+
+        player = new Player();
+        bot = new Bot(0, 0);
+
+        round = new Round(player, bot); 
 
 
         //Round round = new Round(); 

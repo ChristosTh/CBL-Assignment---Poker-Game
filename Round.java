@@ -3,16 +3,14 @@ import java.util.ArrayList;
 /** Class for round. */
 public class Round {
 
-    static Player player;
     static Deck deck;
-    static Bot bot;
     static ArrayList<Card> communityCards;
     static Pot pot = new Pot(); 
     
     static ArrayList<Integer> blindsTrack = new ArrayList<>(); 
 
     /** Method to distribute 2 cards to the user. */
-    public static void giveCardsToUsers() {
+    public static void giveCardsToUsers(Player player, Bot bot) {
         player.receiveFirstCard(deck.giveCard());
         player.receiveSecondCard(deck.giveCard());
         //player.receiveFirstCard(new Card('A', "diamonds"));
@@ -50,15 +48,13 @@ public class Round {
         PokerMat.setFlop(cardPaths);
     }
 
-    public Round() {
+    public Round(Player player, Bot bot) {
         /*Poker.deck = new Deck(); 
         Poker.deck.shuffleCards(); 
         Poker.giveCardsToUsers(); 
         Poker.giveFlop(); */
 
-        player = new Player();
         deck = new Deck();
-        bot = new Bot(0, 0);
         communityCards = new ArrayList<Card>();
         pot = new Pot();
 
@@ -67,7 +63,7 @@ public class Round {
         blindsTrack.add(1); 
         blindsTrack.add(0);
 
-        giveCardsToUsers();
+        giveCardsToUsers(player, bot);
 
         System.out.println("Bot Card 1: " 
             + bot.getFirstCard().getRank() + " " + bot.getFirstCard().getSuit());
@@ -89,12 +85,12 @@ public class Round {
             System.out.println("Winner is the bot!");
         }
 
-        blinds();
+        blinds(player, bot);
 
     }
 
     /** Method to start the round, paying the blinds. */
-    void blinds() {
+    void blinds(Player player, Bot bot) {
         if (blindsTrack.get(0) == 1) {
             player.smallBlind(); 
             bot.bigBlind(); 
