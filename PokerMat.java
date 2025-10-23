@@ -102,12 +102,13 @@ public class PokerMat {
     /** PokerMat page constructor. */
     public PokerMat(double moneyAmount, double smallBlind, double bigBlind) {
         potTotalUI.setSize(50, 50); 
-        potTotalUI.setLocation(300, 50); 
+        potTotalUI.setLocation(300, 50);
+
         Poker.round.setBlinds(smallBlind, bigBlind); 
         Poker.player.setWallet(moneyAmount); 
 
         Poker.round.payBlinds(Poker.player, Poker.bot);
-        System.out.println("Pot total: " + Poker.round.pot.getPotTotal());
+        //System.out.println("Pot total: " + Poker.round.pot.getPotTotal());
 
         //#region Poker mat Frame creation/customisation
         pokerMat = new JFrame("Poker"); 
