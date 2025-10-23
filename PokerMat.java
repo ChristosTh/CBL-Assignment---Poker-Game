@@ -228,6 +228,7 @@ public class PokerMat {
                     public void actionPerformed(ActionEvent e) {
                         Poker.player.raise(Double.parseDouble(raiseAmount.getText())); 
                         updateWalletDisplay(moneyDisplay);
+                        Round.whoPlays = "bot";
                         closeFrame(raiseFrame); 
                     }
                 });
@@ -258,7 +259,14 @@ public class PokerMat {
             public void mouseClicked(MouseEvent e) {
                 Poker.player.call(Round.pot.getCurrentRaise()); 
                 updateWalletDisplay(moneyDisplay);
+                Round.whoPlays = "bot";
 
+                if (Round.flopShowed && !Round.turnShowed && !Round.riverShowed) {
+                    for (int i = 0; i < ccContainer.size(); i++) {
+                        ccContainer.get(i).setVisible(true); 
+                    }
+                }
+                
             }
         });
         //#endregion
@@ -272,6 +280,7 @@ public class PokerMat {
             public void actionPerformed(ActionEvent e) {
                 Poker.player.allIn(); 
                 updateWalletDisplay(moneyDisplay);
+                Round.whoPlays = "bot";
             }
         }); 
         //#endregion
@@ -297,6 +306,14 @@ public class PokerMat {
             public void actionPerformed(ActionEvent e) {
                 if (Round.pot.getCurrentRaise() == 0) {
                     Poker.player.call(0); 
+                    Round.whoPlays = "bot";
+
+                    if (Round.flopShowed && !Round.turnShowed && !Round.riverShowed) {
+                        for (int i = 0; i < ccContainer.size(); i++) {
+                            ccContainer.get(i).setVisible(true); 
+                    }
+                }
+
                 } else {
                     System.out.println("You are not able to Check. Please either bet or fold.");
                 }
