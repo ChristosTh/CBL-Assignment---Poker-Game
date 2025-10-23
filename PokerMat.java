@@ -129,7 +129,9 @@ public class PokerMat {
             public void actionPerformed(ActionEvent e) {
                 GameSetup.mat.pokerMat.setVisible(false); 
                 GameSetup.mat.pokerMat = null; 
-                Poker.round = new Round(Poker.player, Poker.bot, Poker.player.getWallet(), Round.pot.getSmallBlind(), Round.pot.getBigBlind()); 
+                ccContainer.clear(); 
+                Poker.round = new Round(Poker.player, Poker.bot, Poker.player.getWallet(), 
+                    Round.pot.getSmallBlind(), Round.pot.getBigBlind()); 
             }
         });
 
