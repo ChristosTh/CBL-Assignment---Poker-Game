@@ -10,7 +10,7 @@ public class Round {
     static boolean playerPlayed;
     static boolean botPlayed;
     
-    static ArrayList<Integer> blindsTrack = new ArrayList<>(); 
+    boolean playerBigBlind; 
 
     /** Method to distribute 2 cards to the user. */
     public static void giveCardsToUsers(Player player, Bot bot) {
@@ -64,14 +64,15 @@ public class Round {
         pot.setBlinds(roundSmallBlind, roundBigBlind); 
         deck = new Deck();
         communityCards = new ArrayList<Card>();
+        //communityCards.clear();
 
         deck.shuffleCards();
 
-        blindsTrack.add(1); 
-        blindsTrack.add(0);
-
         giveCardsToUsers(player, bot);
         payBlinds(player, bot);
+
+        playerBigBlind = true;
+
         GameSetup.mat = new PokerMat(Poker.player.getWallet(), pot.getSmallBlind(), pot.getBigBlind()); 
 
         System.out.println("Bot Card 1: " 
@@ -98,7 +99,7 @@ public class Round {
 
     /** Method to start the round, paying the blinds. */
     void payBlinds(Player player, Bot bot) {
-        if (blindsTrack.get(0) == 1) {
+        if (!playerBigBlind) {
             player.paySmallBlind();
             bot.payBigBlind(); 
             //while (player.getLastBet() < bot.getLastBet()) { }
