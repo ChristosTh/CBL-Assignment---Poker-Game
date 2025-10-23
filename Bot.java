@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Bot extends Player {
 
     private double aggressionLevel;
-    private Wallet wallet;
+    //private Wallet wallet;
     /*private Position position;
 
     // Enum to check when is the bot playing.
@@ -15,7 +15,7 @@ public class Bot extends Player {
     /** Bot constructor. */
     public Bot(double money, double aggressionLevel) {
         this.aggressionLevel = aggressionLevel;
-        wallet = new Wallet();
+        //wallet = new Wallet();
         //this.position = position;
     }
 
