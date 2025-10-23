@@ -75,6 +75,7 @@ public class Round {
 
         GameSetup.mat = new PokerMat(Poker.player.getWallet(), pot.getSmallBlind(), pot.getBigBlind()); 
 
+
         System.out.println("Bot Card 1: " 
             + bot.getFirstCard().getRank() + " " + bot.getFirstCard().getSuit());
         System.out.println("Bot Card 2: " 
