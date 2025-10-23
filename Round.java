@@ -56,20 +56,15 @@ public class Round {
     }
 
     public static void giveTurn() {
-<<<<<<< HEAD
         String cardPath = new String(); 
         communityCards.add(deck.giveCard()); 
         cardPath = communityCards.get(3).getCardPath(); 
         PokerMat.setTurn(cardPath); 
-=======
-        communityCards.add(deck.giveCard());
-        String cardPath = communityCards.getLast().getCardPath();
     }
 
     public static void giveRiver() {
         communityCards.add(deck.giveCard());
         String cardPath = communityCards.getLast().getCardPath();
->>>>>>> 0c85418819009f92fafbe24d58928dfb72ff2d23
     }
 
     public Round(Player player, Bot bot, double playerMoneyAmount, double roundSmallBlind, double roundBigBlind, boolean wasPlayerFirst) {
