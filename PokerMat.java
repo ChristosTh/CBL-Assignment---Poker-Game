@@ -321,14 +321,17 @@ public class PokerMat {
         callButton.addMouseListener(new MouseAdapter() {
             @Override 
             public void mouseClicked(MouseEvent e) {
-                Poker.player.call(Round.pot.getCurrentRaise()); 
-                updateWalletDisplay(moneyDisplay);
-                Round.whoPlays = "bot";
+                if (Round.whoPlays.equals("player")) {
+                    Poker.player.call(Round.pot.getCurrentRaise()); 
+                    updateWalletDisplay(moneyDisplay);
+                    Round.whoPlays = "bot";
 
-                if (Round.flopShowed && !Round.turnShowed && !Round.riverShowed) {
-                    for (int i = 0; i < ccContainer.size(); i++) {
-                        ccContainer.get(i).setVisible(true); 
+                    if (Round.flopShowed && !Round.turnShowed && !Round.riverShowed) {
+                        for (int i = 0; i < ccContainer.size(); i++) {
+                            ccContainer.get(i).setVisible(true); 
+                        }
                     }
+                    Round.turn(Poker.bot);
                 }
                 
             }

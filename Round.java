@@ -56,10 +56,20 @@ public class Round {
     }
 
     public static void giveTurn() {
+<<<<<<< HEAD
         String cardPath = new String(); 
         communityCards.add(deck.giveCard()); 
         cardPath = communityCards.get(3).getCardPath(); 
         PokerMat.setTurn(cardPath); 
+=======
+        communityCards.add(deck.giveCard());
+        String cardPath = communityCards.getLast().getCardPath();
+    }
+
+    public static void giveRiver() {
+        communityCards.add(deck.giveCard());
+        String cardPath = communityCards.getLast().getCardPath();
+>>>>>>> 0c85418819009f92fafbe24d58928dfb72ff2d23
     }
 
     public Round(Player player, Bot bot, double playerMoneyAmount, double roundSmallBlind, double roundBigBlind, boolean wasPlayerFirst) {
@@ -83,11 +93,6 @@ public class Round {
 
         deck.shuffleCards();
 
-        giveCardsToUsers(player, bot);
-        payBlinds(player, bot);
-
-        System.out.println("Bot wallet: " + bot.getWallet());
-
         if (!wasPlayerFirst) {
             playerFirst = true;
             System.out.println("Player is first");
@@ -97,6 +102,11 @@ public class Round {
             System.out.println("Bot is first");
             whoPlays = "bot";
         }
+
+        giveCardsToUsers(player, bot);
+        payBlinds(player, bot);
+
+        System.out.println("Bot wallet: " + bot.getWallet());
 
         GameSetup.mat = new PokerMat(Poker.player.getWallet(), pot.getSmallBlind(), pot.getBigBlind());
 
@@ -130,7 +140,7 @@ public class Round {
 
     /** Method to start the round, paying the blinds. */
     void payBlinds(Player player, Bot bot) {
-        if (!playerFirst) {
+        if (playerFirst) {
             player.paySmallBlind();
             bot.payBigBlind(); 
             //while (player.getLastBet() < bot.getLastBet()) { }
@@ -145,13 +155,14 @@ public class Round {
     /** Method to start the flop part of the round (first 3 community cards). */
     void flop(Bot bot) {
 
-        if (!playerFirst) {
+        if (whoPlays.equals("bot")) {
             bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+            whoPlays = "player";
+            System.out.println("Bot decided!");
         }
 
         giveFlop();
         flopShowed = true;
-
         /*if (playerFirst) {
             
             giveFlop();
@@ -161,19 +172,28 @@ public class Round {
 
     }
 
-    /** Method to start the turn part of the round (4th community card). 
-    void turn() {
-        giveTurn();
-        playerPlayed = false;
-        botPlayed = false;
-    }*/
+    // Method to start the turn part of the round (4th community card). 
+    static void turn(Bot bot) {
 
-    /** Method to start the river part of the round (5th community card). 
-    void river() {
-        giveRiver();
-        playerPlayed = false;
-        botPlayed = false;
-    }*/
+        if (whoPlays.equals("bot")) {
+            bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+            whoPlays = "player";
+            System.out.println("Bot decided!");
+            giveTurn();
+        }
+
+    }
+
+    // Method to start the river part of the round (5th community card). 
+    void river(Bot bot) {
+
+        if (whoPlays.equals("bot")) {
+            bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+            whoPlays = "player";
+            System.out.println("Bot decided!");
+            giveRiver();
+        }
+    }
 
     static boolean getPlayerFirst() {
         return playerFirst;
