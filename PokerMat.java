@@ -23,6 +23,7 @@ public class PokerMat {
     static ArrayList<JLabel> ccContainer = new ArrayList<>();
 
     static JLabel potTotalUI = new JLabel(Double.toString(Round.pot.getPotTotal())); 
+
     public static void updatePotTotalUI() {
         potTotalUI.setText(Double.toString(Round.pot.getPotTotal())); 
     }
@@ -30,10 +31,11 @@ public class PokerMat {
     JButton showFlop = new JButton("Show flop");
 
     /** Method to show your cards in UI. */
-    static void setCards(String cardPath1, String cardPath2) {
+    static void setCards(String cardPath1, String cardPath2, String cardPath3, String cardPath4) {
         playerCard1 = new ImageIcon(cardPath1);
         playerCard2 = new ImageIcon(cardPath2);  
-
+        botCard1 = new ImageIcon(cardPath3); 
+        botCard2 = new ImageIcon(cardPath4); 
     }
 
     /** Method to set flop. */
@@ -80,6 +82,14 @@ public class PokerMat {
     Image scalingCard2 = playerCard2.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
     ImageIcon scaledCard2 = new ImageIcon(scalingCard2); 
     JLabel card2Container = new JLabel(scaledCard2); 
+
+    Image scalingBotCard1 = botCard1.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
+    ImageIcon scaledBotCard1 = new ImageIcon(scalingBotCard1); 
+    JLabel botCard1Container = new JLabel(scaledBotCard1); 
+
+    Image scalingBotCard2 = botCard2.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
+    ImageIcon scaledBotCard2 = new ImageIcon(scalingBotCard2); 
+    JLabel botCard2Container = new JLabel(scaledBotCard2); 
 
     ImageIcon chipStacks = new ImageIcon("CardsPNG\\Chip_Stacks.png"); 
     Image scalingChips = chipStacks.getImage().getScaledInstance(46, 46, Image.SCALE_DEFAULT); 
@@ -128,6 +138,12 @@ public class PokerMat {
 
         card2Container.setSize(115, 160); 
         card2Container.setLocation(550, 500);
+
+        botCard1Container.setSize(115, 160); 
+        botCard1Container.setLocation(420, 40); 
+
+        botCard2Container.setSize(115, 160); 
+        botCard2Container.setLocation(550, 40);
 
         chipContainer.setSize(46, 46); 
         chipContainer.setLocation(903, 25); 
@@ -267,6 +283,8 @@ public class PokerMat {
         pokerMat.add(imageContainer);
         pokerMat.add(card1Container); 
         pokerMat.add(card2Container); 
+        pokerMat.add(botCard1Container);
+        pokerMat.add(botCard2Container); 
         pokerMat.add(raiseButton);
         pokerMat.add(callButton); 
         pokerMat.add(foldButton); 
