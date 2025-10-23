@@ -6,11 +6,10 @@ public class Round {
     static Deck deck;
     static ArrayList<Card> communityCards;
     static Pot pot = new Pot(); 
-
-    static boolean playerPlayed;
-    static boolean botPlayed;
     
-    static boolean playerFirst; 
+    static boolean playerFirst;
+
+    static String whoPlays;
 
     /** Method to distribute 2 cards to the user. */
     public static void giveCardsToUsers(Player player, Bot bot) {
@@ -74,13 +73,19 @@ public class Round {
         if (!wasPlayerFirst) {
             playerFirst = true;
             System.out.println("Player is first");
+            whoPlays = "player";
         } else {
             playerFirst = false;
             System.out.println("Bot is first");
+            whoPlays = "bot";
         }
 
-        GameSetup.mat = new PokerMat(Poker.player.getWallet(), pot.getSmallBlind(), pot.getBigBlind()); 
+        GameSetup.mat = new PokerMat(Poker.player.getWallet(), pot.getSmallBlind(), pot.getBigBlind());
 
+
+        if (whoPlays.equals("bot")) {
+            bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+        }
 
         System.out.println("Bot Card 1: " 
             + bot.getFirstCard().getRank() + " " + bot.getFirstCard().getSuit());
@@ -121,8 +126,6 @@ public class Round {
     /** Method to start the flop part of the round (first 3 community cards). */
     void flop() {
         giveFlop(); 
-        playerPlayed = false;
-        botPlayed = false;
     }
 
     /** Method to start the turn part of the round (4th community card). 

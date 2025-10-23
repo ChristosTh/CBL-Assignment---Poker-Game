@@ -11,7 +11,7 @@ public class Bot extends Player {
         EARLY, MIDDLE, LATE
     }*/
     
-    /** Bot constructor inheriting the super class. */
+    /** Bot constructor. */
     public Bot(double money, double aggressionLevel) {
         this.aggressionLevel = aggressionLevel;
         //this.position = position;
