@@ -87,10 +87,6 @@ public class Round {
             System.out.println("Winner is the bot!");
         }
 
-        while (true) {
-            System.out.println("Pot total: " + pot.getPotTotal());
-        }
-
     }
 
     /** Method to start the round, paying the blinds. */

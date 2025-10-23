@@ -34,6 +34,7 @@ public class Pot {
         potTotal += x; 
         currentRaise = x; 
         System.out.println("1: " + currentRaise); 
+        PokerMat.updatePotTotalUI(); 
         return potTotal; 
     }
 
@@ -41,6 +42,7 @@ public class Pot {
     /** Call method for pot. */
     double potCall(double x) {
         potTotal += x; 
+        PokerMat.updatePotTotalUI();
         return potTotal; 
     }
 
@@ -51,6 +53,7 @@ public class Pot {
             currentRaise = x; 
         } 
         potTotal += x; 
+        PokerMat.updatePotTotalUI(); 
         return potTotal; 
     }
 
@@ -59,12 +62,14 @@ public class Pot {
     /** Method to add small blind to the pot. */
     double addSmallBlind() {
         potTotal += smallBlind; 
+        PokerMat.updatePotTotalUI(); 
         return potTotal;
     }
 
     /** Method to add big blind to the pot. */
     double addBigBlind() {
         potTotal += bigBlind; 
+        PokerMat.updatePotTotalUI();
         return potTotal; 
     }
 

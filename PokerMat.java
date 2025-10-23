@@ -14,11 +14,18 @@ public class PokerMat {
 
     static ImageIcon playerCard1; 
     static ImageIcon playerCard2; 
+    static ImageIcon botCard1; 
+    static ImageIcon botCard2; 
     
     static ImageIcon[] baseCC = new ImageIcon[5];
     static Image[] scalingCC = new Image[5]; 
     static ImageIcon[] scaledCC = new ImageIcon[5]; 
     static ArrayList<JLabel> ccContainer = new ArrayList<>();
+
+    static JLabel potTotalUI = new JLabel(Double.toString(Round.pot.getPotTotal())); 
+    public static void updatePotTotalUI() {
+        potTotalUI.setText(Double.toString(Round.pot.getPotTotal())); 
+    }
 
     JButton showFlop = new JButton("Show flop");
 
@@ -26,6 +33,7 @@ public class PokerMat {
     static void setCards(String cardPath1, String cardPath2) {
         playerCard1 = new ImageIcon(cardPath1);
         playerCard2 = new ImageIcon(cardPath2);  
+
     }
 
     /** Method to set flop. */
@@ -93,6 +101,8 @@ public class PokerMat {
 
     /** PokerMat page constructor. */
     public PokerMat(double moneyAmount, double smallBlind, double bigBlind) {
+        potTotalUI.setSize(50, 50); 
+        potTotalUI.setLocation(300, 50); 
         Poker.round.setBlinds(smallBlind, bigBlind); 
         Poker.player.setWallet(moneyAmount); 
 
@@ -265,6 +275,7 @@ public class PokerMat {
         for (int i = 0; i < ccContainer.size(); i++) {
             pokerMat.add(ccContainer.get(i)); 
         } 
+        pokerMat.add(potTotalUI); 
         pokerMat.setLayout(new BorderLayout());
 
         //pokerMat.revalidate();
