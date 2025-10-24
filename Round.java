@@ -56,7 +56,7 @@ public class Round {
     }
 
     public static void giveTurn() {
-        String cardPath = new String(); 
+        String cardPath;
         communityCards.add(deck.giveCard()); 
         cardPath = communityCards.get(3).getCardPath(); 
         PokerMat.setTurn(cardPath); 
@@ -174,6 +174,7 @@ public class Round {
             bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
             whoPlays = "player";
             System.out.println("Bot decided!");
+            turnShowed = true;
             giveTurn();
         }
 

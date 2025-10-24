@@ -329,8 +329,12 @@ public class PokerMat {
                         for (int i = 0; i < ccContainer.size(); i++) {
                             ccContainer.get(i).setVisible(true); 
                         }
+                        Round.turn(Poker.bot);
+                    } else if (Round.flopShowed && Round.turnShowed && !Round.riverShowed) {
+                        pokerMat.add(ccContainer.get(3)); 
+                        ccContainer.get(3).setLocation(285 + 145 * 3, 260); 
+                        ccContainer.get(3).setVisible(true);    
                     }
-                    Round.turn(Poker.bot);
                 }
                 
             }

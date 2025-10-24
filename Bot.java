@@ -87,12 +87,18 @@ public class Bot extends Player {
             case LATE -> handStrength = handStrength * 1.1;
         }*/
 
+        System.out.println("EV: " + ev);
+        System.out.println("Hand Strenght: " + handStrength);
+        System.out.println("Pot Odds: " + potOdds);
+
         if (ev > 0) {
 
             if (Math.random() < adjustedAggression) {
                 raise(0.1 * getWallet() * Math.random() + 0.2);
+                System.out.println("Bot raised!");
             } else {
                 call(callAmount);
+                System.out.println("Bot called / checked!");
             }
 
         } else if (handStrength >= 0.65) {
@@ -100,20 +106,26 @@ public class Bot extends Player {
             if (potOdds < 0.6) {
                 if (Math.random() < adjustedAggression) {
                     raise(0.1 * getWallet() * Math.random() + 0.2);
+                    System.out.println("Bot raised!");
                 } else {
                     call(callAmount);
+                    System.out.println("Bot called / checked!");
                 }
             } else {
                 call(callAmount);
+                System.out.println("Bot called / checked!");
             }
 
         } else if (handStrength >= 0.45) {
             if (potOdds < 0.5) {
                 call(callAmount);
+                System.out.println("Bot called / checked!");
             } else if (Math.random() < 0.25 * adjustedAggression) {
                 bluff(potOdds, callAmount);
+                System.out.println("Bot bluffs!");
             } else {
                 fold();
+                System.out.println("Bot folds!");
             }
         }
 
@@ -125,11 +137,13 @@ public class Bot extends Player {
         }*/
         bluffChance += aggressionLevel * 0.05; // more aggressive bot bluffs more
 
-        if (Math.random() < bluffChance) {
+        /*if (Math.random() < bluffChance) {
             bluff(potOdds, callAmount);
+            System.out.println("Bot bluffs!");
         } else {
             fold();
-        }
+            System.out.println("Bot folds!");
+        }*/
         
 
     }
