@@ -49,7 +49,7 @@ public class Round {
         deck.shuffleCards();
 
         // Alternate blinds
-        playerFirst = !wasPlayerFirst;
+        playerFirst = true;
         
         giveCardsToUsers(player, bot);
         payBlinds(player, bot);
@@ -144,7 +144,7 @@ public class Round {
                 }
                 double amountToAdd = amount - player.getLastBet();
                 player.raise(amount);          // Updates wallet & lastBet
-                pot.potRaise(amount);          // Updates pot total & currentRaise
+                //pot.potRaise(amount);          // Updates pot total & currentRaise
                 roundOver = false; // Now bot must act
                 break;
         }
@@ -166,13 +166,13 @@ public class Round {
         System.out.println("Bot is thinking...");
         
         // Calculate the amount bot needs to call
-        double amountToCall = pot.getCurrentRaise() - bot.getLastBet();
+        // double amountToCall = pot.getCurrentRaise() - player.getLastBet();
         
         // Bot's action logic is inside decideAction.
         // We assume bot's call/raise methods will update its wallet/lastBet
         // and ALSO update the pot (via a Wallet class or similar).
         // This is a crucial assumption based on your `Pot.java` auto-updating the UI.
-        bot.decideAction(pot.getPotTotal(), amountToCall, communityCards);
+        bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
 
         // Check what the bot did
         if (bot.hasFolded()) {
@@ -186,13 +186,6 @@ public class Round {
              whoPlays = "player";
              System.out.println("Bot raised to " + bot.getLastBet() + ". Your turn.");
         
-        } else if (bot.getLastBet() < pot.getCurrentRaise()) {
-            // This should not happen (bot must at least call or fold)
-            // But if it does, it's a fold.
-            bot.fold();
-            endHand(player);
-            return;
-
         } else {
             // Bot called (bot.lastBet == pot.currentRaise) or checked (both 0)
             System.out.println("Bot called or checked.");

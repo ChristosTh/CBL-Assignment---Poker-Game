@@ -20,6 +20,10 @@ public class Poker {
         player = new Player();
         bot = new Bot(0, 0);
 
+        /*while (true) {
+            System.out.println("Bot Wallet: " + bot.getWallet() +  " Player wallet: " + player.getWallet());
+        }*/
+
 
         //Round round = new Round(); 
         //round.flop(); 

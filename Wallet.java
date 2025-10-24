@@ -43,6 +43,7 @@ public class Wallet {
             wallet -= betDifference; 
             lastBet += betDifference; 
             Round.pot.potCall(betDifference); 
+            System.out.println("Bet diff: " + betDifference);
             return true; 
         }
         return false; 
