@@ -411,6 +411,7 @@ public class PokerMat {
             @Override 
             public void actionPerformed(ActionEvent e) {
                 Poker.player.allIn();
+                //Poker.round.playerActed("raise", Poker.player.getWallet());
                 updateWalletDisplay(moneyDisplay);
             }
         }); 

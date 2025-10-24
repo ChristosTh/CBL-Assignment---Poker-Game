@@ -315,7 +315,7 @@ public class Round {
             player.setWallet(player.getWallet() + totalPot / 2);
             bot.setWallet(bot.getWallet() + totalPot / 2);
         }
-
+        //pot = new Pot();
         // Update UI
         GameSetup.mat.updateWalletDisplay(GameSetup.mat.moneyDisplay);
         GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay); // Need to make this possible
