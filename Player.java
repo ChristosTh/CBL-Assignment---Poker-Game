@@ -22,7 +22,7 @@ public class Player {
         return wallet.getWallet(); 
     }
 
-    public void setLastBet(int lastBet) {
+    public void setLastBet(double lastBet) {
         wallet.setLastBet(lastBet);
     }
 

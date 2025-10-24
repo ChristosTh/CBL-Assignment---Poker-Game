@@ -21,7 +21,7 @@ public class Wallet {
         return lastBet;
     }
 
-    public void setLastBet(int newLastBet) {
+    public void setLastBet(double newLastBet) {
         lastBet = newLastBet;
     }
 
@@ -78,6 +78,7 @@ public class Wallet {
     void actionBigBlind() {
         if (wallet >= Round.pot.getBigBlind()) {
             wallet -= Round.pot.getBigBlind(); 
+            lastBet = Round.pot.getBigBlind(); 
             Round.pot.addBigBlind();  
         } else {
             actionAllIn(); 
