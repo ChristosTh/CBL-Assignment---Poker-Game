@@ -127,6 +127,14 @@ public class Bot extends Player {
                 fold();
                 System.out.println("Bot folds!");
             }
+        } else {
+            if (potOdds < 0.45) {
+                call(callAmount);
+                System.out.println("Bot called!");
+            } else {
+                fold();
+                System.out.println("Bot folds!");
+            }
         }
 
         
