@@ -166,27 +166,22 @@ public class PokerMat {
 
         //#region Image Loading and Scaling
         ImageIcon faceDownCard = new ImageIcon("CardsPNG\\faceDownCard.png"); 
-        Image scalingImage = faceDownCard.getImage()
-            .getScaledInstance(115, 160, Image.SCALE_DEFAULT); // Card size
+        Image scalingImage = faceDownCard.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); // Card size
         scaledImage = new ImageIcon(scalingImage); // Store face-down image in field
         
-        Image scalingCard1 = playerCard1.getImage()
-            .getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
+        Image scalingCard1 = playerCard1.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
         ImageIcon scaledCard1 = new ImageIcon(scalingCard1); 
         card1Container = new JLabel(scaledCard1); 
             
-        Image scalingCard2 = playerCard2.getImage()
-            .getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
+        Image scalingCard2 = playerCard2.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
         ImageIcon scaledCard2 = new ImageIcon(scalingCard2); 
         card2Container = new JLabel(scaledCard2); 
 
         // Load bot's REAL cards but store them in fields
-        Image scalingBotCard1Img = botCard1.getImage()
-            .getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
+        Image scalingBotCard1Img = botCard1.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
         scaledBotCard1 = new ImageIcon(scalingBotCard1Img); 
         
-        Image scalingBotCard2Img = botCard2.getImage() 
-            .getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
+        Image scalingBotCard2Img = botCard2.getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
         scaledBotCard2 = new ImageIcon(scalingBotCard2Img); 
 
         // Create bot's card containers using the FACE-DOWN image
@@ -204,8 +199,7 @@ public class PokerMat {
         JLabel botChipContainer = new JLabel(scaledBotChip); 
 
         ImageIcon botMoneyBox = new ImageIcon("CardsPNG\\Money_Box.png"); 
-        Image scalingBotBox = botMoneyBox.getImage()
-            .getScaledInstance(130, 60, Image.SCALE_DEFAULT);
+        Image scalingBotBox = botMoneyBox.getImage().getScaledInstance(130, 60, Image.SCALE_DEFAULT);
         ImageIcon scaledBotBox = new ImageIcon(scalingBotBox); 
         JLabel botBoxContainer = new JLabel(scaledBotBox); 
 
@@ -221,14 +215,12 @@ public class PokerMat {
         JLabel potTextContainer = new JLabel(scaledPotText);
 
         ImageIcon smallBlindIcon = new ImageIcon("CardsPNG\\smallBlindIcon.png"); 
-        Image scalingSBIcon = smallBlindIcon.getImage()
-            .getScaledInstance(60, 60, Image.SCALE_DEFAULT); 
+        Image scalingSBIcon = smallBlindIcon.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT); 
         ImageIcon scaledSBIcon = new ImageIcon(scalingSBIcon); 
         JLabel sbContainer = new JLabel(scaledSBIcon); 
 
         ImageIcon bigBlindIcon = new ImageIcon("CardsPNG\\bigBlindIcon.png"); 
-        Image scalingBBIcon = bigBlindIcon.getImage()
-            .getScaledInstance(60, 60, Image.SCALE_DEFAULT); 
+        Image scalingBBIcon = bigBlindIcon.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT); 
         ImageIcon scaledBBIcon = new ImageIcon(scalingBBIcon); 
         JLabel bbContainer = new JLabel(scaledBBIcon); 
 

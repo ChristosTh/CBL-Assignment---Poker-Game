@@ -4,7 +4,7 @@ import java.util.Scanner;
 /** Main class for poker. */
 public class Poker {
 
-    static Player player; 
+    static Player player; // player and bot should go to the poker class and also change what changed for them in other classes
     static Bot bot;
 
     static Round round; 
