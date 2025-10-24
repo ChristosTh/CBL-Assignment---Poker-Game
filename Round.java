@@ -186,9 +186,9 @@ public class Round {
 
         // Check if bot raised
         if (bot.getLastBet() > pot.getCurrentRaise()) {
-             // Bot raised! Pot.currentRaise was updated by bot.raise()
-             whoPlays = "player";
-             System.out.println("Bot raised to " + bot.getLastBet() + ". Your turn.");
+            // Bot raised! Pot.currentRaise was updated by bot.raise()
+            whoPlays = "player";
+            System.out.println("Bot raised to " + bot.getLastBet() + ". Your turn.");
         
         } else {
             // Bot called (bot.lastBet == pot.currentRaise) or checked (both 0)
@@ -308,6 +308,7 @@ public class Round {
         } else if (winner == bot) {
             System.out.println("Bot wins the pot of " + totalPot);
             bot.setWallet(bot.getWallet() + totalPot);
+            GameSetup.mat.botWon(); 
         } else {
             // Handle tie (split pot)
             System.out.println("It's a tie! Splitting the pot of " + totalPot);

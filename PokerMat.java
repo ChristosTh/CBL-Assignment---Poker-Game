@@ -106,8 +106,10 @@ public class PokerMat {
         ccContainer.get(4).setVisible(false); 
     }
 
+    /** UI to show player won. */
     void playerWon() {
-        String text = "You have won this round. Proceed to the next round by pressing \"New Round\"";
+        String text = "You have won this round."
+            + " Proceed to the next round by pressing \"New Round\"";
         text = String.format("<html><div WIDTH=%d>%s</div></html>", 200, text);
 
         JLabel playerWonUI = new JLabel(text); 
@@ -119,6 +121,23 @@ public class PokerMat {
         playerWonUI.setLocation(500, 300); 
         playerWonUI.setBackground(Color.GRAY);
         playerWonUI.setOpaque(true); 
+    }
+
+    /** UI to show bot won. */
+    void botWon() {
+        String text = "You have lost this round." 
+            + " Proceed to the next round by pressing \"New Round\""; 
+        text = String.format("<html><div WIDTH=%d>%s</div></html>", 200, text);
+        
+        JLabel playerWonUI = new JLabel(text); 
+
+        pokerMat.add(playerWonUI);
+        pokerMat.setComponentZOrder(playerWonUI, 0);
+        pokerMat.repaint(); 
+        playerWonUI.setSize(200, 95); 
+        playerWonUI.setLocation(500, 300); 
+        playerWonUI.setBackground(Color.GRAY);
+        playerWonUI.setOpaque(true);
     }
 
     /** Closing JFrame. */
@@ -181,9 +200,9 @@ public class PokerMat {
         //#region Image Loading and Scaling
         ImageIcon faceDownCard = new ImageIcon("CardsPNG\\faceDownCard.png"); 
         Image scalingImage = faceDownCard.getImage()
-            .getScaledInstance(115, 160, Image.SCALE_DEFAULT); // Card size
-        scaledImage = new ImageIcon(scalingImage); // Store face-down image in field
-        
+            .getScaledInstance(160, 160, Image.SCALE_DEFAULT); 
+        scaledImage = new ImageIcon(scalingImage); 
+
         Image scalingCard1 = playerCard1.getImage()
             .getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
         ImageIcon scaledCard1 = new ImageIcon(scalingCard1); 
@@ -204,6 +223,7 @@ public class PokerMat {
         scaledBotCard2 = new ImageIcon(scalingBotCard2Img); 
 
         // Create bot's card containers using the FACE-DOWN image
+        JLabel deckRepresentation = new JLabel(scaledImage);
         botCard1Container = new JLabel(scaledImage); 
         botCard2Container = new JLabel(scaledImage); 
 
@@ -254,17 +274,20 @@ public class PokerMat {
         //#endregion
 
         //#region Displaying cards and chips/wallet.
+        deckRepresentation.setSize(160, 160); 
+        deckRepresentation.setLocation(110, 258);
+
         card1Container.setSize(115, 160); 
         card1Container.setLocation(420, 500); 
 
         card2Container.setSize(115, 160); 
         card2Container.setLocation(550, 500);
 
-        botCard1Container.setSize(115, 160); 
-        botCard1Container.setLocation(420, 40); 
+        botCard1Container.setSize(160, 160); 
+        botCard1Container.setLocation(400, 40); 
 
-        botCard2Container.setSize(115, 160); 
-        botCard2Container.setLocation(550, 40);
+        botCard2Container.setSize(160, 160); 
+        botCard2Container.setLocation(530, 40);
 
         chipContainer.setSize(46, 46); 
         chipContainer.setLocation(830, 515); 
@@ -440,7 +463,7 @@ public class PokerMat {
         pokerMat.add(botMoneyDisplay); 
         pokerMat.add(botChipContainer); 
         pokerMat.add(botBoxContainer); 
-        
+        pokerMat.add(deckRepresentation); 
         // Note: Community cards are added by the show... methods
         
         pokerMat.add(potTextContainer); 
