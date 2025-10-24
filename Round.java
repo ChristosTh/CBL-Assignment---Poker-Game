@@ -172,7 +172,11 @@ public class Round {
         // We assume bot's call/raise methods will update its wallet/lastBet
         // and ALSO update the pot (via a Wallet class or similar).
         // This is a crucial assumption based on your `Pot.java` auto-updating the UI.
-        bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+        int bd = bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+
+        if (bd == 1) {
+            endHand(player);
+        }
 
         // Check what the bot did
         if (bot.hasFolded()) {

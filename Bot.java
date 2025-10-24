@@ -74,10 +74,10 @@ public class Bot extends Player {
     }
 
     /** Method for the bot to decide what to do. */
-    public void decideAction(double potSize, double callAmount, ArrayList<Card> communityCards) {
+    public int decideAction(double potSize, double callAmount, ArrayList<Card> communityCards) {
         double potOdds = callAmount / (potSize + callAmount);
         double handStrength = handPower(communityCards);
-        double adjustedAggression = (0.5 + 0.5 * 0.5);
+        double adjustedAggression = (0.5 + aggressionLevel * 0.5);
         // to calculate the probability of action
         double ev = expectedValue(handStrength, potSize, callAmount);
 
@@ -94,33 +94,38 @@ public class Bot extends Player {
         if (ev > 0) {
 
             if (Math.random() < adjustedAggression) {
-                //raise((int) (0.1 * getWallet() * Math.random() + 0.2));
-                call(callAmount);
+                raise((int) (0.1 * getWallet() * Math.random() + 0.2));
+                //call(callAmount);
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot raised!");
+                return 0;
             } else {
                 call(callAmount);
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot called / checked!");
+                return 0;
             }
 
         } else if (handStrength >= 0.65) {
 
             if (potOdds < 0.6) {
                 if (Math.random() < adjustedAggression) {
-                    //raise((int) (0.1 * getWallet() * Math.random() + 0.2));
+                    raise((int) (0.1 * getWallet() * Math.random() + 0.2));
                     System.out.println("Bot raised!");
-                    call(callAmount);
+                    //call(callAmount);
                     GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
+                    return 0;
                 } else {
                     call(callAmount);
                     GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                     System.out.println("Bot called / checked!");
+                    return 0;
                 }
             } else {
                 call(callAmount);
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot called / checked!");
+                return 0;
             }
 
         } else if (handStrength >= 0.45) {
@@ -128,31 +133,36 @@ public class Bot extends Player {
                 call(callAmount);
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot called / checked!");
+                return 0;
             } else if (Math.random() < 0.25 * adjustedAggression) {
                 bluff(potOdds, callAmount);
                 System.out.println("Bot bluffs!");
+                return 0;
             } else {
                 fold();
                 System.out.println("Bot folds!");
+                return 1;
             }
         } else {
             if (potOdds < 0.4) {
                 call(callAmount);
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot callss!");
+                return 0;
             } else {
                 fold();
                 System.out.println("Bot folds!");
+                return 1;
             }
         }
 
         
         // --- Step 5: Weak hand logic — fold or bluff occasionally
-        double bluffChance = 0.05; // baseline bluff chance
+        //double bluffChance = 0.05; // baseline bluff chance
         /*if (position == Position.LATE) {
             bluffChance += 0.10; // more likely to bluff late
         }*/
-        bluffChance += aggressionLevel * 0.05; // more aggressive bot bluffs more
+        //bluffChance += aggressionLevel * 0.05; // more aggressive bot bluffs more
 
         /*if (Math.random() < bluffChance) {
             bluff(potOdds, callAmount);
