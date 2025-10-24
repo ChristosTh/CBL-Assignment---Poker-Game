@@ -1,198 +1,344 @@
 import java.util.ArrayList;
 
-/** Class for round. */
+/**
+ * Class for a round of poker. Manages the gameflow, betting rounds,
+ * and state progression from Preflop to Showdown.
+ */
 public class Round {
+
+    // Enum to track the current stage of the game
+    public enum GameState {
+        PREFLOP, FLOP, TURN, RIVER, SHOWDOWN, HAND_OVER
+    }
 
     static Deck deck;
     static ArrayList<Card> communityCards;
-    static Pot pot = new Pot(); 
+    static Pot pot = new Pot();
     
-    static boolean playerFirst;
-
-    static String whoPlays;
+    static boolean playerFirst; // True if player is Small Blind
+    static String whoPlays; // "player" or "bot"
 
     static boolean flopShowed;
     static boolean turnShowed;
     static boolean riverShowed;
 
-    /** Method to distribute 2 cards to the user. */
-    public static void giveCardsToUsers(Player player, Bot bot) {
-        player.receiveFirstCard(deck.giveCard());
-        player.receiveSecondCard(deck.giveCard());
-        //player.receiveFirstCard(new Card('A', "diamonds"));
-        //player.receiveSecondCard(new Card('8', "spades"));
-        //bot.receiveFirstCard(new Card('9', "diamonds"));
-        //bot.receiveSecondCard(new Card('K', "spades"));
-        bot.receiveFirstCard(deck.giveCard());
-        bot.receiveSecondCard(deck.giveCard());
+    private Player player;
+    private Bot bot;
+    private GameState currentState;
 
-        PokerMat.setCards(player.getCard1Path(), player.getCard2Path(),
-            bot.getCard1Path(), bot.getCard2Path()); 
-    }
-
-
-    /** Method to output the cards on the table. */
-    public void outputCommunityCards() {
-        System.out.print("Community Cards:");
-        for (int i = 0; i < communityCards.size(); i++) {
-            System.out.print(" " + communityCards.get(i).getRank() + " "
-                + communityCards.get(i).getSuit());
-        }
-        System.out.println();
-    }
-
-    /* public void setBlinds(double smallBlind, double bigBlind) {
-        pot.setBlinds(smallBlind, bigBlind); 
-    } */
-
-    /** Set flop cards. */
-    public static void giveFlop() {
-        String[] cardPaths = new String[3]; 
-        for (int i = 0; i < 3; i++) {
-            communityCards.add(deck.giveCard());
-            cardPaths[i] = communityCards.get(i).getCardPath(); 
-        }
-        PokerMat.setFlop(cardPaths);
-    }
-
-    public static void giveTurn() {
-        String cardPath;
-        communityCards.add(deck.giveCard()); 
-        cardPath = communityCards.get(3).getCardPath(); 
-        PokerMat.setTurn(cardPath); 
-    }
-
-    public static void giveRiver() {
-        communityCards.add(deck.giveCard());
-        String cardPath = communityCards.getLast().getCardPath();
-    }
-
-    public Round(Player player, Bot bot, double playerMoneyAmount, double roundSmallBlind, double roundBigBlind, boolean wasPlayerFirst) {
-        /*Poker.deck = new Deck(); 
-        Poker.deck.shuffleCards(); 
-        Poker.giveCardsToUsers(); 
-        Poker.giveFlop(); */
+    /**
+     * Round constructor. Sets up the hand, deals cards, and starts the
+     * first betting round.
+     */
+    public Round(Player player, Bot bot, double playerMoneyAmount, 
+                 double roundSmallBlind, double roundBigBlind, boolean wasPlayerFirst) {
+        
+        this.player = player;
+        this.bot = bot;
 
         flopShowed = false;
         turnShowed = false;
         riverShowed = false;
 
         pot = new Pot();
-
-        Poker.player.setWallet(playerMoneyAmount);
-        Poker.bot.setWallet(playerMoneyAmount);
-        pot.setBlinds(roundSmallBlind, roundBigBlind); 
+        player.setWallet(playerMoneyAmount);
+        bot.setWallet(playerMoneyAmount);
+        pot.setBlinds(roundSmallBlind, roundBigBlind);
+        
         deck = new Deck();
         communityCards = new ArrayList<Card>();
-        //communityCards.clear();
-
         deck.shuffleCards();
 
-        if (!wasPlayerFirst) {
-            playerFirst = true;
-            System.out.println("Player is first");
-            whoPlays = "player";
-        } else {
-            playerFirst = false;
-            System.out.println("Bot is first");
-            whoPlays = "bot";
-        }
-
+        // Alternate blinds
+        playerFirst = !wasPlayerFirst;
+        
         giveCardsToUsers(player, bot);
         payBlinds(player, bot);
 
-        System.out.println("Bot wallet: " + bot.getWallet());
+        currentState = GameState.PREFLOP;
 
-        GameSetup.mat = new PokerMat(Poker.player.getWallet(), pot.getSmallBlind(), pot.getBigBlind());
+        // Create the UI
+        GameSetup.mat = new PokerMat(player.getWallet(), pot.getSmallBlind(), pot.getBigBlind());
+        GameSetup.mat.newRoundButton.setEnabled(false); // Disable until hand is over
 
+        // Set who acts first
+        whoPlays = playerFirst ? "player" : "bot";
+        
+        // If bot is first (e.g., bot is SB), run its turn
+        if (whoPlays.equals("bot")) {
+            runBotTurn();
+        }
+    }
 
-        /*if (whoPlays.equals("bot")) {
-            bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
-            whoPlays = "player";
-        }*/
+    /** Method to distribute 2 cards to the users. */
+    public static void giveCardsToUsers(Player player, Bot bot) {
+        player.receiveFirstCard(deck.giveCard());
+        player.receiveSecondCard(deck.giveCard());
+        bot.receiveFirstCard(deck.giveCard());
+        bot.receiveSecondCard(deck.giveCard());
 
-        System.out.println("Bot Card 1: " 
-            + bot.getFirstCard().getRank() + " " + bot.getFirstCard().getSuit());
-        System.out.println("Bot Card 2: " 
+        PokerMat.setCards(player.getCard1Path(), player.getCard2Path(),
+            bot.getCard1Path(), bot.getCard2Path());
+    }
+
+    /** Players pay their required blinds. */
+    void payBlinds(Player player, Bot bot) {
+        if (playerFirst) {
+            System.out.println("Player is Small Blind");
+            player.paySmallBlind(); // Updates wallet and lastBet
+            pot.addSmallBlind();    // Updates pot total
+            bot.payBigBlind();
+            pot.addBigBlind();
+        } else {
+            System.out.println("Bot is Small Blind");
+            bot.paySmallBlind();
+            pot.addSmallBlind();
+            player.payBigBlind();
+            pot.addBigBlind();
+        }
+        // pot.addBigBlind() already sets pot.currentRaise
+    }
+
+    /**
+     * Central method called by the UI when the player clicks an action button.
+     * @param action The action taken ("fold", "check", "call", "raise").
+     * @param amount The amount for a raise (this is the NEW TOTAL bet).
+     */
+    public void playerActed(String action, double amount) {
+        if (!whoPlays.equals("player") || currentState == GameState.HAND_OVER) {
+            return; // Not player's turn or hand is over
+        }
+
+        boolean roundOver = false;
+
+        switch (action) {
+            case "fold":
+                player.fold();
+                endHand(bot); // Bot wins
+                return;
+
+            case "check":
+                // Can only check if no bet is pending
+                if (pot.getCurrentRaise() > player.getLastBet()) {
+                    System.out.println("You cannot check, there is a bet to you.");
+                    return; // Invalid action
+                }
+                player.check();
+                // If player (BB) checks, preflop ends. If both check post-flop, round ends.
+                if (player.getLastBet() == bot.getLastBet()) {
+                    roundOver = true;
+                }
+                break;
+
+            case "call":
+                double amountToCall = pot.getCurrentRaise() - player.getLastBet();
+                if (amountToCall <= 0) {
+                     System.out.println("Nothing to call, you should check.");
+                     return; // Invalid action
+                }
+                player.call(pot.getCurrentRaise()); // Updates wallet & lastBet
+                pot.potCall(amountToCall);          // Updates pot total
+                roundOver = true; // Calling always ends the betting round
+                break;
+
+            case "raise":
+                // Amount is the new total bet. Must be at least 2x current raise.
+                if (amount < pot.getCurrentRaise() * 2) {
+                    System.out.println("Raise must be at least 2x the current bet.");
+                    return; // Invalid raise
+                }
+                double amountToAdd = amount - player.getLastBet();
+                player.raise(amount);          // Updates wallet & lastBet
+                pot.potRaise(amount);          // Updates pot total & currentRaise
+                roundOver = false; // Now bot must act
+                break;
+        }
+
+        if (roundOver) {
+            progressToNextStage();
+        } else {
+            whoPlays = "bot";
+            runBotTurn();
+        }
+    }
+
+    /** Runs the bot's logic. */
+    private void runBotTurn() {
+        if (!whoPlays.equals("bot") || currentState == GameState.HAND_OVER) {
+            return;
+        }
+
+        System.out.println("Bot is thinking...");
+        
+        // Calculate the amount bot needs to call
+        double amountToCall = pot.getCurrentRaise() - bot.getLastBet();
+        
+        // Bot's action logic is inside decideAction.
+        // We assume bot's call/raise methods will update its wallet/lastBet
+        // and ALSO update the pot (via a Wallet class or similar).
+        // This is a crucial assumption based on your `Pot.java` auto-updating the UI.
+        bot.decideAction(pot.getPotTotal(), amountToCall, communityCards);
+
+        // Check what the bot did
+        if (bot.hasFolded()) {
+            endHand(player); // Player wins
+            return;
+        }
+
+        // Check if bot raised
+        if (bot.getLastBet() > pot.getCurrentRaise()) {
+             // Bot raised! Pot.currentRaise was updated by bot.raise()
+             whoPlays = "player";
+             System.out.println("Bot raised to " + bot.getLastBet() + ". Your turn.");
+        
+        } else if (bot.getLastBet() < pot.getCurrentRaise()) {
+            // This should not happen (bot must at least call or fold)
+            // But if it does, it's a fold.
+            bot.fold();
+            endHand(player);
+            return;
+
+        } else {
+            // Bot called (bot.lastBet == pot.currentRaise) or checked (both 0)
+            System.out.println("Bot called or checked.");
+            progressToNextStage();
+        }
+    }
+
+    /** Advances the game to the next stage (Flop, Turn, River, Showdown). */
+    private void progressToNextStage() {
+        if (currentState == GameState.RIVER) {
+            doShowdown();
+            return;
+        }
+
+        // Reset for next betting round
+        pot.potRaise(0);
+        player.setLastBet(0);
+        bot.setLastBet(0);
+        
+        // Post-flop, the Small Blind (playerFirst) always acts first
+        whoPlays = playerFirst ? "player" : "bot";
+
+        switch (currentState) {
+            case PREFLOP:
+                currentState = GameState.FLOP;
+                giveFlop();
+                flopShowed = true;
+                GameSetup.mat.showFlopCards(); // UI method to show cards
+                System.out.println("--- FLOP ---");
+                outputCommunityCards();
+                break;
+            case FLOP:
+                currentState = GameState.TURN;
+                giveTurn();
+                turnShowed = true;
+                GameSetup.mat.showTurnCard(); // UI method
+                System.out.println("--- TURN ---");
+                outputCommunityCards();
+                break;
+            case TURN:
+                currentState = GameState.RIVER;
+                giveRiver();
+                riverShowed = true;
+                GameSetup.mat.showRiverCard(); // UI method
+                System.out.println("--- RIVER ---");
+                outputCommunityCards();
+                break;
+            default:
+                break;
+        }
+
+        // After dealing new cards, if it's the bot's turn to act first, run its turn
+        if (whoPlays.equals("bot")) {
+            runBotTurn();
+        } else {
+             System.out.println("Your turn to act.");
+        }
+    }
+
+    /** Deals the flop (3 cards). */
+    public static void giveFlop() {
+        String[] cardPaths = new String[3];
+        for (int i = 0; i < 3; i++) {
+            Card c = deck.giveCard();
+            communityCards.add(c);
+            cardPaths[i] = c.getCardPath();
+        }
+        PokerMat.setFlop(cardPaths);
+    }
+
+    /** Deals the turn (1 card). */
+    public static void giveTurn() {
+        Card c = deck.giveCard();
+        communityCards.add(c);
+        PokerMat.setTurn(c.getCardPath());
+    }
+
+    /** Deals the river (1 card). */
+    public static void giveRiver() {
+        Card c = deck.giveCard();
+        communityCards.add(c);
+        PokerMat.setRiver(c.getCardPath());
+        // You need to add a `setRiver` method to PokerMat, similar to setTurn
+        // PokerMat.setRiver(c.getCardPath()); 
+    }
+
+    /** Final stage: determine and award the winner. */
+    private void doShowdown() {
+        currentState = GameState.SHOWDOWN;
+        System.out.println("--- SHOWDOWN ---");
+        GameSetup.mat.showBotCards(); // UI method to reveal bot's cards
+
+        // Reveal bot's hand
+        System.out.println("Bot has: "
+            + bot.getFirstCard().getRank() + " " + bot.getFirstCard().getSuit() + ", "
             + bot.getSecondCard().getRank() + " " + bot.getSecondCard().getSuit());
-
-        /*communityCards.add(new Card('8', "spades"));
-        communityCards.add(new Card('K', "diamonds"));
-        communityCards.add(new Card('4', "hearts"));*/
-
-        outputCommunityCards();
 
         HandEvaluation determineWinner = new HandEvaluation(communityCards);
         Player winner = determineWinner.winner(player, bot);
         
+        endHand(winner);
+    }
+
+    /**
+     * Cleans up the hand, awards the pot, and enables the "New Round" button.
+     * @param winner The player who won the hand (can be null for a tie).
+     */
+    private void endHand(Player winner) {
+        currentState = GameState.HAND_OVER;
+        double totalPot = pot.getPotTotal();
+
         if (winner == player) {
-            System.out.println("Winner is the player!");
+            System.out.println("Player wins the pot of " + totalPot);
+            player.setWallet(player.getWallet() + totalPot);
+        } else if (winner == bot) {
+            System.out.println("Bot wins the pot of " + totalPot);
+            bot.setWallet(bot.getWallet() + totalPot);
         } else {
-            System.out.println("Winner is the bot!");
+            // Handle tie (split pot)
+            System.out.println("It's a tie! Splitting the pot of " + totalPot);
+            player.setWallet(player.getWallet() + totalPot / 2);
+            bot.setWallet(bot.getWallet() + totalPot / 2);
         }
 
+        // Update UI
+        GameSetup.mat.updateWalletDisplay(GameSetup.mat.moneyDisplay);
+        GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay); // Need to make this possible
+        GameSetup.mat.newRoundButton.setEnabled(true);
     }
 
-    /** Method to start the round, paying the blinds. */
-    void payBlinds(Player player, Bot bot) {
-        if (playerFirst) {
-            player.paySmallBlind();
-            bot.payBigBlind(); 
-            //while (player.getLastBet() < bot.getLastBet()) { }
-            flop(bot); 
-        } else {
-            player.payBigBlind(); 
-            bot.payBigBlind(); 
-            flop(bot); 
+
+    /** Method to output the cards on the table. */
+    public void outputCommunityCards() {
+        System.out.print("Community Cards:");
+        for (Card c : communityCards) {
+            System.out.print(" [" + c.getRank() + " " + c.getSuit() + "]");
         }
-    }
-
-    /** Method to start the flop part of the round (first 3 community cards). */
-    void flop(Bot bot) {
-
-        if (whoPlays.equals("bot")) {
-            bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
-            whoPlays = "player";
-            System.out.println("Bot decided!");
-        }
-
-        giveFlop();
-        flopShowed = true;
-        /*if (playerFirst) {
-            
-            giveFlop();
-        } else {
-            giveFlop();
-        }*/
-
-    }
-
-    // Method to start the turn part of the round (4th community card). 
-    static void turn(Bot bot) {
-
-        if (whoPlays.equals("bot")) {
-            bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
-            whoPlays = "player";
-            System.out.println("Bot decided!");
-            turnShowed = true;
-            giveTurn();
-        }
-
-    }
-
-    // Method to start the river part of the round (5th community card). 
-    void river(Bot bot) {
-
-        if (whoPlays.equals("bot")) {
-            bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
-            whoPlays = "player";
-            System.out.println("Bot decided!");
-            giveRiver();
-        }
+        System.out.println();
     }
 
     static boolean getPlayerFirst() {
         return playerFirst;
     }
-
 }

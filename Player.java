@@ -4,6 +4,7 @@ public class Player {
     private Wallet wallet;
     private Card firstCard;
     private Card secondCard;
+    private boolean hasFolded = false;
 
     /** Player constructor to initalize its wallet and pair of cards to null. */
     public Player() {
@@ -19,6 +20,10 @@ public class Player {
 
     public double getWallet() {
         return wallet.getWallet(); 
+    }
+
+    public void setLastBet(int lastBet) {
+        wallet.setLastBet(lastBet);
     }
 
     public void setWallet(double cash) {
@@ -91,6 +96,10 @@ public class Player {
 
     public void check() {
 
+    }
+
+    public boolean hasFolded() {
+        return hasFolded;
     }
 
 }

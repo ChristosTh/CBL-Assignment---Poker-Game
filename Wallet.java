@@ -21,6 +21,10 @@ public class Wallet {
         return lastBet;
     }
 
+    public void setLastBet(int newLastBet) {
+        lastBet = newLastBet;
+    }
+
     /** in main method check if raise is possible and then run Pot.raised */
     boolean actionRaise(double x) {
         if (x < wallet) {
