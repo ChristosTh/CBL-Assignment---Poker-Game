@@ -106,6 +106,20 @@ public class PokerMat {
         ccContainer.get(4).setVisible(false); 
     }
 
+    void playerWon() {
+        String text = "You have won this round. Proceed to the next round by pressing \"New Round\"";
+        text = String.format("<html><div WIDTH=%d>%s</div></html>", 200, text);
+
+        JLabel playerWonUI = new JLabel(text); 
+
+        pokerMat.add(playerWonUI);
+        pokerMat.setComponentZOrder(playerWonUI, 0);
+        pokerMat.repaint(); 
+        playerWonUI.setSize(200, 95); 
+        playerWonUI.setLocation(500, 300); 
+        playerWonUI.setBackground(Color.GRAY);
+        playerWonUI.setOpaque(true); 
+    }
 
     /** Closing JFrame. */
     void closeFrame(JFrame frame) {
@@ -140,8 +154,8 @@ public class PokerMat {
         // Note: Wallet is now set in Round.java, not here.
 
         //#region New round button.
-        newRoundButton.setSize(100, 30);
-        newRoundButton.setLocation(20, 200); 
+        newRoundButton.setSize(150, 45);
+        newRoundButton.setLocation(30, 30); 
         newRoundButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -426,7 +440,6 @@ public class PokerMat {
         pokerMat.add(newRoundButton); 
         pokerMat.add(sbContainer); 
         pokerMat.add(bbContainer); 
-        pokerMat.add(sbText);
         pokerMat.add(potContainer); 
         pokerMat.add(potTotalUI); 
         pokerMat.add(botMoneyDisplay); 

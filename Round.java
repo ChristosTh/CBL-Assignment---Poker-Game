@@ -304,6 +304,7 @@ public class Round {
         if (winner == player) {
             System.out.println("Player wins the pot of " + totalPot);
             player.setWallet(player.getWallet() + totalPot);
+            GameSetup.mat.playerWon(); 
         } else if (winner == bot) {
             System.out.println("Bot wins the pot of " + totalPot);
             bot.setWallet(bot.getWallet() + totalPot);
