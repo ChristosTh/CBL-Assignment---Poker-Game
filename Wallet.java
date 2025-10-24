@@ -79,8 +79,7 @@ public class Wallet {
         if (wallet >= Round.pot.getBigBlind()) {
             wallet -= Round.pot.getBigBlind(); 
             Round.pot.addBigBlind();  
-        } else 
-        {
+        } else {
             actionAllIn(); 
         }
     }
