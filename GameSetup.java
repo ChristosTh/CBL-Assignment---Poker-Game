@@ -105,11 +105,9 @@ public class GameSetup {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Poker.bot.setWallet(Double.parseDouble(moneyAmount.getText())); 
                 gameSetup.setVisible(false); 
                 gameSetup = null; 
-                Poker.round = new Round(Poker.player, Poker.bot, 
-                    Double.parseDouble(moneyAmount.getText()), 
+                Poker.round = new Round(Poker.player, Poker.bot, Double.parseDouble(moneyAmount.getText()), 
                     Double.parseDouble(sBlindAmount.getText()), 
                     Double.parseDouble(bBlindAmount.getText()), false);
             } 

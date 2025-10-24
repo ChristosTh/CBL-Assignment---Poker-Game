@@ -42,6 +42,7 @@ public class Round {
 
         pot = new Pot();
         player.setWallet(playerMoneyAmount);
+        bot.setWallet(playerMoneyAmount);
         pot.setBlinds(roundSmallBlind, roundBigBlind);
         
         deck = new Deck();
@@ -85,10 +86,13 @@ public class Round {
         if (playerFirst) {
             System.out.println("Player is Small Blind");
             player.paySmallBlind(); // Updates wallet and lastBet
+            pot.addSmallBlind();    // Updates pot total
             bot.payBigBlind();
+            pot.addBigBlind();
         } else {
             System.out.println("Bot is Small Blind");
             bot.paySmallBlind();
+            pot.addSmallBlind();
             player.payBigBlind();
             pot.addBigBlind();
         }
@@ -133,6 +137,7 @@ public class Round {
                      return; // Invalid action
                 }
                 player.call(pot.getCurrentRaise()); // Updates wallet & lastBet
+                pot.potCall(amountToCall);          // Updates pot total
                 roundOver = true; // Calling always ends the betting round
                 break;
 
@@ -166,7 +171,7 @@ public class Round {
         System.out.println("Bot is thinking...");
         
         // Calculate the amount bot needs to call
-        double amountToCall = player.getLastBet() - bot.getLastBet();
+        double amountToCall = pot.getCurrentRaise() - bot.getLastBet();
         
         // Bot's action logic is inside decideAction.
         // We assume bot's call/raise methods will update its wallet/lastBet
@@ -182,9 +187,9 @@ public class Round {
 
         // Check if bot raised
         if (bot.getLastBet() > pot.getCurrentRaise()) {
-            // Bot raised! Pot.currentRaise was updated by bot.raise()
-            whoPlays = "player";
-            System.out.println("Bot raised to " + bot.getLastBet() + ". Your turn.");
+             // Bot raised! Pot.currentRaise was updated by bot.raise()
+             whoPlays = "player";
+             System.out.println("Bot raised to " + bot.getLastBet() + ". Your turn.");
         
         } else if (bot.getLastBet() < pot.getCurrentRaise()) {
             // This should not happen (bot must at least call or fold)
@@ -198,8 +203,6 @@ public class Round {
             System.out.println("Bot called or checked.");
             progressToNextStage();
         }
-
-        GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay); 
     }
 
     /** Advances the game to the next stage (Flop, Turn, River, Showdown). */
@@ -250,7 +253,7 @@ public class Round {
         if (whoPlays.equals("bot")) {
             runBotTurn();
         } else {
-            System.out.println("Your turn to act.");
+             System.out.println("Your turn to act.");
         }
     }
 
