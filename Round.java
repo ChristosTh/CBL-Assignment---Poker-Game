@@ -161,6 +161,23 @@ public class Round {
         bot.decideAction(pot.getPotTotal(), amountToCall, communityCards);
 
         if (bot.hasFolded()) {
+<<<<<<< HEAD
+=======
+            endHand(player); // Player wins
+            return;
+        }
+
+        // Check if bot raised
+        if (bot.getLastBet() > pot.getCurrentRaise()) {
+            // Bot raised! Pot.currentRaise was updated by bot.raise()
+            whoPlays = "player";
+            System.out.println("Bot raised to " + bot.getLastBet() + ". Your turn.");
+        
+        } else if (bot.getLastBet() < pot.getCurrentRaise()) {
+            // This should not happen (bot must at least call or fold)
+            // But if it does, it's a fold.
+            bot.fold();
+>>>>>>> 3140feab2f6c04e127bf7d415f2c86f4b0259d3a
             endHand(player);
             return;
         }
@@ -226,7 +243,7 @@ public class Round {
         if (whoPlays.equals("bot")) {
             runBotTurn();
         } else {
-             System.out.println("Your turn to act.");
+            System.out.println("Your turn to act.");
         }
     }
 
