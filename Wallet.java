@@ -31,6 +31,7 @@ public class Wallet {
             wallet -= x; 
             lastBet = x; 
             Round.pot.potRaise(x); 
+            GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
             return true; 
         }
         return false;
@@ -43,6 +44,7 @@ public class Wallet {
             wallet -= betDifference; 
             lastBet += betDifference; 
             Round.pot.potCall(betDifference); 
+            GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
             return true; 
         }
         return false; 
@@ -54,6 +56,7 @@ public class Wallet {
             lastBet += wallet; 
             Round.pot.potAllIn(wallet); 
             wallet = 0; 
+            GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
             return true; 
         }
         return false; 
