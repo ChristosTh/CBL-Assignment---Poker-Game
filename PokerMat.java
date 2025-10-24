@@ -373,12 +373,7 @@ public class PokerMat {
         allInButton.addActionListener(new ActionListener() {
             @Override 
             public void actionPerformed(ActionEvent e) {
-                // All-in is a "raise" for the player's full remaining stack
-                // The new "total bet" is their last bet + their entire remaining wallet
-                double allInBetAmount = Poker.player.getWallet() + Poker.player.getLastBet();
-                
-                // Report action to controller as a raise
-                Poker.round.playerActed("raise", allInBetAmount); 
+                Poker.player.allIn();
                 updateWalletDisplay(moneyDisplay);
             }
         }); 

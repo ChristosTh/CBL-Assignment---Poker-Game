@@ -181,7 +181,7 @@ public class HandEvaluation {
         int[] rankCount = getRankCounts();
         int pairs = 0;
         for (int i = 0; i < rankCount.length; i++) {
-            if (rankCount[i] >= 2 && i != 0) {
+            if (rankCount[i] >= 2) { // && i!=0
                 pairs++;
             }
         }
@@ -219,6 +219,8 @@ public class HandEvaluation {
         fullHand2.add(player2.getFirstCard());
         fullHand2.add(player2.getSecondCard());
         int player2Score = new HandEvaluation(fullHand2).cardsCalculation();
+
+        System.out.println("Player Score: " + player1Score + " Bot Score: " + player2Score);
 
         if (player1Score > player2Score) {
             return player1;

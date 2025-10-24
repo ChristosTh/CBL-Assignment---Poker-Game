@@ -94,7 +94,7 @@ public class Bot extends Player {
         if (ev > 0) {
 
             if (Math.random() < adjustedAggression) {
-                raise((int) (0.1 * getWallet() * Math.random() + 0.2));
+                raise((int) (0.1 * getWallet() * Math.random() + 0.2) + Poker.player.getLastBet());
                 //call(callAmount);
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot raised!");
@@ -110,7 +110,8 @@ public class Bot extends Player {
 
             if (potOdds < 0.6) {
                 if (Math.random() < adjustedAggression) {
-                    raise((int) (0.1 * getWallet() * Math.random() + 0.2));
+                    raise((int) (0.1 * getWallet() * Math.random() + 0.2) 
+                        + Poker.player.getLastBet());
                     System.out.println("Bot raised!");
                     //call(callAmount);
                     GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
