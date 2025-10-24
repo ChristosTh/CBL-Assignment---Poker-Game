@@ -158,7 +158,23 @@ public class PokerMat {
         }
         newWallet = "<html><span style='font-size:10.3px'>" 
             + newWallet + "</span></html>";
-        label.setText(newWallet); 
+        label.setText(newWallet);   
+    }
+
+    /** Method to show what the bot did. */
+    void botAction(String action) {
+        String text = "The bot has " + action + "ed"; 
+        text = String.format("<html><div WIDTH=%d>%s</div></html>", 100, text);
+        
+        JLabel botActionUI = new JLabel(text); 
+
+        pokerMat.add(botActionUI);
+        pokerMat.setComponentZOrder(botActionUI, 0);
+        pokerMat.repaint(); 
+        botActionUI.setSize(100, 30); 
+        botActionUI.setLocation(500, 240); 
+        botActionUI.setBackground(Color.GRAY);
+        botActionUI.setOpaque(true);
     }
 
     /** PokerMat page constructor. */
