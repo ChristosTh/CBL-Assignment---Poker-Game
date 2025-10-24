@@ -9,7 +9,7 @@ public class Poker {
 
     static Round round; 
 
-    static Poker poker = new Poker(); 
+    static Poker poker = new Poker();
     static StartMenu menu; 
 
 
