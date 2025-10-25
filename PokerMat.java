@@ -49,6 +49,7 @@ public class PokerMat {
     JButton raiseButton; 
     JButton callButton; 
     JButton foldButton; 
+    JButton allInButton; 
     JButton checkButton; 
 
     /** updating pot total in UI. */
@@ -184,8 +185,8 @@ public class PokerMat {
         pokerMat.add(raiseErrorText); 
         pokerMat.setComponentZOrder(raiseErrorText, 0); 
         pokerMat.repaint(); 
-        raiseErrorText.setSize(100, 70); 
-        raiseErrorText.setLocation(500, 300); 
+        raiseErrorText.setSize(100, 30); 
+        raiseErrorText.setLocation(300, 300); 
         raiseErrorText.setOpaque(true); 
         raiseErrorText.setBackground(Color.RED); 
     }
@@ -390,21 +391,26 @@ public class PokerMat {
                 closeRaiseFrame.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        double raiseValue = Double.parseDouble(raiseAmount.getText());
-                        raiseErrorText.setVisible(false);
-                        // Report action to controller
+                        try {
+                            double raiseValue = Double.parseDouble(raiseAmount.getText());
+                            // Report action to controller
 
-                        double moneyLeftPlayerWallet = Poker.player.getWallet() - raiseValue;
-                        double moneyLeftBotWallet = Poker.bot.getWallet() - raiseValue;
+                            //double moneyLeftPlayerWallet = Poker.player.getWallet() - raiseValue;
+                            //double moneyLeftBotWallet = Poker.bot.getWallet() - raiseValue;
+                            
+                            if (raiseValue <= Poker.player.getWallet()) {
+                                Poker.round.playerActed("raise", raiseValue); 
+                                updateWalletDisplay(moneyDisplay); // Update UI
+                                closeFrame(raiseFrame);  
+                            } else {
+                                closeFrame(raiseFrame); 
+                                raiseError();
+                                System.out.println("You cannot raise that amount of money!");
+                            }
 
-                        if (moneyLeftPlayerWallet > Round.pot.getBigBlind()
-                                && moneyLeftBotWallet > Round.pot.getBigBlind()) {
-                            Poker.round.playerActed("raise", raiseValue);
-                            updateWalletDisplay(moneyDisplay); // Update UI
-                            closeFrame(raiseFrame);
-                        } else {
-                            closeFrame(raiseFrame);
-                            raiseError();
+                        } catch (NumberFormatException nfe) {
+                            raiseAmount.setText("Invalid number");
+                            raiseAmount.setForeground(Color.RED);
                         }
                     }
                 });
@@ -432,7 +438,6 @@ public class PokerMat {
             @Override 
             public void mouseClicked(MouseEvent e) {
                 // Report action to controller
-                raiseErrorText.setVisible(false); 
                 Poker.round.playerActed("call", 0); 
                 updateWalletDisplay(moneyDisplay);
             }
