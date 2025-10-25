@@ -125,6 +125,8 @@ public class Round {
                     roundOver = true;
                     //System.out.println("aaaaaaaaaaaaaaaaaaa");
                 }
+                int bd = bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+                roundOver = false;
                 break;
 
             case "call":
@@ -135,6 +137,8 @@ public class Round {
                 }
                 player.call(pot.getCurrentRaise()); // Updates wallet & lastBet
                 roundOver = true; // Calling always ends the betting round
+                int bc = bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+                roundOver = false;
                 break;
 
             case "raise":
