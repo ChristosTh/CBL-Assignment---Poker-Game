@@ -208,6 +208,11 @@ public class Round {
         
         } else {
             // Bot called (bot.lastBet == pot.currentRaise) or checked (both 0)
+            if (player.getWallet() == 0 && bot.getWallet() == 0) {
+                GameSetup.mat.botAction("check", 0); 
+            } else {
+                GameSetup.mat.botAction("call", 1); 
+            }
             System.out.println("Bot called or checked.");
             progressToNextStage();
         }
@@ -215,7 +220,7 @@ public class Round {
 
     /** Advances the game to the next stage (Flop, Turn, River, Showdown). */
     private void progressToNextStage() {
-        //PokerMat.botActionUI.setVisible(false); 
+        GameSetup.mat.deleteBotAction(); 
         if (currentState == GameState.RIVER) {
             doShowdown();
             return;

@@ -164,22 +164,67 @@ public class PokerMat {
     static JLabel botActionUI = new JLabel(); 
 
     /** Method to show what the bot did. */
-    void botAction(String action) {
-        String text = "The bot has " + action + "ed"; 
-        text = String.format("<html><div WIDTH=%d>%s</div></html>", 100, text);
+    void botAction(String action, double isCall) {
+        if (action.equals("fold")) {
+            String text = "The bot folded."; 
+            text = String.format("<html><div WIDTH=%d>%s</div></html>", 100, text);
         
-        botActionUI = new JLabel(text); 
+            botActionUI = new JLabel(text);
 
-        pokerMat.add(botActionUI);
-        pokerMat.setComponentZOrder(botActionUI, 0);
-        pokerMat.repaint(); 
-        botActionUI.setLocation(500, 240); 
-        botActionUI.setSize(100, 30); 
-        botActionUI.setLocation(500, 240); 
-        botActionUI.setBackground(Color.GRAY);
-        botActionUI.setOpaque(true);
+            pokerMat.add(botActionUI);
+
+            botActionUI.setLocation(470, 210);
+            botActionUI.setSize(100, 30);
+            botActionUI.setBackground(Color.GRAY);
+            botActionUI.setOpaque(true);
+
+        } else if(action.equals("raise")) {
+            String text = "The bot raised by  " + isCall + ", your turn."; 
+            text = String.format("<html><div WIDTH=%d>%s</div></html>", 150, text);
+        
+            botActionUI = new JLabel(text);
+
+            pokerMat.add(botActionUI);
+
+            botActionUI.setLocation(470, 210);
+            botActionUI.setSize(150, 30);
+            botActionUI.setBackground(Color.GRAY);
+            botActionUI.setOpaque(true);
+
+        } else if (action.equals("call") && isCall != 0) {
+            String text = "The bot called, your turn.";
+            text = String.format("<html><div WIDTH=%d>%s</div></html>", 150, text);
+
+            botActionUI = new JLabel(text);
+
+            pokerMat.add(botActionUI);
+
+            botActionUI.setLocation(470, 210);
+            botActionUI.setSize(150, 30);
+            botActionUI.setBackground(Color.GRAY);
+            botActionUI.setOpaque(true);
+
+        } else {
+            String text = "The bot checked, your turn."; 
+            text = String.format("<html><div WIDTH=%d>%s</div></html>", 150, text);
+        
+            botActionUI = new JLabel(text);
+
+            pokerMat.add(botActionUI);
+            botActionUI.setLocation(470, 210);
+            botActionUI.setSize(150, 30);
+            botActionUI.setBackground(Color.GRAY);
+            botActionUI.setOpaque(true);
+        }
+
     }
 
+    void deleteBotAction() {
+        pokerMat.remove(botActionUI); 
+        botActionUI = new JLabel();
+        botActionUI.setText("");
+        botActionUI.setOpaque(false);  
+    }
     JLabel raiseErrorText = new JLabel("You cannot raise that amount of money. Please bet less"); 
 
     /** Method to show raise error. */
@@ -195,7 +240,8 @@ public class PokerMat {
 
     /** PokerMat page constructor. */
     public PokerMat(double moneyAmount, double smallBlind, double bigBlind) {
-        
+        botActionUI.setLocation(500, 240);
+
         pokerMat = new JFrame("Poker"); 
 
         potTotalUI.setSize(50, 50); 
@@ -393,6 +439,7 @@ public class PokerMat {
                 closeRaiseFrame.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        deleteBotAction(); 
                         try {
                             double raiseValue = Double.parseDouble(raiseAmount.getText());
                             // Report action to controller
@@ -439,6 +486,7 @@ public class PokerMat {
         callButton.addMouseListener(new MouseAdapter() {
             @Override 
             public void mouseClicked(MouseEvent e) {
+                deleteBotAction(); 
                 // Report action to controller
                 Poker.round.playerActed("call", 0); 
                 updateWalletDisplay(moneyDisplay);
@@ -453,6 +501,7 @@ public class PokerMat {
         foldButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                deleteBotAction(); 
                 // Report action to controller
                 Poker.round.playerActed("fold", 0);
             }
@@ -466,6 +515,7 @@ public class PokerMat {
         checkButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                deleteBotAction(); 
                 // Report action to controller
                 Poker.round.playerActed("check", 0);
             }
