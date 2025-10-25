@@ -49,7 +49,6 @@ public class PokerMat {
     JButton raiseButton; 
     JButton callButton; 
     JButton foldButton; 
-    JButton allInButton; 
     JButton checkButton; 
 
     /** updating pot total in UI. */
@@ -185,8 +184,8 @@ public class PokerMat {
         pokerMat.add(raiseErrorText); 
         pokerMat.setComponentZOrder(raiseErrorText, 0); 
         pokerMat.repaint(); 
-        raiseErrorText.setSize(100, 30); 
-        raiseErrorText.setLocation(300, 300); 
+        raiseErrorText.setSize(100, 70); 
+        raiseErrorText.setLocation(500, 300); 
         raiseErrorText.setOpaque(true); 
         raiseErrorText.setBackground(Color.RED); 
     }
