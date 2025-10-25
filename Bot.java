@@ -99,8 +99,19 @@ public class Bot extends Player {
             if (Math.random() < adjustedAggression) {
                 int raiseAmount = (int) ((0.1 * getWallet() * Math.random() + 0.2) 
                     + Poker.player.getLastBet());
-                raise(raiseAmount); 
-                GameSetup.mat.botAction("raise", raiseAmount); 
+
+                /*while (raiseAmount == 0) {
+                    raiseAmount = (int) ((0.1 * getWallet() * Math.random() + 0.2) 
+                        + Poker.player.getLastBet());   
+                }*/
+
+                if (raiseAmount == 0) {
+                    call(callAmount);
+                    GameSetup.mat.botAction("call", callAmount);
+                } else {
+                    raise(raiseAmount); 
+                    GameSetup.mat.botAction("raise", raiseAmount); 
+                }
                 //call(callAmount);
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot raised!");
@@ -120,6 +131,12 @@ public class Bot extends Player {
                 if (Math.random() < adjustedAggression) {
                     int raiseAmount = (int) ((0.1 * getWallet() * Math.random() + 0.2) 
                         + Poker.player.getLastBet());
+
+                    while (raiseAmount == 0) {
+                        raiseAmount = (int) ((0.1 * getWallet() * Math.random() + 0.2) 
+                            + Poker.player.getLastBet());   
+                    }
+                    
                     raise(raiseAmount);
                     GameSetup.mat.botAction("raise", raiseAmount); 
                     System.out.println("Bot raised!");
