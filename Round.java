@@ -215,7 +215,7 @@ public class Round {
 
     /** Advances the game to the next stage (Flop, Turn, River, Showdown). */
     private void progressToNextStage() {
-        PokerMat.botActionUI.setVisible(false); 
+        //PokerMat.botActionUI.setVisible(false); 
         if (currentState == GameState.RIVER) {
             doShowdown();
             return;
