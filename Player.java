@@ -75,13 +75,6 @@ public class Player {
         System.out.println(wallet.getWallet()); 
     }
 
-    /** Method for player to go all in. */
-    public void allIn() {
-        if (wallet.getWallet() > 0) {
-            wallet.actionAllIn(); 
-        }
-    }
-
     public void paySmallBlind() {
         wallet.actionSmallBlind(); 
     }

@@ -418,20 +418,6 @@ public class PokerMat {
             }
         });
         //#endregion
-         
-        //#region AllIn functionality
-        allInButton = new JButton("All in"); 
-        allInButton.setSize(100, 30); 
-        allInButton.setLocation(685, 510); 
-        allInButton.addActionListener(new ActionListener() {
-            @Override 
-            public void actionPerformed(ActionEvent e) {
-                Poker.player.allIn();
-                //Poker.round.playerActed("raise", Poker.player.getWallet());
-                updateWalletDisplay(moneyDisplay);
-            }
-        }); 
-        //#endregion
 
         //#region Fold functionality
         foldButton = new JButton("Fold"); 
@@ -449,7 +435,7 @@ public class PokerMat {
         //#region Check functionality
         checkButton = new JButton("Check"); 
         checkButton.setSize(100, 30); 
-        checkButton.setLocation(300, 590);  
+        checkButton.setLocation(685, 510);  
         checkButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -467,7 +453,6 @@ public class PokerMat {
         pokerMat.add(raiseButton);
         pokerMat.add(callButton); 
         pokerMat.add(foldButton); 
-        pokerMat.add(allInButton); 
         pokerMat.add(checkButton); 
         pokerMat.add(chipContainer); 
         pokerMat.add(moneyDisplay); 

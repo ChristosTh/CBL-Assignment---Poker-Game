@@ -45,19 +45,6 @@ public class Pot {
         PokerMat.updatePotTotalUI();
         return potTotal; 
     }
-
-   
-    /** All in method for pot.  */
-    double potAllIn(double x) {
-        if (x > currentRaise) {
-            currentRaise = x; 
-        } 
-        potTotal += x; 
-        PokerMat.updatePotTotalUI(); 
-        return potTotal; 
-    }
-
-    
     
     /** Method to add small blind to the pot. */
     void addSmallBlind() {

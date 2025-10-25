@@ -49,17 +49,6 @@ public class Wallet {
         return false; 
     }
 
-    /** Method to go all in. */
-    boolean actionAllIn() {
-        if (wallet > 0) {
-            lastBet += wallet; 
-            Round.pot.potAllIn(wallet); 
-            wallet = 0; 
-            return true; 
-        }
-        return false; 
-    }
-
     /** Method for the small blind, if the player can't afford the small blind, 
      *  they are forced to go all-in.  */
     void actionSmallBlind() {
@@ -67,8 +56,6 @@ public class Wallet {
             wallet -= Round.pot.getSmallBlind(); 
             lastBet = Round.pot.getSmallBlind(); 
             Round.pot.addSmallBlind(); 
-        } else {
-            actionAllIn();
         }
     }
 
@@ -81,9 +68,7 @@ public class Wallet {
             wallet -= Round.pot.getBigBlind(); 
             lastBet = Round.pot.getBigBlind(); 
             Round.pot.addBigBlind();  
-        } else {
-            actionAllIn(); 
-        }
+        } 
     }
 
 }
