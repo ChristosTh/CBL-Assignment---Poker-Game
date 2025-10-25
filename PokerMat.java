@@ -49,7 +49,6 @@ public class PokerMat {
     JButton raiseButton; 
     JButton callButton; 
     JButton foldButton; 
-    JButton allInButton; 
     JButton checkButton; 
 
     /** updating pot total in UI. */
