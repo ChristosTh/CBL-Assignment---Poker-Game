@@ -3,6 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 /** Class for the user interface. */
 public class StartMenu {
     GameSetup setup;
@@ -27,6 +31,17 @@ public class StartMenu {
         rules = new JButton("Texas Holdem Rules"); 
         rules.setSize(200, 75); 
         rules.setLocation(185, 325); 
+        rules.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                File textFile = new File("Rules.txt"); 
+                try {
+                    Desktop.getDesktop().open(textFile); 
+                } catch (IOException ex) {
+
+                }   
+            }
+        }); 
 
         startMenu.add(goToSetup); 
         startMenu.add(rules); 
