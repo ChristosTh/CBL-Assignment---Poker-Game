@@ -23,11 +23,15 @@ public class Bot extends Player {
     public void bluff(double potOdds, double callAmount) {
         if (potOdds < 0.1) {
             int raiseAmount = (int) (getWallet() * 0.1); 
+            boolean reraising = false; 
+            if (Poker.player.getLastBet() == Round.pot.getCurrentRaise()) {
+                reraising = true; 
+            } 
             raise(raiseAmount);
-            GameSetup.mat.botAction("raise", raiseAmount); 
+            GameSetup.mat.botAction("raise", raiseAmount, reraising); 
         } else {
             call(callAmount);
-            GameSetup.mat.botAction("call", callAmount); 
+            GameSetup.mat.botAction("call", callAmount, false); 
         }
     }
 
@@ -99,8 +103,12 @@ public class Bot extends Player {
             if (Math.random() < adjustedAggression) {
                 int raiseAmount = (int) ((0.1 * getWallet() * Math.random() + 0.2) 
                     + Poker.player.getLastBet());
+                boolean reraising = false; 
+                if (Poker.player.getLastBet() == Round.pot.getCurrentRaise()) {
+                    reraising = true; 
+                } 
                 raise(raiseAmount); 
-                GameSetup.mat.botAction("raise", raiseAmount); 
+                GameSetup.mat.botAction("raise", raiseAmount, reraising); 
                 //call(callAmount);
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot raised!");
@@ -108,7 +116,7 @@ public class Bot extends Player {
                 return 0;
             } else {
                 call(callAmount);
-                GameSetup.mat.botAction("call", callAmount); 
+                GameSetup.mat.botAction("call", callAmount, false); 
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot called / checked!");
                 return 0;
@@ -120,8 +128,12 @@ public class Bot extends Player {
                 if (Math.random() < adjustedAggression) {
                     int raiseAmount = (int) ((0.1 * getWallet() * Math.random() + 0.2) 
                         + Poker.player.getLastBet());
+                    boolean reraising = false; 
+                    if (Poker.player.getLastBet() == Round.pot.getCurrentRaise()) {
+                        reraising = true; 
+                    } 
                     raise(raiseAmount);
-                    GameSetup.mat.botAction("raise", raiseAmount); 
+                    GameSetup.mat.botAction("raise", raiseAmount, reraising); 
                     System.out.println("Bot raised!");
                     //call(callAmount);
                     GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
@@ -129,14 +141,14 @@ public class Bot extends Player {
                     return 0;
                 } else {
                     call(callAmount);
-                    GameSetup.mat.botAction("call", callAmount); 
+                    GameSetup.mat.botAction("call", callAmount, false); 
                     GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                     System.out.println("Bot called / checked!");
                     return 0;
                 }
             } else {
                 call(callAmount);
-                GameSetup.mat.botAction("call", callAmount); 
+                GameSetup.mat.botAction("call", callAmount, false); 
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot called / checked!");
                 return 0;
@@ -145,7 +157,7 @@ public class Bot extends Player {
         } else if (handStrength >= 0.45) {
             if (potOdds < 0.5) {
                 call(callAmount);
-                GameSetup.mat.botAction("call", callAmount); 
+                GameSetup.mat.botAction("call", callAmount, false); 
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot called / checked!");
                 return 0;
@@ -156,20 +168,20 @@ public class Bot extends Player {
                 return 0;
             } else {
                 fold();
-                GameSetup.mat.botAction("fold", -1); 
+                GameSetup.mat.botAction("fold", -1, false); 
                 System.out.println("Bot folds!");
                 return 1;
             }
         } else {
             if (potOdds < 0.4) {
                 call(callAmount);
-                GameSetup.mat.botAction("call", callAmount); 
+                GameSetup.mat.botAction("call", callAmount, false); 
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot callss!");
                 return 0;
             } else {
                 fold();
-                GameSetup.mat.botAction("fold", -1); 
+                GameSetup.mat.botAction("fold", -1, false); 
                 System.out.println("Bot folds!");
                 return 1;
             }

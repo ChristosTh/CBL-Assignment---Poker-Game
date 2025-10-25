@@ -164,7 +164,7 @@ public class PokerMat {
     static JLabel botActionUI = new JLabel(); 
 
     /** Method to show what the bot did. */
-    void botAction(String action, double isCall) {
+    void botAction(String action, double isCall, boolean reRaise) {
         if (action.equals("fold")) {
             String text = "The bot folded."; 
             text = String.format("<html><div WIDTH=%d>%s</div></html>", 100, text);
@@ -178,8 +178,8 @@ public class PokerMat {
             botActionUI.setBackground(Color.GRAY);
             botActionUI.setOpaque(true);
 
-        } else if(action.equals("raise")) {
-            String text = "The bot raised by  " + isCall + ", your turn."; 
+        } else if(action.equals("raise") && reRaise) {
+            String text = "The bot called your bet and then raised by  " + (isCall - Poker.player.getLastBet()) + ". Your turn."; 
             text = String.format("<html><div WIDTH=%d>%s</div></html>", 150, text);
         
             botActionUI = new JLabel(text);
@@ -187,6 +187,20 @@ public class PokerMat {
             pokerMat.add(botActionUI);
 
             botActionUI.setLocation(470, 210);
+            botActionUI.setSize(200, 50);
+            botActionUI.setBackground(Color.GRAY);
+            botActionUI.setOpaque(true);
+
+        } else if (action.equals("raise")) {
+
+            String text = "The bot raised by  " + (isCall - Poker.player.getLastBet()) + ", your turn."; 
+            text = String.format("<html><div WIDTH=%d>%s</div></html>", 200, text);
+        
+            botActionUI = new JLabel(text);
+
+            pokerMat.add(botActionUI);
+
+            botActionUI.setLocation(450, 200);
             botActionUI.setSize(150, 30);
             botActionUI.setBackground(Color.GRAY);
             botActionUI.setOpaque(true);

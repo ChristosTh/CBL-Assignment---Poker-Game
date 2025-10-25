@@ -209,9 +209,9 @@ public class Round {
         } else {
             // Bot called (bot.lastBet == pot.currentRaise) or checked (both 0)
             if (player.getWallet() == 0 && bot.getWallet() == 0) {
-                GameSetup.mat.botAction("check", 0); 
+                GameSetup.mat.botAction("check", 0, false); 
             } else {
-                GameSetup.mat.botAction("call", 1); 
+                GameSetup.mat.botAction("call", 1, false); 
             }
             System.out.println("Bot called or checked.");
             progressToNextStage();
