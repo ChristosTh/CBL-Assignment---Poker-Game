@@ -139,6 +139,11 @@ public class Round {
                 roundOver = false; // Calling always ends the betting round
                 //int bc = bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
                 //roundOver = false;
+
+                if (bot.getLastBet() == player.getLastBet()) {
+                    roundOver = true;
+                }
+
                 break;
 
             case "raise":
@@ -157,7 +162,11 @@ public class Round {
         }
 
         if (roundOver) {
+            //whoPlays = "player";
             progressToNextStage();
+
+            System.out.println("Playing: " + whoPlays);
+
         } else {
             whoPlays = "bot";
             runBotTurn();
