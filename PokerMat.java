@@ -160,12 +160,15 @@ public class PokerMat {
         label.setText(newWallet);   
     }
 
+
+    static JLabel botActionUI = new JLabel(); 
+
     /** Method to show what the bot did. */
     void botAction(String action) {
         String text = "The bot has " + action + "ed"; 
         text = String.format("<html><div WIDTH=%d>%s</div></html>", 100, text);
         
-        JLabel botActionUI = new JLabel(text); 
+        botActionUI = new JLabel(text); 
 
         pokerMat.add(botActionUI);
         pokerMat.setComponentZOrder(botActionUI, 0);
