@@ -141,6 +141,7 @@ public class Round {
                 //roundOver = false;
 
                 if (bot.getLastBet() == player.getLastBet()) {
+                    System.out.println("Bot raised bef!!!!!!!!");
                     roundOver = true;
                 }
 
@@ -208,10 +209,10 @@ public class Round {
         
         } else {
             // Bot called (bot.lastBet == pot.currentRaise) or checked (both 0)
-            if (player.getWallet() == 0 && bot.getWallet() == 0) {
-                GameSetup.mat.botAction("check", 0, false); 
+            if (player.getLastBet() == 0 && bot.getLastBet() == 0) {
+                //GameSetup.mat.botAction("check", 0, false); 
             } else {
-                GameSetup.mat.botAction("call", 1, false); 
+                //GameSetup.mat.botAction("call", 1, false); 
             }
             System.out.println("Bot called or checked.");
             progressToNextStage();
@@ -220,7 +221,7 @@ public class Round {
 
     /** Advances the game to the next stage (Flop, Turn, River, Showdown). */
     private void progressToNextStage() {
-        GameSetup.mat.deleteBotAction(); 
+        //GameSetup.mat.deleteBotAction(); 
         if (currentState == GameState.RIVER) {
             doShowdown();
             return;

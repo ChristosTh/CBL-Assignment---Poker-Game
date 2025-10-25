@@ -207,6 +207,7 @@ public class PokerMat {
             botActionUI.setOpaque(true);
 
         } else if (action.equals("call") && isCall != 0) {
+            System.out.println("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
             String text = "The bot called, your turn.";
             text = String.format("<html><div WIDTH=%d>%s</div></html>", 150, text);
 
@@ -220,6 +221,7 @@ public class PokerMat {
             botActionUI.setOpaque(true);
 
         } else {
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             String text = "The bot checked, your turn."; 
             text = String.format("<html><div WIDTH=%d>%s</div></html>", 150, text);
         
@@ -235,6 +237,7 @@ public class PokerMat {
     }
 
     void deleteBotAction() {
+        System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         pokerMat.remove(botActionUI); 
         botActionUI = new JLabel();
         botActionUI.setText("");
