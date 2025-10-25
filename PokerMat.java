@@ -116,7 +116,7 @@ public class PokerMat {
         pokerMat.setComponentZOrder(playerWonUI, 0);
         pokerMat.repaint(); 
         playerWonUI.setSize(200, 95); 
-        playerWonUI.setLocation(500, 300); 
+        playerWonUI.setLocation(485, 295); 
         playerWonUI.setBackground(Color.GRAY);
         playerWonUI.setOpaque(true); 
     }
@@ -133,7 +133,7 @@ public class PokerMat {
         pokerMat.setComponentZOrder(playerWonUI, 0);
         pokerMat.repaint(); 
         playerWonUI.setSize(200, 95); 
-        playerWonUI.setLocation(500, 300); 
+        playerWonUI.setLocation(485, 295); 
         playerWonUI.setBackground(Color.GRAY);
         playerWonUI.setOpaque(true);
     }
@@ -256,21 +256,31 @@ public class PokerMat {
         raiseErrorText.setBackground(Color.RED); 
     }
 
+    String lossText = String.format("<html><div WIDTH=%d>%s</div></html>", 263, "You lost... Press below to start a new game.");
+    JLabel botFinalWinner = new JLabel(lossText); 
+    String winText = String.format("<html><div WIDTH=%d>%s</div></html>", 263, "You won! Press below to start a new game."); 
+    JLabel playerFinalWinner = new JLabel(winText); 
+
     JButton newGame = new JButton("Start new game"); 
     void gameOver() {
         newGame.setVisible(true); 
         pokerMat.setComponentZOrder(newGame, 0); 
+        if (Poker.player.getWallet() < Poker.bot.getWallet()) {
+            botFinalWinner.setVisible(true); 
+        } else {
+            playerFinalWinner.setVisible(true); 
+        }
     }
 
     /** PokerMat page constructor. */
     public PokerMat(double moneyAmount, double smallBlind, double bigBlind) {
 
-
-
         botActionUI.setLocation(500, 240);
 
         pokerMat = new JFrame("Poker"); 
-        newGame.setSize(255, 100);
+
+
+        newGame.setSize(265, 100);
         newGame.setLocation(420, 290);
         newGame.addActionListener(new ActionListener() {
             @Override
@@ -279,8 +289,19 @@ public class PokerMat {
                 pokerMat.dispose(); 
             }
         });
-        pokerMat.add(newGame);
         newGame.setVisible(false); 
+
+        botFinalWinner.setSize(263, 60); 
+        botFinalWinner.setLocation(415, 200); 
+        botFinalWinner.setOpaque(true); 
+        botFinalWinner.setBackground(Color.RED); 
+        botFinalWinner.setVisible(false); 
+
+        playerFinalWinner.setSize(263, 60); 
+        playerFinalWinner.setLocation(415, 200); 
+        playerFinalWinner.setOpaque(true); 
+        playerFinalWinner.setBackground(Color.GREEN); 
+        playerFinalWinner.setVisible(false); 
 
         potTotalUI.setSize(50, 50); 
         potTotalUI.setLocation(207, 200);
@@ -475,7 +496,7 @@ public class PokerMat {
 
                 closeRaiseFrame.setSize(100, 20); 
                 closeRaiseFrame.setLocation(170, 225); 
-
+                
                 closeRaiseFrame.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -563,6 +584,9 @@ public class PokerMat {
         //#endregion
 
         // Add all components to frame
+        pokerMat.add(botFinalWinner); 
+        pokerMat.add(playerFinalWinner); 
+        pokerMat.add(newGame);
         pokerMat.add(card1Container); 
         pokerMat.add(card2Container); 
         pokerMat.add(botCard1Container);
