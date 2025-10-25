@@ -143,14 +143,12 @@ public class Round {
                     return; // Invalid raise
                 }*/
 
-                double moneyLeftPlayerWallet = player.getWallet() - amount;
-                double moneyLeftBotWallet = bot.getWallet() - amount;
+                player.raise(amount);          // Updates wallet & lastBet
+                roundOver = false;             // Now bot must act
+                break;
 
                 //double amountToAdd = amount - player.getLastBet();
-                player.raise(amount);          // Updates wallet & lastBet
                 //pot.potRaise(amount);          // Updates pot total & currentRaise
-                roundOver = false; // Now bot must act
-                break;
         }
 
         if (roundOver) {

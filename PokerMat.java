@@ -379,9 +379,21 @@ public class PokerMat {
                         try {
                             double raiseValue = Double.parseDouble(raiseAmount.getText());
                             // Report action to controller
-                            Poker.round.playerActed("raise", raiseValue); 
-                            updateWalletDisplay(moneyDisplay); // Update UI
-                            closeFrame(raiseFrame); 
+
+                            double moneyLeftPlayerWallet = Poker.player.getWallet() - raiseValue;
+                            double moneyLeftBotWallet = Poker.bot.getWallet() - raiseValue;
+                            
+                            if (moneyLeftPlayerWallet > Round.pot.getBigBlind() 
+                                && moneyLeftBotWallet > Round.pot.getBigBlind()) {
+                                Poker.round.playerActed("raise", raiseValue); 
+                                updateWalletDisplay(moneyDisplay); // Update UI
+                                closeFrame(raiseFrame);  
+                            } else {
+                                closeFrame(raiseFrame); 
+                                // UI raise should be ...
+                                System.out.println("You cannot raise that amount of money!");
+                            }
+
                         } catch (NumberFormatException nfe) {
                             raiseAmount.setText("Invalid number");
                             raiseAmount.setForeground(Color.RED);
