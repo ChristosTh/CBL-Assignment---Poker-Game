@@ -170,10 +170,24 @@ public class PokerMat {
         pokerMat.add(botActionUI);
         pokerMat.setComponentZOrder(botActionUI, 0);
         pokerMat.repaint(); 
+        botActionUI.setLocation(500, 240); 
         botActionUI.setSize(100, 30); 
         botActionUI.setLocation(500, 240); 
         botActionUI.setBackground(Color.GRAY);
         botActionUI.setOpaque(true);
+    }
+
+    JLabel raiseErrorText = new JLabel("You cannot raise that amount of money. Please bet less"); 
+
+    /** Method to show raise error. */
+    void raiseError() {
+        pokerMat.add(raiseErrorText); 
+        pokerMat.setComponentZOrder(raiseErrorText, 0); 
+        pokerMat.repaint(); 
+        raiseErrorText.setSize(100, 30); 
+        raiseErrorText.setLocation(300, 300); 
+        raiseErrorText.setOpaque(true); 
+        raiseErrorText.setBackground(Color.RED); 
     }
 
     /** PokerMat page constructor. */
@@ -390,7 +404,7 @@ public class PokerMat {
                                 closeFrame(raiseFrame);  
                             } else {
                                 closeFrame(raiseFrame); 
-                                // UI raise should be ...
+                                raiseError();
                                 System.out.println("You cannot raise that amount of money!");
                             }
 
