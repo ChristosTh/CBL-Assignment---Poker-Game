@@ -123,6 +123,7 @@ public class Round {
                 // If player (BB) checks, preflop ends. If both check post-flop, round ends.
                 if (player.getLastBet() == bot.getLastBet()) {
                     roundOver = true;
+                    //System.out.println("aaaaaaaaaaaaaaaaaaa");
                 }
                 break;
 

@@ -49,6 +49,7 @@ public class PokerMat {
     JButton raiseButton; 
     JButton callButton; 
     JButton foldButton; 
+    JButton allInButton; 
     JButton checkButton; 
 
     /** updating pot total in UI. */
@@ -394,11 +395,10 @@ public class PokerMat {
                             double raiseValue = Double.parseDouble(raiseAmount.getText());
                             // Report action to controller
 
-                            double moneyLeftPlayerWallet = Poker.player.getWallet() - raiseValue;
-                            double moneyLeftBotWallet = Poker.bot.getWallet() - raiseValue;
+                            //double moneyLeftPlayerWallet = Poker.player.getWallet() - raiseValue;
+                            //double moneyLeftBotWallet = Poker.bot.getWallet() - raiseValue;
                             
-                            if (moneyLeftPlayerWallet > Round.pot.getBigBlind() 
-                                && moneyLeftBotWallet > Round.pot.getBigBlind()) {
+                            if (raiseValue <= Poker.player.getWallet()) {
                                 Poker.round.playerActed("raise", raiseValue); 
                                 updateWalletDisplay(moneyDisplay); // Update UI
                                 closeFrame(raiseFrame);  
