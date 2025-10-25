@@ -104,6 +104,7 @@ public class Bot extends Player {
                 //call(callAmount);
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot raised!");
+                System.out.println("BOT RAISEEDDDDDD!");
                 return 0;
             } else {
                 call(callAmount);
@@ -124,6 +125,7 @@ public class Bot extends Player {
                     System.out.println("Bot raised!");
                     //call(callAmount);
                     GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
+                    System.out.println("BOT RAISEEDDDDDD!");
                     return 0;
                 } else {
                     call(callAmount);
@@ -149,6 +151,7 @@ public class Bot extends Player {
                 return 0;
             } else if (Math.random() < 0.25 * adjustedAggression) {
                 bluff(potOdds, callAmount);
+                System.out.println("BOT RAISEEDDDDDD!");
                 System.out.println("Bot bluffs!");
                 return 0;
             } else {
