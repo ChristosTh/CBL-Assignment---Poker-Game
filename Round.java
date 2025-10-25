@@ -138,11 +138,15 @@ public class Round {
 
             case "raise":
                 // Amount is the new total bet. Must be at least 2x current raise.
-                if (amount < pot.getCurrentRaise() * 2) {
+                /*if (amount < pot.getCurrentRaise() * 2) {
                     System.out.println("Raise must be at least 2x the current bet.");
                     return; // Invalid raise
-                }
-                double amountToAdd = amount - player.getLastBet();
+                }*/
+
+                double moneyLeftPlayerWallet = player.getWallet() - amount;
+                double moneyLeftBotWallet = bot.getWallet() - amount;
+
+                //double amountToAdd = amount - player.getLastBet();
                 player.raise(amount);          // Updates wallet & lastBet
                 //pot.potRaise(amount);          // Updates pot total & currentRaise
                 roundOver = false; // Now bot must act
