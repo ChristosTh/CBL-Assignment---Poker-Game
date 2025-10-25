@@ -327,22 +327,26 @@ public class Round {
         if (winner == player) {
             System.out.println("Player wins the pot of " + totalPot);
             player.setWallet(player.getWallet() + totalPot);
-            GameSetup.mat.playerWon(); 
+            GameSetup.mat.playerWon();
         } else if (winner == bot) {
             System.out.println("Bot wins the pot of " + totalPot);
             bot.setWallet(bot.getWallet() + totalPot);
-            GameSetup.mat.botWon(); 
+            GameSetup.mat.botWon();
         } else {
             // Handle tie (split pot)
             System.out.println("It's a tie! Splitting the pot of " + totalPot);
             player.setWallet(player.getWallet() + totalPot / 2);
             bot.setWallet(bot.getWallet() + totalPot / 2);
         }
-        //pot = new Pot();
+        // pot = new Pot();
         // Update UI
         GameSetup.mat.updateWalletDisplay(GameSetup.mat.moneyDisplay);
         GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay); // Need to make this possible
         GameSetup.mat.newRoundButton.setEnabled(true);
+
+        if (player.getWallet() < pot.getBigBlind() || bot.getWallet() < pot.getBigBlind()) {
+            GameSetup.mat.gameOver(); 
+        }
     }
 
 

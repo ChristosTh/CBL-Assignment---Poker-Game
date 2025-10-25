@@ -30,7 +30,6 @@ public class PokerMat {
     // UI Components
     static JLabel potTotalUI = new JLabel(Double.toString(Round.pot.getPotTotal())); 
 
-    JButton newRoundButton = new JButton("New Round"); 
 
     // Fields for card JLabels and images
     JLabel card1Container; 
@@ -160,8 +159,9 @@ public class PokerMat {
         label.setText(newWallet);   
     }
 
-
     static JLabel botActionUI = new JLabel(); 
+
+    JButton newRoundButton = new JButton("New Round"); 
 
     /** Method to show what the bot did. */
     void botAction(String action, double isCall, boolean reRaise) {
@@ -256,11 +256,31 @@ public class PokerMat {
         raiseErrorText.setBackground(Color.RED); 
     }
 
+    JButton newGame = new JButton("Start new game"); 
+    void gameOver() {
+        newGame.setVisible(true); 
+        pokerMat.setComponentZOrder(newGame, 0); 
+    }
+
     /** PokerMat page constructor. */
     public PokerMat(double moneyAmount, double smallBlind, double bigBlind) {
+
+
+
         botActionUI.setLocation(500, 240);
 
         pokerMat = new JFrame("Poker"); 
+        newGame.setSize(255, 100);
+        newGame.setLocation(420, 290);
+        newGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Poker.menu = new StartMenu();
+                pokerMat.dispose(); 
+            }
+        });
+        pokerMat.add(newGame);
+        newGame.setVisible(false); 
 
         potTotalUI.setSize(50, 50); 
         potTotalUI.setLocation(207, 200);
@@ -274,13 +294,15 @@ public class PokerMat {
         newRoundButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameSetup.mat.pokerMat.setVisible(false); 
-                GameSetup.mat.pokerMat.dispose(); // Release resources
-                GameSetup.mat.pokerMat = null; 
-                ccContainer.clear(); 
-                // Start a new round, swapping who was first
-                Poker.round = new Round(Poker.player, Poker.bot, Poker.player.getWallet(), 
-                    Round.pot.getSmallBlind(), Round.pot.getBigBlind(), Round.getPlayerFirst()); 
+                if (Poker.player.getWallet() >= Round.pot.getBigBlind() && Poker.bot.getWallet() >= Round.pot.getBigBlind()) {
+                    GameSetup.mat.pokerMat.setVisible(false);
+                    GameSetup.mat.pokerMat.dispose(); // Release resources
+                    GameSetup.mat.pokerMat = null;
+                    ccContainer.clear();
+                    // Start a new round, swapping who was first
+                    Poker.round = new Round(Poker.player, Poker.bot, Poker.player.getWallet(),
+                        Round.pot.getSmallBlind(), Round.pot.getBigBlind(), Round.getPlayerFirst());
+                } 
             }
         });
         //#endregion
