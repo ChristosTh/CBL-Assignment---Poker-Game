@@ -122,11 +122,11 @@ public class Round {
                 player.check();
                 // If player (BB) checks, preflop ends. If both check post-flop, round ends.
                 if (player.getLastBet() == bot.getLastBet()) {
-                    roundOver = true;
+                    roundOver = false;
                     //System.out.println("aaaaaaaaaaaaaaaaaaa");
                 }
-                int bd = bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
-                roundOver = false;
+                //int bd = bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+                //roundOver = false;
                 break;
 
             case "call":
@@ -136,9 +136,9 @@ public class Round {
                      return; // Invalid action
                 }
                 player.call(pot.getCurrentRaise()); // Updates wallet & lastBet
-                roundOver = true; // Calling always ends the betting round
-                int bc = bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
-                roundOver = false;
+                roundOver = false; // Calling always ends the betting round
+                //int bc = bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
+                //roundOver = false;
                 break;
 
             case "raise":
@@ -192,7 +192,7 @@ public class Round {
         }
 
         // Check if bot raised
-        if (bot.getLastBet() > pot.getCurrentRaise()) {
+        if (bot.getLastBet() > player.getLastBet()) {
             // Bot raised! Pot.currentRaise was updated by bot.raise()
             whoPlays = "player";
             System.out.println("Bot raised to " + bot.getLastBet() + ". Your turn.");
