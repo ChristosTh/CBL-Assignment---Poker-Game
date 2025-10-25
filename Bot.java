@@ -24,7 +24,7 @@ public class Bot extends Player {
         if (potOdds < 0.1) {
             int raiseAmount = (int) (getWallet() * 0.1); 
             boolean reraising = false; 
-            if (Poker.player.getLastBet() == Round.pot.getCurrentRaise()) {
+            if (Poker.player.getLastBet() == Round.pot.getCurrentRaise() && Poker.player.getLastBet() != 0 && Round.pot.getCurrentRaise() != 0) {
                 reraising = true; 
             } 
             raise(raiseAmount);
@@ -103,12 +103,22 @@ public class Bot extends Player {
             if (Math.random() < adjustedAggression) {
                 int raiseAmount = (int) ((0.1 * getWallet() * Math.random() + 0.2) 
                     + Poker.player.getLastBet());
+
+                /*while (raiseAmount == 0) {
+                    raiseAmount = (int) ((0.1 * getWallet() * Math.random() + 0.2) 
+                        + Poker.player.getLastBet());   
+                }*/
                 boolean reraising = false; 
-                if (Poker.player.getLastBet() == Round.pot.getCurrentRaise()) {
+                if (Poker.player.getLastBet() == Round.pot.getCurrentRaise() && Poker.player.getLastBet() != 0 && Round.pot.getCurrentRaise() != 0) {
                     reraising = true; 
                 } 
-                raise(raiseAmount); 
-                GameSetup.mat.botAction("raise", raiseAmount, reraising); 
+                if (raiseAmount == 0) {
+                    call(callAmount);
+                    GameSetup.mat.botAction("call", callAmount, false);
+                } else {
+                    raise(raiseAmount); 
+                    GameSetup.mat.botAction("raise", raiseAmount, reraising); 
+                }
                 //call(callAmount);
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 System.out.println("Bot raised!");
@@ -129,11 +139,16 @@ public class Bot extends Player {
                     int raiseAmount = (int) ((0.1 * getWallet() * Math.random() + 0.2) 
                         + Poker.player.getLastBet());
                     boolean reraising = false; 
-                    if (Poker.player.getLastBet() == Round.pot.getCurrentRaise()) {
+                    if (Poker.player.getLastBet() == Round.pot.getCurrentRaise() && Poker.player.getLastBet() != 0 && Round.pot.getCurrentRaise() != 0) {
                         reraising = true; 
                     } 
-                    raise(raiseAmount);
-                    GameSetup.mat.botAction("raise", raiseAmount, reraising); 
+                    if (raiseAmount == 0) {
+                        call(callAmount);
+                        GameSetup.mat.botAction("call", callAmount, false);
+                    } else {
+                        raise(raiseAmount); 
+                        GameSetup.mat.botAction("raise", raiseAmount, reraising); 
+                    }
                     System.out.println("Bot raised!");
                     //call(callAmount);
                     GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
