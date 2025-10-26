@@ -141,7 +141,8 @@ public class Bot extends Player {
                     int raiseAmount = (int) ((0.1 * getWallet() * Math.random() + 0.2) 
                         + Poker.player.getLastBet());
                     boolean reraising = false; 
-                    if (Poker.player.getLastBet() == Round.pot.getCurrentRaise() && Poker.player.getLastBet() != 0 && Round.pot.getCurrentRaise() != 0) {
+                    if (Poker.player.getLastBet() == Round.pot.getCurrentRaise() 
+                        && Poker.player.getLastBet() != 0 && Round.pot.getCurrentRaise() != 0) {
                         reraising = true; 
                     } 
                     if (raiseAmount == 0) {
@@ -203,40 +204,9 @@ public class Bot extends Player {
                 return 1;
             }
         }
-
-        
-        // --- Step 5: Weak hand logic — fold or bluff occasionally
-        //double bluffChance = 0.05; // baseline bluff chance
-        /*if (position == Position.LATE) {
-            bluffChance += 0.10; // more likely to bluff late
-        }*/
-        //bluffChance += aggressionLevel * 0.05; // more aggressive bot bluffs more
-
-        /*if (Math.random() < bluffChance) {
-            bluff(potOdds, callAmount);
-            System.out.println("Bot bluffs!");
-        } else {
-            fold();
-            System.out.println("Bot folds!");
-        }*/
-        
-
     }
 
     public double expectedValue(double winProbability, double potSize, double callAmount) {
         return (winProbability * (potSize + callAmount)) - ((1 - winProbability) * callAmount);
     }
-
-    /*
-     * One Pair: 2
-     * Two Pairs: 3
-     * Three of a kind: 4
-     * Straight: 5
-     * Flush: 6
-     * Full house: 7
-     * Four of a kind: 8
-     * Straight Flush: 9
-     * Royal Flush: 10
-     */
-
 }
