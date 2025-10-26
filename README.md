@@ -74,6 +74,7 @@ This project is a **Poker Game** built in Java as part of our CBL Project in the
 2. Get in the directory and open the folder in a programming environment or a text editor with Java SDK (e.g. VS Code)
 3. Run the Poker.java program
 4. Please read the rules before setting up the game!
+5. After reading the rules and set up the game, then you have to always call to play because you have to match the big blind.
 
 ---
 
