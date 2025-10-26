@@ -1,18 +1,16 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /** * Class to determine the power of a player's hand.
  * This version contains corrected logic for hand evaluation and tie-breaking.
  */
 public class HandEvaluation {
 
-    ArrayList<Card> cardsToCheck; // The 5, 6, or 7 cards being evaluated
-    private int[] rankCounts; // 13-element array (2-A)
-    private int[] suitCounts; // 4-element array (suits)
+    ArrayList<Card> cardsToCheck; // cards being evaluated
+    private int[] rankCounts; // array of the ranks (Ace, king, queen... etc.)
+    private int[] suitCounts; // array for suits
 
     /** * Stores the ranks of the cards in order from 2 to Ace.
-     * 'A' is index 12 (high). '2' is index 0.
-     */
+     * 'A' is index 12 (high). '2' is index 0. */
     private static final char[] RANK_ORDER = 
         {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
     private static final String[] SUITS = {"hearts", "diamonds", "clubs", "spades"};
@@ -65,29 +63,46 @@ public class HandEvaluation {
     /** Method to calculate which player has the better hand. */
     public int cardsCalculation() {
         // Checks are ordered from best hand to worst
-        if (isRoyalFlush()) return 9;
-        if (isStraightFlush()) return 8;
-        if (isFourKind()) return 7;
-        if (isFullHouse()) return 6;
-        if (isFlush()) return 5;
-        if (isStraight()) return 4;
-        if (isThreeKind()) return 3;
-        if (isTwoPair()) return 2;
-        if (isPair()) return 1;
+        if (isRoyalFlush()) { 
+            return 9; 
+        } 
+        if (isStraightFlush()) { 
+            return 8; 
+        }
+        if (isFourKind()) { 
+            return 7; 
+        }
+        if (isFullHouse()) { 
+            return 6; 
+        } 
+        if (isFlush()) { 
+            return 5; 
+        }
+        if (isStraight()) { 
+            return 4; 
+        }
+        if (isThreeKind()) { 
+            return 3; 
+        }
+        if (isTwoPair()) { 
+            return 2; 
+        }
+        if (isPair()) { 
+            return 1; 
+        }
         return 0; // High Card
     }
 
     /** Function to check if we have a royal flush. */
     public boolean isRoyalFlush() {
         // A Royal Flush is a T-J-Q-K-A Straight Flush
-        if (!isFlush()) return false;
+        if (!isFlush()) { 
+            return false; 
+        }
         
         // Check for T, J, Q, K, A (indices 8, 9, 10, 11, 12)
-        return rankCounts[8] > 0 && 
-               rankCounts[9] > 0 && 
-               rankCounts[10] > 0 && 
-               rankCounts[11] > 0 && 
-               rankCounts[12] > 0;
+        return rankCounts[8] > 0 && rankCounts[9] > 0 && rankCounts[10] > 0 
+            && rankCounts[11] > 0 && rankCounts[12] > 0;
     }
 
     /** Function to check for a Straight Flush. */
@@ -98,7 +113,9 @@ public class HandEvaluation {
     /** Function to check if we have four of a kind. */
     public boolean isFourKind() {
         for (int count : rankCounts) {
-            if (count == 4) return true;
+            if (count == 4) { 
+                return true; 
+            }
         }
         return false;
     }
@@ -108,17 +125,25 @@ public class HandEvaluation {
         boolean hasThree = false;
         boolean hasTwo = false;
         for (int count : rankCounts) {
-            if (count == 3) hasThree = true;
-            if (count == 2) hasTwo = true;
+            if (count == 3) { 
+                hasThree = true;
+            }
+            if (count == 2) { 
+                hasTwo = true;
+            }
         }
         // A full house can also be two "three of a kinds" (e.g., KKK + 22 on board + K2 in hand)
         // So we check if there's a 3-of-a-kind and *any other pair*
-        if (hasThree && hasTwo) return true;
+        if (hasThree && hasTwo) { 
+            return true;
+        }
 
         // Check for two 3-of-a-kinds (e.g. KKK 777 A)
         int threeKinds = 0;
         for (int count : rankCounts) {
-            if (count == 3) threeKinds++;
+            if (count == 3) { 
+                threeKinds++;
+            }
         }
         return threeKinds >= 2;
     }
@@ -126,7 +151,9 @@ public class HandEvaluation {
     /** Function to check if we have a flush. */
     public boolean isFlush() {
         for (int count : suitCounts) {
-            if (count >= 5) return true;
+            if (count >= 5) {
+                return true;
+            }
         }
         return false;
     }
@@ -134,11 +161,8 @@ public class HandEvaluation {
     /** Function to check if we have a straight. */
     public boolean isStraight() {
         // Check for A-2-3-4-5 "wheel" (indices 12, 0, 1, 2, 3)
-        if (rankCounts[12] > 0 && 
-            rankCounts[0] > 0 && 
-            rankCounts[1] > 0 && 
-            rankCounts[2] > 0 && 
-            rankCounts[3] > 0) {
+        if (rankCounts[12] > 0 && rankCounts[0] > 0 && rankCounts[1] > 0 
+            && rankCounts[2] > 0 && rankCounts[3] > 0) {
             return true;
         }
         
@@ -150,7 +174,9 @@ public class HandEvaluation {
             } else {
                 consecutive = 0;
             }
-            if (consecutive == 5) return true;
+            if (consecutive == 5) {
+                return true;
+            }
         }
         return false;
     }
@@ -160,7 +186,9 @@ public class HandEvaluation {
         // We must ensure it's not a Full House or Four of a Kind,
         // which are checked first by cardsCalculation()
         for (int count : rankCounts) {
-            if (count == 3) return true;
+            if (count == 3) { 
+                return true;
+            }
         }
         return false;
     }
@@ -170,7 +198,9 @@ public class HandEvaluation {
         // Must not be a Full House or Four of a Kind
         int pairs = 0;
         for (int count : rankCounts) {
-            if (count == 2) pairs++;
+            if (count == 2) { 
+                pairs++; 
+            }
         }
         return pairs >= 2;
     }
@@ -180,7 +210,9 @@ public class HandEvaluation {
         // Must not be Two Pair, Three of a Kind, etc.
         int pairs = 0;
         for (int count : rankCounts) {
-            if (count == 2) pairs++;
+            if (count == 2) { 
+                pairs++;
+            }
         }
         return pairs == 1;
     }
@@ -247,8 +279,12 @@ public class HandEvaluation {
             boolean p1HasPair = c1[i] >= 2;
             boolean p2HasPair = c2[i] >= 2;
 
-            if (p1HasPair && !p2HasPair) return p1;
-            if (!p1HasPair && p2HasPair) return p2;
+            if (p1HasPair && !p2HasPair) {
+                return p1;
+            }
+            if (!p1HasPair && p2HasPair) {
+                return p2;
+            }
         }
         
         // If all pairs are equal (e.g., K,K,7,7 vs K,K,7,7), compare kickers
@@ -265,28 +301,45 @@ public class HandEvaluation {
         int setRank1 = -1;
         int setRank2 = -1;
         for (int i = 12; i >= 0; i--) {
-            if (c1[i] >= target) setRank1 = i;
-            if (c2[i] >= target) setRank2 = i;
+            if (c1[i] >= target) {
+                setRank1 = i;
+            }
+            if (c2[i] >= target) {
+                setRank2 = i;
+            }
         }
 
-        if (setRank1 > setRank2) return p1;
-        if (setRank2 > setRank1) return p2;
-        
+        if (setRank1 > setRank2) {
+            return p1;
+        }
+        if (setRank2 > setRank1) {
+            return p2;
+        }
         // --- Sets are the same rank (e.g., KKK vs KKK) ---
 
         // For Full House, now we compare the pair
         if (handType == 6) {
-             int pairRank1 = -1;
-             int pairRank2 = -1;
-             // Find highest pair *that wasn't the set*
-             for (int i = 12; i >= 0; i--) {
-                if (i == setRank1) continue; // Skip the set
-                if (c1[i] >= 2 && pairRank1 == -1) pairRank1 = i;
-                if (c2[i] >= 2 && pairRank2 == -1) pairRank2 = i;
-             }
-             if (pairRank1 > pairRank2) return p1;
-             if (pairRank2 > pairRank1) return p2;
-             return null; // Tie
+            int pairRank1 = -1;
+            int pairRank2 = -1;
+            // Find highest pair *that wasn't the set*
+            for (int i = 12; i >= 0; i--) {
+                if (i == setRank1) {
+                    continue; // Skip the set
+                }
+                if (c1[i] >= 2 && pairRank1 == -1) {
+                    pairRank1 = i;
+                }
+                if (c2[i] >= 2 && pairRank2 == -1) {
+                    pairRank2 = i;
+                }
+            }
+            if (pairRank1 > pairRank2) {
+                return p1;
+            }
+            if (pairRank2 > pairRank1) {
+                return p2;
+            }
+            return null; // Tie
         }
 
         // For 3-of-a-Kind and 4-of-a-Kind, compare kickers
@@ -298,8 +351,12 @@ public class HandEvaluation {
         int high1 = getStraightHighCard(c1);
         int high2 = getStraightHighCard(c2);
         
-        if (high1 > high2) return p1;
-        if (high2 > high1) return p2;
+        if (high1 > high2) {
+            return p1;
+        }
+        if (high2 > high1) {
+            return p2;
+        }
         return null; // Tie
     }
 
@@ -318,7 +375,9 @@ public class HandEvaluation {
             } else {
                 consecutive = 0;
             }
-            if (consecutive == 5) return i + 4; // Return the top card's index
+            if (consecutive == 5) {
+                return i + 4; // Return the top card's index
+            }
         }
         return -1; // Should not happen if isStraight() was true
     }
@@ -329,27 +388,15 @@ public class HandEvaluation {
      * Used for High Card, Flushes, and as the final tie-breaker for pairs/sets.
      */
     private Player compareHighCardsFromCounts(int[] c1, int[] c2, Player p1, Player p2) {
-        int cardsToCompare = 5; // We only compare the best 5 cards
         for (int i = 12; i >= 0; i--) { // 12 = A, 0 = 2
             boolean p1Has = c1[i] > 0;
             boolean p2Has = c2[i] > 0;
 
-            if (p1Has && !p2Has) return p1;
-            if (!p1Has && p2Has) return p2;
-
-            // If both have this card, we "use" one and see if there are more
-            if (p1Has && p2Has) {
-                // This simple logic works for high-card hands, but not for kickers
-                // where a pair is involved.
-                // A better kicker check:
-                int p1Count = c1[i];
-                int p2Count = c2[i];
-                
-                // For pairs/sets, we only care about the *best 5 cards*.
-                // This loop is fine, as it finds the highest card p1 has
-                // that p2 does not, which is the definition of a kicker.
-                
-                // Let's refine the loop to only count 5 cards
+            if (p1Has && !p2Has) {
+                return p1;
+            }
+            if (!p1Has && p2Has) {
+                return p2;
             }
         }
         
@@ -359,8 +406,12 @@ public class HandEvaluation {
         // This works for kickers (e.g. K,K,A vs K,K,Q)
         // and for high card (e.g. A,K,Q,J,7 vs A,K,Q,J,5)
         for (int i = 12; i >= 0; i--) {
-            if (c1[i] > 0 && c2[i] == 0) return p1;
-            if (c2[i] > 0 && c1[i] == 0) return p2;
+            if (c1[i] > 0 && c2[i] == 0) {
+                return p1;
+            }
+            if (c2[i] > 0 && c1[i] == 0) {
+                return p2;
+            }
         }
 
         return null; // It's a true tie (chop pot)
