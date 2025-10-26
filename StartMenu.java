@@ -36,8 +36,8 @@ public class StartMenu {
                 try {
                     Desktop.getDesktop().open(textFile); 
                 } catch (IOException ex) {
-
-                }   
+                    // Hopefully this never gets executed.
+                }       
             }
         }); 
 
