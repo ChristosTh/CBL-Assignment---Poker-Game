@@ -10,6 +10,10 @@ public class Pot {
         currentRaise = 0; 
     }
 
+    void setPotTotal(double amount) {
+        potTotal = amount; 
+    }
+
     double getCurrentRaise() {
         return currentRaise; 
     }

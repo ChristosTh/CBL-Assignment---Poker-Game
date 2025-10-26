@@ -289,6 +289,8 @@ public class Round {
             bot.setWallet(bot.getWallet() + totalPot / 2);
             GameSetup.mat.roundTie(); 
         }
+        pot.setPotTotal(0); 
+        PokerMat.updatePotTotalUI(); 
 
 
         GameSetup.mat.updateWalletDisplay(GameSetup.mat.moneyDisplay);

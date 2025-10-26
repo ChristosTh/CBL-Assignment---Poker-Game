@@ -26,7 +26,7 @@ public class StartMenu {
         goToSetup.setSize(200, 75);  
         goToSetup.setLocation(185, 110); 
 
-        rules = new JButton("Texas Holdem Rules"); 
+        rules = new JButton("Poker Rules and how to play"); 
         rules.setSize(200, 75); 
         rules.setLocation(185, 325); 
         rules.addActionListener(new ActionListener() {

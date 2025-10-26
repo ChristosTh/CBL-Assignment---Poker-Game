@@ -253,19 +253,22 @@ public class PokerMat {
     /** Method to delete the UI saying what the bot does once the player makes a move. */
     void deleteBotAction() {
         pokerMat.remove(botActionUI); 
+        raiseErrorText.setVisible(false); 
+        pokerMat.remove(raiseErrorText); 
         botActionUI = new JLabel();
         botActionUI.setText("");
         botActionUI.setOpaque(false);  
     }
 
-    JLabel raiseErrorText = new JLabel("You cannot raise that amount of money. Please bet less"); 
+    JLabel raiseErrorText = new JLabel("You cannot raise that amount of money."); 
 
     /** Method to show raise error. */
     void raiseError() {
         pokerMat.add(raiseErrorText); 
+        raiseErrorText.setVisible(true); 
         pokerMat.setComponentZOrder(raiseErrorText, 0); 
         pokerMat.repaint(); 
-        raiseErrorText.setSize(100, 70); 
+        raiseErrorText.setSize(250, 70); 
         raiseErrorText.setLocation(500, 300); 
         raiseErrorText.setOpaque(true); 
         raiseErrorText.setBackground(Color.RED); 
@@ -500,7 +503,7 @@ public class PokerMat {
         raiseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                deleteBotAction();
                 JFrame raiseFrame = new JFrame("Raising"); 
                 JButton closeRaiseFrame = new JButton("Raise"); 
                 JTextField raiseAmount = new JTextField("Type raise amount here"); 
@@ -522,11 +525,10 @@ public class PokerMat {
                 closeRaiseFrame.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        deleteBotAction(); 
                         try {
                             double raiseValue = Double.parseDouble(raiseAmount.getText());
                             
-                            if (raiseValue <= Poker.player.getWallet()) {
+                            if (raiseValue <= Poker.player.getWallet() && raiseValue > 0) {
                                 Poker.round.playerActed("raise", raiseValue); 
                                 updateWalletDisplay(moneyDisplay); 
                                 closeFrame(raiseFrame);  
