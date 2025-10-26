@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 
-/**
- * Class for a round of poker. Manages the gameflow, betting rounds,
- * and state progression from Preflop to Showdown.
- */
+/** Class for a round of poker. Manages the gameflow, betting rounds, and the state of the game. */
 public class Round {
 
     /** Enum to track which phase the round is in. */
@@ -89,10 +86,7 @@ public class Round {
         }
     }
 
-    /** Central method called by the UI when the player clicks an action button.
-     * @param action The action taken ("fold", "check", "call", "raise").
-     * @param amount The amount for a raise (this is the NEW TOTAL bet).
-     */
+    /** Central method called by the UI when the player clicks an action button. */
     public void playerActed(String action, double amount) {
         if (!whoPlays.equals("player") || currentState == GameState.HAND_OVER) {
             return; // Not player's turn or hand is over
@@ -102,7 +96,6 @@ public class Round {
 
         switch (action) {
             case "fold":
-                player.fold();
                 endHand(bot); // Bot wins
                 return;
 
@@ -112,7 +105,7 @@ public class Round {
                     System.out.println("You cannot check, there is a bet to you.");
                     return; 
                 }
-                player.check();
+
                 if (player.getLastBet() == bot.getLastBet()) {
                     roundOver = false;
                 }
@@ -156,8 +149,6 @@ public class Round {
         if (!whoPlays.equals("bot") || currentState == GameState.HAND_OVER) {
             return;
         }
-
-        System.out.println("Bot is thinking...");
         
         /* Bot's action logic is inside decideAction. */
         int bd = bot.decideAction(pot.getPotTotal(), pot.getCurrentRaise(), communityCards);
@@ -302,7 +293,7 @@ public class Round {
             GameSetup.mat.roundTie(); 
         }
 
-        
+
         GameSetup.mat.updateWalletDisplay(GameSetup.mat.moneyDisplay);
         GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
         GameSetup.mat.newRoundButton.setEnabled(true);

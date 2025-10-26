@@ -153,7 +153,6 @@ public class Bot extends Player {
                 bluff(potOdds, callAmount);
                 return 0;
             } else {
-                fold();
                 GameSetup.mat.botAction("fold", -1, false); 
                 return 1;
             }
@@ -164,7 +163,6 @@ public class Bot extends Player {
                 GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
                 return 0;
             } else {
-                fold();
                 GameSetup.mat.botAction("fold", -1, false); 
                 return 1;
             }

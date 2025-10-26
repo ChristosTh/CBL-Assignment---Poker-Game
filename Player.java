@@ -86,14 +86,6 @@ public class Player {
         wallet.actionBigBlind();
     }
 
-    public void fold() {
-        
-    }
-
-    public void check() {
-
-    }
-
     public boolean hasFolded() {
         return hasFolded;
     }
