@@ -34,9 +34,12 @@ public class StartMenu {
         rules.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File textFile = new File("Rules.txt"); 
+                //File textFile = new File("Rules.txt"); 
+                File pdfFile = new File("Poker Game Rules.pdf");
                 try {
-                    Desktop.getDesktop().open(textFile); 
+                    //Desktop.getDesktop().open(textFile); 
+                    Desktop desktop = Desktop.getDesktop();
+                    desktop.open(pdfFile);
                 } catch (IOException ex) {
 
                 }   
