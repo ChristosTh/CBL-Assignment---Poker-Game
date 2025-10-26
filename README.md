@@ -2,8 +2,8 @@
 This project is a **Poker Game** built in Java as part of our CBL Project in the course of Programming.
 
 # Project Overview
-Our poker game was developed to explore object-oriented programming and game logic.
-Authors: Christos Theofanous
+- Our poker game was developed to explore object-oriented programming and game logic.
+- Authors: Christos Theofanous
 
 ---
 
