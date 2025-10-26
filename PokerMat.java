@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -291,46 +292,47 @@ public class PokerMat {
         }
     }
 
-    ImageIcon chipStack = new ImageIcon("CardsPNG\\Chip_Stacks.png"); 
+    ImageIcon chipStack = new ImageIcon("VisualAssets"  + File.separator + "Chip_Stacks.png"); 
     Image scalingChips = chipStack.getImage().getScaledInstance(46, 46, Image.SCALE_DEFAULT);
     ImageIcon scaledChips = new ImageIcon(scalingChips);
     JLabel chipContainer = new JLabel(scaledChips);
 
-    ImageIcon botChip = new ImageIcon("CardsPNG\\Chip_Stacks.png");
+    ImageIcon botChip = new ImageIcon("VisualAssets"  + File.separator + "Chip_Stacks.png");
     Image scalingBotChip = botChip.getImage().getScaledInstance(46, 46, Image.SCALE_DEFAULT);
     ImageIcon scaledBotChip = new ImageIcon(scalingBotChip);
     JLabel botChipContainer = new JLabel(scaledBotChip);
 
-    ImageIcon botMoneyBox = new ImageIcon("CardsPNG\\Money_Box.png");
+    ImageIcon botMoneyBox = new ImageIcon("VisualAssets"  + File.separator + "Money_Box.png");
     Image scalingBotBox = botMoneyBox.getImage()
             .getScaledInstance(130, 60, Image.SCALE_DEFAULT);
     ImageIcon scaledBotBox = new ImageIcon(scalingBotBox);
     JLabel botBoxContainer = new JLabel(scaledBotBox);
 
-    ImageIcon moneyBox = new ImageIcon("CardsPNG\\Money_Box.png");
+    ImageIcon moneyBox = new ImageIcon("VisualAssets"  + File.separator + "Money_Box.png");
     Image scalingBox = moneyBox.getImage().getScaledInstance(130, 60, Image.SCALE_DEFAULT);
     ImageIcon scaledBox = new ImageIcon(scalingBox);
     JLabel boxContainer = new JLabel(scaledBox);
 
-    ImageIcon potText = new ImageIcon("CardsPNG\\Money_Box.png");
+    ImageIcon potText = new ImageIcon("VisualAssets"  + File.separator + "Money_Box.png");
     Image scalingPotText = potText.getImage()
             .getScaledInstance(130, 60, Image.SCALE_DEFAULT);
     ImageIcon scaledPotText = new ImageIcon(scalingPotText);
     JLabel potTextContainer = new JLabel(scaledPotText);
 
-    ImageIcon smallBlindIcon = new ImageIcon("CardsPNG\\smallBlindIcon.png");
+    ImageIcon smallBlindIcon = new ImageIcon("VisualAssets" 
+        + File.separator + "smallBlindIcon.png");
     Image scalingSBIcon = smallBlindIcon.getImage()
             .getScaledInstance(60, 60, Image.SCALE_DEFAULT);
     ImageIcon scaledSBIcon = new ImageIcon(scalingSBIcon);
     JLabel sbContainer = new JLabel(scaledSBIcon);
 
-    ImageIcon bigBlindIcon = new ImageIcon("CardsPNG\\bigBlindIcon.png");
+    ImageIcon bigBlindIcon = new ImageIcon("VisualAssets"  + File.separator + "bigBlindIcon.png");
     Image scalingBBIcon = bigBlindIcon.getImage()
             .getScaledInstance(60, 60, Image.SCALE_DEFAULT);
     ImageIcon scaledBBIcon = new ImageIcon(scalingBBIcon);
     JLabel bbContainer = new JLabel(scaledBBIcon);
 
-    ImageIcon potTotalIcon = new ImageIcon("CardsPNG\\potIcon.png");
+    ImageIcon potTotalIcon = new ImageIcon("VisualAssets"  + File.separator + "potIcon.png");
     Image scalingPotIcon = potTotalIcon.getImage()
             .getScaledInstance(50, 50, Image.SCALE_DEFAULT);
     ImageIcon scaledPotIcon = new ImageIcon(scalingPotIcon);
@@ -402,7 +404,8 @@ public class PokerMat {
         //#endregion
 
         //#region Creating the images and sizing them properly
-        ImageIcon faceDownCard = new ImageIcon("CardsPNG\\faceDownCard.png"); 
+        ImageIcon faceDownCard = new ImageIcon("VisualAssets" 
+            + File.separator + "faceDownCard.png"); 
         Image scalingImage = faceDownCard.getImage()
             .getScaledInstance(160, 160, Image.SCALE_DEFAULT); 
         scaledImage = new ImageIcon(scalingImage); 

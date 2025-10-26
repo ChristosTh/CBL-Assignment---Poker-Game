@@ -1,3 +1,5 @@
+import java.io.File; 
+
 /** Card class that describes what a card is so that we can use them. */
 public class Card {
 
@@ -9,7 +11,7 @@ public class Card {
     public Card(char rank, String suit) {
         this.rank = rank;
         this.suit = suit;
-        imagePath = "CardsPNG\\" + rank + "_of_" + suit + ".png"; 
+        imagePath = "VisualAssets" + File.separator + rank + "_of_" + suit + ".png"; 
         // chane for cross platform compatibility
     }
 
