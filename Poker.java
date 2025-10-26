@@ -1,10 +1,7 @@
-import java.util.ArrayList;
-import java.util.Scanner; 
-
 /** Main class for poker. */
 public class Poker {
 
-    static Player player; // player and bot should go to the poker class and also change what changed for them in other classes
+    static Player player; 
     static Bot bot;
 
     static Round round; 
@@ -19,14 +16,6 @@ public class Poker {
 
         player = new Player();
         bot = new Bot(0, 0);
-
-        /*while (true) {
-            System.out.println("Bot Wallet: " + bot.getWallet() +  " Player wallet: " + player.getWallet());
-        }*/
-
-
-        //Round round = new Round(); 
-        //round.flop(); 
 
     }
 }
