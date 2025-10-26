@@ -73,9 +73,8 @@ This project is a **Poker Game** built in Java as part of our CBL Project in the
 1. Clone the repo in a directory (git clone https://github.com/LeoFischer-12/CBL-Assignment---Poker-Game)
 2. Get in the directory and open the folder in a programming environment or a text editor with Java SDK (e.g. VS Code)
 3. Run the Poker.java program
-4. Do not play the game in full screen because it was not made for full screen.
-5. Please read the rules before setting up the game!
-6. After reading the rules and set up the game, then you have to always call to play because you have to match the big blind.
+4. Please read the rules before setting up the game!
+5. After reading the rules and set up the game, then you have to always call to play because you have to match the big blind.
 
 ---
 
