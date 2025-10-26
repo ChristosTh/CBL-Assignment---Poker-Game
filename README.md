@@ -42,6 +42,10 @@ This project is a **Poker Game** built in Java as part of our CBL Project in the
 
 3. For UI:
    - https://code.google.com/archive/p/vector-playing-cards/downloads
+   - https://www.freepik.com/icon/chips_3205391#fromView=keyword&page=1&position=42&uuid=39a4b31b-4cbd-4331-9d37-6d2e44cd2e0b
+   - https://www.iconfinder.com/icons/371885/bigblind_blind_casino_chip_chips_poker_icon
+   - https://www.iconfinder.com/icons/371903/blind_casino_chips_playing_poker_small_smallblind_icon
+   - The brown boxes which contain the wallet display and pot total were manually drawn on MS Paint
   
 ---
 
