@@ -201,7 +201,6 @@ public class Round {
                 giveFlop();
                 flopShowed = true;
                 GameSetup.mat.showFlopCards(); 
-                System.out.println("--- FLOP ---");
                 outputCommunityCards();
                 break;
             case FLOP:
@@ -209,7 +208,6 @@ public class Round {
                 giveTurn();
                 turnShowed = true;
                 GameSetup.mat.showTurnCard(); 
-                System.out.println("--- TURN ---");
                 outputCommunityCards();
                 break;
             case TURN:
@@ -217,7 +215,6 @@ public class Round {
                 giveRiver();
                 riverShowed = true;
                 GameSetup.mat.showRiverCard();
-                System.out.println("--- RIVER ---");
                 outputCommunityCards();
                 break;
             default:
