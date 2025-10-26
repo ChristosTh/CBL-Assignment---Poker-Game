@@ -2,8 +2,8 @@
 This project is a **Poker Game** built in Java as part of our CBL Project in the course of Programming.
 
 # Project Overview
-Our poker game was developed to explore object-oriented programming and game logic.
-Authors: Christos Theofanous
+- Our poker game was developed to explore object-oriented programming and game logic.
+- Authors: Christos Theofanous
 
 ---
 
@@ -69,6 +69,7 @@ Authors: Christos Theofanous
 1. Clone the repo in a directory (git clone https://github.com/LeoFischer-12/CBL-Assignment---Poker-Game)
 2. Get in the directory and open the folder in a programming environment or a text editor with Java SDK (e.g. VS Code)
 3. Run the Poker.java program
+4. Please read the rules before setting up the game!
 
 ---
 
