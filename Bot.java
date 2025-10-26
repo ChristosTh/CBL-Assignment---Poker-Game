@@ -24,7 +24,8 @@ public class Bot extends Player {
         if (potOdds < 0.1) {
             int raiseAmount = (int) (getWallet() * 0.1); 
             boolean reraising = false; 
-            if (Poker.player.getLastBet() == Round.pot.getCurrentRaise() && Poker.player.getLastBet() != 0 && Round.pot.getCurrentRaise() != 0) {
+            if (Poker.player.getLastBet() == Round.pot.getCurrentRaise() 
+                && Poker.player.getLastBet() != 0 && Round.pot.getCurrentRaise() != 0) {
                 reraising = true; 
             } 
             raise(raiseAmount);
@@ -109,7 +110,8 @@ public class Bot extends Player {
                         + Poker.player.getLastBet());   
                 }*/
                 boolean reraising = false; 
-                if (Poker.player.getLastBet() == Round.pot.getCurrentRaise() && Poker.player.getLastBet() != 0 && Round.pot.getCurrentRaise() != 0) {
+                if (Poker.player.getLastBet() == Round.pot.getCurrentRaise() 
+                    && Poker.player.getLastBet() != 0 && Round.pot.getCurrentRaise() != 0) {
                     reraising = true; 
                 } 
                 if (raiseAmount == 0) {

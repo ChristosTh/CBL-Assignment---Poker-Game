@@ -105,7 +105,7 @@ public class PokerMat {
     }
 
     /** UI to show player won. */
-    void playerWon() {
+    void playerWonRound() {
         String text = "You have won this round."
             + " Proceed to the next round by pressing \"New Round\"";
         text = String.format("<html><div WIDTH=%d>%s</div></html>", 200, text);
@@ -122,20 +122,37 @@ public class PokerMat {
     }
 
     /** UI to show bot won. */
-    void botWon() {
+    void botWonRound() {
         String text = "You have lost this round." 
             + " Proceed to the next round by pressing \"New Round\""; 
         text = String.format("<html><div WIDTH=%d>%s</div></html>", 200, text);
         
-        JLabel playerWonUI = new JLabel(text); 
+        JLabel botWonUI = new JLabel(text); 
 
-        pokerMat.add(playerWonUI);
-        pokerMat.setComponentZOrder(playerWonUI, 0);
+        pokerMat.add(botWonUI);
+        pokerMat.setComponentZOrder(botWonUI, 0);
         pokerMat.repaint(); 
-        playerWonUI.setSize(200, 95); 
-        playerWonUI.setLocation(485, 295); 
-        playerWonUI.setBackground(Color.GRAY);
-        playerWonUI.setOpaque(true);
+        botWonUI.setSize(200, 95); 
+        botWonUI.setLocation(485, 295); 
+        botWonUI.setBackground(Color.GRAY);
+        botWonUI.setOpaque(true);
+    }
+
+    /** UI to show tie. */
+    void roundTie() {
+        String text = "This round tied, the pot was split between you and the bot." 
+            + "Proceed to the next round by pressing \"New Round\""; 
+        text = String.format("<html><div WIDTH=%d>%s</div></html>", 200, text);
+
+        JLabel tied = new JLabel(text); 
+
+        pokerMat.add(tied); 
+        pokerMat.setComponentZOrder(tied, 0); 
+        pokerMat.repaint(); 
+        tied.setSize(200, 95); 
+        tied.setLocation(485, 295);
+        tied.setBackground(Color.GRAY); 
+        tied.setOpaque(true); 
     }
 
     /** Closing JFrame. */
@@ -148,7 +165,8 @@ public class PokerMat {
     /** Updating the wallet display. */
     void updateWalletDisplay(JLabel label) {
         // Determine if this is the player or bot label
-        double walletValue = (label == moneyDisplay) ? Poker.player.getWallet() : Poker.bot.getWallet();
+        double walletValue = 
+            (label == moneyDisplay) ? Poker.player.getWallet() : Poker.bot.getWallet();
         
         String newWallet = Double.toString(walletValue); 
         if (newWallet.substring(newWallet.length() - 2).equals(".0")) {
@@ -179,8 +197,9 @@ public class PokerMat {
             botActionUI.setBackground(Color.GRAY);
             botActionUI.setOpaque(true);
 
-        } else if(action.equals("raise") && reRaise) {
-            String text = "The bot called your bet and then raised by  " + (isCall - Poker.player.getLastBet()) + ". Your turn."; 
+        } else if (action.equals("raise") && reRaise) {
+            String text = "The bot called your bet and then raised by  " 
+                    + (isCall - Poker.player.getLastBet()) + ". Your turn."; 
             text = String.format("<html><div WIDTH=%d>%s</div></html>", 150, text);
         
             botActionUI = new JLabel(text);
@@ -194,7 +213,8 @@ public class PokerMat {
 
         } else if (action.equals("raise")) {
 
-            String text = "The bot raised by  " + (isCall - Poker.player.getLastBet()) + ", your turn."; 
+            String text = "The bot raised by  " 
+                + (isCall - Poker.player.getLastBet()) + ", your turn."; 
             text = String.format("<html><div WIDTH=%d>%s</div></html>", 150, text);
         
             botActionUI = new JLabel(text);
@@ -207,7 +227,6 @@ public class PokerMat {
             botActionUI.setOpaque(true);
 
         } else if (action.equals("call") && isCall != 0) {
-            System.out.println("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
             String text = "The bot called, your turn.";
             text = String.format("<html><div WIDTH=%d>%s</div></html>", 150, text);
 
@@ -221,7 +240,6 @@ public class PokerMat {
             botActionUI.setOpaque(true);
 
         } else {
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             String text = "The bot checked, your turn."; 
             text = String.format("<html><div WIDTH=%d>%s</div></html>", 150, text);
         
@@ -236,6 +254,7 @@ public class PokerMat {
 
     }
 
+    /** Method to delete the UI saying what the bot does once the player makes a move. */
     void deleteBotAction() {
         System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         pokerMat.remove(botActionUI); 
@@ -243,6 +262,7 @@ public class PokerMat {
         botActionUI.setText("");
         botActionUI.setOpaque(false);  
     }
+
     JLabel raiseErrorText = new JLabel("You cannot raise that amount of money. Please bet less"); 
 
     /** Method to show raise error. */
@@ -256,12 +276,16 @@ public class PokerMat {
         raiseErrorText.setBackground(Color.RED); 
     }
 
-    String lossText = String.format("<html><div WIDTH=%d>%s</div></html>", 263, "You lost... Press below to start a new game.");
+    String lossText = String.format("<html><div WIDTH=%d>%s</div></html>",
+        263, "You lost... Press below to start a new game.");
     JLabel botFinalWinner = new JLabel(lossText); 
-    String winText = String.format("<html><div WIDTH=%d>%s</div></html>", 263, "You won! Press below to start a new game."); 
+    String winText = String.format("<html><div WIDTH=%d>%s</div></html>", 
+        263, "You won! Press below to start a new game."); 
     JLabel playerFinalWinner = new JLabel(winText); 
 
     JButton newGame = new JButton("Start new game"); 
+
+    /** Method to start the Game Over process. */
     void gameOver() {
         newGame.setVisible(true); 
         pokerMat.setComponentZOrder(newGame, 0); 
@@ -279,7 +303,7 @@ public class PokerMat {
 
         pokerMat = new JFrame("Poker"); 
 
-
+        //#region UI for when the game ends.
         newGame.setSize(265, 100);
         newGame.setLocation(420, 290);
         newGame.addActionListener(new ActionListener() {
@@ -302,6 +326,8 @@ public class PokerMat {
         playerFinalWinner.setOpaque(true); 
         playerFinalWinner.setBackground(Color.GREEN); 
         playerFinalWinner.setVisible(false); 
+        //#endregion
+
 
         potTotalUI.setSize(50, 50); 
         potTotalUI.setLocation(207, 200);

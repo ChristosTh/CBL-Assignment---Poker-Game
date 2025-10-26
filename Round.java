@@ -327,16 +327,16 @@ public class Round {
         if (winner == player) {
             System.out.println("Player wins the pot of " + totalPot);
             player.setWallet(player.getWallet() + totalPot);
-            GameSetup.mat.playerWon();
+            GameSetup.mat.playerWonRound();
         } else if (winner == bot) {
             System.out.println("Bot wins the pot of " + totalPot);
             bot.setWallet(bot.getWallet() + totalPot);
-            GameSetup.mat.botWon();
+            GameSetup.mat.botWonRound();
         } else {
-            // Handle tie (split pot)
             System.out.println("It's a tie! Splitting the pot of " + totalPot);
             player.setWallet(player.getWallet() + totalPot / 2);
             bot.setWallet(bot.getWallet() + totalPot / 2);
+            GameSetup.mat.roundTie(); 
         }
         // pot = new Pot();
         // Update UI
