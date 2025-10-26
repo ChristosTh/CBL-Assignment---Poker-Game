@@ -1,11 +1,9 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import javax.swing.*;
 
 /** Class for the user interface. */
 public class StartMenu {
@@ -52,7 +50,6 @@ public class StartMenu {
         ActionListener actions = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // overrides actionPerformed method.
                 startMenu.setVisible(false); 
                 startMenu = null; 
                 setup = new GameSetup(); 
