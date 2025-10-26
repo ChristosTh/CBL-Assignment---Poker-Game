@@ -39,7 +39,7 @@ public class Wallet {
     /** Method to call on a raise. */
     boolean actionCall(double newRaise) {
         double betDifference = newRaise - lastBet; 
-        if (betDifference < wallet) {
+        if (betDifference <= wallet) {
             wallet -= betDifference; 
             lastBet += betDifference; 
             Round.pot.potCall(betDifference); 
