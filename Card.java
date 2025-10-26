@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 /** Card class that describes what a card is so that we can use them. */
 public class Card {
 
