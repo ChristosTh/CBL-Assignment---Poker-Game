@@ -7,40 +7,40 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 /** This class is the UI of the main game page and 
- *  represents the state the game is at a given point in the game. */
+ *  represents the state of the game at a given point in the game. */
 public class PokerMat {
     JFrame pokerMat; 
 
-    // Static references to card images, set by Round
+    // Creating variables to store the player and bot cards
     static ImageIcon playerCard1; 
     static ImageIcon playerCard2; 
     static ImageIcon botCard1; 
     static ImageIcon botCard2; 
     
-    // Community Card images
+    // Creating arrays to store and properly size the community cards
     static ImageIcon[] baseCC = new ImageIcon[5];
     static Image[] scalingCC = new Image[5]; 
     static ImageIcon[] scaledCC = new ImageIcon[5]; 
     static ArrayList<JLabel> ccContainer = new ArrayList<>();
 
-    // UI Components
     static JLabel potTotalUI = new JLabel(Double.toString(Round.pot.getPotTotal())); 
 
-
-    // Fields for card JLabels and images
+    // Labels which will contain the player and bot cards
     JLabel card1Container; 
     JLabel card2Container; 
     JLabel botCard1Container; 
     JLabel botCard2Container; 
 
-    // Scaled images for the bot's *actual* cards (kept hidden)
+    // ImageIcons which will be the bot (hidden) cards
     ImageIcon scaledBotCard1;
     ImageIcon scaledBotCard2;
-    ImageIcon scaledImage; // The face-down card
+    ImageIcon scaledImage; // the face down card
 
+    // Components to display the bot and the player's wallet
     JLabel botMoneyDisplay; 
     JLabel moneyDisplay; 
 
+    // Components for each action button
     JButton raiseButton; 
     JButton callButton; 
     JButton foldButton; 
@@ -57,7 +57,7 @@ public class PokerMat {
         potTotalUI.setText(newText); 
     }
 
-    /** Method to show your cards in UI. Called by Round. */
+    /** Method to show player cards in UI. */
     static void setCards(String cardPath1, String cardPath2, String cardPath3, String cardPath4) {
         playerCard1 = new ImageIcon(cardPath1);
         playerCard2 = new ImageIcon(cardPath2);  
@@ -65,7 +65,7 @@ public class PokerMat {
         botCard2 = new ImageIcon(cardPath4); 
     }
 
-    /** Method to set flop. Called by Round. */
+    /** Method to set flop cards. */
     static void setFlop(String[] cardPaths) {
         for (int i = 0; i < 3; i++) {
             baseCC[i] = new ImageIcon(cardPaths[i]); 
@@ -78,7 +78,7 @@ public class PokerMat {
         }
     }
 
-    /** Method to set turn card. Called by Round. */
+    /** Method to set the turn card. */
     static void setTurn(String cardPath) {
         baseCC[3] = new ImageIcon(cardPath); 
         scalingCC[3] = baseCC[3].getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
@@ -89,7 +89,7 @@ public class PokerMat {
         ccContainer.get(3).setVisible(false); 
     }
 
-    /** Method to set river card. Called by Round. */
+    /** Method to set the river card. */
     static void setRiver(String cardPath) {
         baseCC[4] = new ImageIcon(cardPath); 
         scalingCC[4] = baseCC[4].getImage().getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
@@ -113,7 +113,7 @@ public class PokerMat {
         pokerMat.repaint(); 
         playerWonUI.setSize(200, 95); 
         playerWonUI.setLocation(485, 295); 
-        playerWonUI.setBackground(Color.GRAY);
+        playerWonUI.setBackground(Color.GREEN);
         playerWonUI.setOpaque(true); 
     }
 
@@ -130,7 +130,7 @@ public class PokerMat {
         pokerMat.repaint(); 
         botWonUI.setSize(200, 95); 
         botWonUI.setLocation(485, 295); 
-        botWonUI.setBackground(Color.GRAY);
+        botWonUI.setBackground(Color.RED);
         botWonUI.setOpaque(true);
     }
 
@@ -154,7 +154,7 @@ public class PokerMat {
     /** Closing JFrame. */
     void closeFrame(JFrame frame) {
         frame.setVisible(false); 
-        frame.dispose(); // Use dispose to release resources
+        frame.dispose(); 
         frame = null; 
     }
 
@@ -247,12 +247,10 @@ public class PokerMat {
             botActionUI.setBackground(Color.GRAY);
             botActionUI.setOpaque(true);
         }
-
     }
 
     /** Method to delete the UI saying what the bot does once the player makes a move. */
     void deleteBotAction() {
-        System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         pokerMat.remove(botActionUI); 
         botActionUI = new JLabel();
         botActionUI.setText("");
@@ -275,6 +273,7 @@ public class PokerMat {
     String lossText = String.format("<html><div WIDTH=%d>%s</div></html>",
         263, "You lost... Press below to start a new game.");
     JLabel botFinalWinner = new JLabel(lossText); 
+
     String winText = String.format("<html><div WIDTH=%d>%s</div></html>", 
         263, "You won! Press below to start a new game."); 
     JLabel playerFinalWinner = new JLabel(winText); 
@@ -374,8 +373,6 @@ public class PokerMat {
         potTotalUI.setLocation(207, 200);
         potTotalUI.setForeground(new Color(230, 165, 90));
 
-        // Note: Wallet is now set in Round.java, not here.
-
         //#region New round button.
         newRoundButton.setSize(150, 45);
         newRoundButton.setLocation(30, 30); 
@@ -386,10 +383,9 @@ public class PokerMat {
                     && Poker.bot.getWallet() >= Round.pot.getBigBlind()) {
                     
                     GameSetup.mat.pokerMat.setVisible(false);
-                    GameSetup.mat.pokerMat.dispose(); // Release resources
+                    GameSetup.mat.pokerMat.dispose(); 
                     GameSetup.mat.pokerMat = null;
                     ccContainer.clear();
-                    // Start a new round, swapping who was first
                     Poker.round = new Round(Poker.player, Poker.bot, Poker.player.getWallet(),
                         Round.pot.getSmallBlind(), Round.pot.getBigBlind(), Round.getPlayerFirst());
                 } 
@@ -405,7 +401,7 @@ public class PokerMat {
         pokerMat.setLocationRelativeTo(null);
         //#endregion
 
-        //#region Image Loading and Scaling
+        //#region Creating the images and sizing them properly
         ImageIcon faceDownCard = new ImageIcon("CardsPNG\\faceDownCard.png"); 
         Image scalingImage = faceDownCard.getImage()
             .getScaledInstance(160, 160, Image.SCALE_DEFAULT); 
@@ -421,7 +417,6 @@ public class PokerMat {
         ImageIcon scaledCard2 = new ImageIcon(scalingCard2); 
         card2Container = new JLabel(scaledCard2); 
 
-        // Load bot's REAL cards but store them in fields
         Image scalingBotCard1Img = botCard1.getImage()
             .getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
         scaledBotCard1 = new ImageIcon(scalingBotCard1Img); 
@@ -430,12 +425,10 @@ public class PokerMat {
             .getScaledInstance(115, 160, Image.SCALE_DEFAULT); 
         scaledBotCard2 = new ImageIcon(scalingBotCard2Img); 
 
-        // Create bot's card containers using the FACE-DOWN image
         JLabel deckRepresentation = new JLabel(scaledImage);
+
         botCard1Container = new JLabel(scaledImage); 
         botCard2Container = new JLabel(scaledImage); 
-
-        
         //#endregion
 
         //#region Displaying cards and chips/wallet.
@@ -466,7 +459,7 @@ public class PokerMat {
         botChipContainer.setSize(46, 46); 
         botChipContainer.setLocation(830, 25); 
         
-        botMoneyDisplay = new JLabel(); // Initialized empty, updateWalletDisplay will fill it
+        botMoneyDisplay = new JLabel(); 
         botMoneyDisplay.setLocation(920, 29); 
         botMoneyDisplay.setSize(100, 30); 
         botMoneyDisplay.setForeground(new Color(230, 165, 90));
@@ -482,7 +475,7 @@ public class PokerMat {
             bbContainer.setLocation(685, 595); 
         }
 
-        JLabel sbText = new JLabel(Double.toString(Round.pot.getSmallBlind())); // This is fine
+        JLabel sbText = new JLabel(Double.toString(Round.pot.getSmallBlind())); 
         sbText.setSize(50, 50); 
         sbText.setLocation(200, 20); 
 
@@ -492,7 +485,7 @@ public class PokerMat {
         potTextContainer.setSize(130, 60); 
         potTextContainer.setLocation(153, 196);
         
-        moneyDisplay = new JLabel(); // Initialized empty
+        moneyDisplay = new JLabel(); 
         moneyDisplay.setForeground(new Color(230, 165, 90));
         moneyDisplay.setLocation(920, 519);  
         moneyDisplay.setSize(100, 30); 
@@ -529,14 +522,10 @@ public class PokerMat {
                         deleteBotAction(); 
                         try {
                             double raiseValue = Double.parseDouble(raiseAmount.getText());
-                            // Report action to controller
-
-                            //double moneyLeftPlayerWallet = Poker.player.getWallet() - raiseValue;
-                            //double moneyLeftBotWallet = Poker.bot.getWallet() - raiseValue;
                             
                             if (raiseValue <= Poker.player.getWallet()) {
                                 Poker.round.playerActed("raise", raiseValue); 
-                                updateWalletDisplay(moneyDisplay); // Update UI
+                                updateWalletDisplay(moneyDisplay); 
                                 closeFrame(raiseFrame);  
                             } else {
                                 closeFrame(raiseFrame); 
@@ -574,7 +563,6 @@ public class PokerMat {
             @Override 
             public void mouseClicked(MouseEvent e) {
                 deleteBotAction(); 
-                // Report action to controller
                 Poker.round.playerActed("call", 0); 
                 updateWalletDisplay(moneyDisplay);
             }
@@ -589,7 +577,6 @@ public class PokerMat {
             @Override
             public void actionPerformed(ActionEvent e) {
                 deleteBotAction(); 
-                // Report action to controller
                 Poker.round.playerActed("fold", 0);
             }
         });
@@ -633,29 +620,24 @@ public class PokerMat {
         pokerMat.add(botChipContainer); 
         pokerMat.add(botBoxContainer); 
         pokerMat.add(deckRepresentation); 
-        // Note: Community cards are added by the show... methods
         
         pokerMat.add(potTextContainer); 
         pokerMat.setLayout(null);
-        pokerMat.repaint(); // Ensure frame is drawn
+        pokerMat.repaint();
     }
-
-    // --- New methods called by Round.java ---
 
     /** Makes the flop cards visible. */
     public void showFlopCards() {
-        // Assumes setFlop already populated ccContainer with 3 cards
         for (int i = 0; i < 3; i++) {
-            pokerMat.add(ccContainer.get(i)); // Add to frame
-            ccContainer.get(i).setLocation(285 + 145 * i, 260); // Set location
-            ccContainer.get(i).setVisible(true); // Make visible
+            pokerMat.add(ccContainer.get(i)); 
+            ccContainer.get(i).setLocation(285 + 145 * i, 260); 
+            ccContainer.get(i).setVisible(true);
         }
         pokerMat.repaint();
     }
 
     /** Makes the turn card visible. */
     public void showTurnCard() {
-        // Assumes setTurn added card at index 3
         pokerMat.add(ccContainer.get(3));
         ccContainer.get(3).setLocation(285 + 145 * 3, 260);
         ccContainer.get(3).setVisible(true);
@@ -664,16 +646,14 @@ public class PokerMat {
 
     /** Makes the river card visible. */
     public void showRiverCard() {
-        // Assumes setRiver added card at index 4
         pokerMat.add(ccContainer.get(4));
-        ccContainer.get(4).setLocation(285 + 145 * 4, 260); // Position for 5th card
+        ccContainer.get(4).setLocation(285 + 145 * 4, 260); 
         ccContainer.get(4).setVisible(true);
         pokerMat.repaint();
     }
 
     /** Reveals the bot's face-down cards. */
     public void showBotCards() {
-        // Set the icons from face-down to the bot's actual cards
         botCard1Container.setIcon(scaledBotCard1);
         botCard2Container.setIcon(scaledBotCard2);
         pokerMat.repaint();
