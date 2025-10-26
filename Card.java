@@ -5,7 +5,6 @@ public class Card {
 
     private char rank;
     private String suit;
-    private ImageIcon cardImage;
     private String imagePath;
 
     /** Card constructor that gives the properties of the card. */
@@ -14,7 +13,6 @@ public class Card {
         this.suit = suit;
         imagePath = "CardsPNG\\" + rank + "_of_" + suit + ".png"; 
         // chane for cross platform compatibility
-        cardImage = new ImageIcon(imagePath);
     }
 
     public char getRank() {
