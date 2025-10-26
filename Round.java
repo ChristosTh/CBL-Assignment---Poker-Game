@@ -341,7 +341,7 @@ public class Round {
         // pot = new Pot();
         // Update UI
         GameSetup.mat.updateWalletDisplay(GameSetup.mat.moneyDisplay);
-        GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay); // Need to make this possible
+        GameSetup.mat.updateWalletDisplay(GameSetup.mat.botMoneyDisplay);
         GameSetup.mat.newRoundButton.setEnabled(true);
 
         if (player.getWallet() < pot.getBigBlind() || bot.getWallet() < pot.getBigBlind()) {
