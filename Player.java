@@ -9,7 +9,6 @@ public class Player {
     /** Player constructor to initalize its wallet and pair of cards to null. */
     public Player() {
         wallet = new Wallet(); 
-        // the 0's above are placeholders for when we will actually ask user smallBlind & bigBlind.
         firstCard = null;
         secondCard = null;
     }
@@ -30,27 +29,28 @@ public class Player {
         wallet.setWallet(cash); 
     }
 
-    /** Procedure to get one of the two cards. */
+    /** method to get one of the two cards. */
     public void receiveFirstCard(Card card) {
         firstCard = card;
     }
 
-    /** Procedure to get the other of the two cards. */
+    /** method to get the other of the two cards. */
     public void receiveSecondCard(Card card) {
         secondCard = card;
     }
 
-    /** Procedure to clear the cards. */
+    /** method to clear the cards. */
     public void clearCards() {
         firstCard = null;
         secondCard = null;
     }
 
-    /** Function to get on the two cards. */
+    /** method to return the first of the player's/bot's two cards. */
     public Card getFirstCard() {
         return firstCard;
     }
 
+    /* method to get the filePath of the card to be able to display it. */
     public String getCard1Path() {
         return firstCard.getCardPath(); 
     }
@@ -60,6 +60,7 @@ public class Player {
         return secondCard;
     }
     
+    /** Same purpose as getCard1Path but for the second card. */
     public String getCard2Path() {
         return secondCard.getCardPath(); 
     }
@@ -75,22 +76,17 @@ public class Player {
         System.out.println(wallet.getWallet()); 
     }
 
+    /** Calls wallet.actionSmallBlind() which correctly pays the small blind. */
     public void paySmallBlind() {
         wallet.actionSmallBlind(); 
     }
 
+    /** same as paySmallBlind() but for the big blind. */
     public void payBigBlind() {
         wallet.actionBigBlind();
     }
 
-    public void fold() {
-        
-    }
-
-    public void check() {
-
-    }
-
+    /** Method to check if the player or bot folded. */
     public boolean hasFolded() {
         return hasFolded;
     }
