@@ -29,21 +29,6 @@ public class Card {
         return imagePath; 
     }
     
-    // Method to display the card as an image in a Swing window
-    public void displayCard() {
-        // Create a new JFrame to display the card's image
-        JFrame frame = new JFrame("Card Display");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Create a JLabel and set the card's image as the icon
-        JLabel label = new JLabel(cardImage);
-
-        // Add the JLabel to the frame and pack the frame to fit the image
-        frame.getContentPane().add(label);
-        frame.pack();
-        frame.setLocationRelativeTo(null); // Center the window
-        frame.setVisible(true);
-    }
-    
 
 }
