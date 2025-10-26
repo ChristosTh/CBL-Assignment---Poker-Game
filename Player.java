@@ -86,7 +86,14 @@ public class Player {
         wallet.actionBigBlind();
     }
 
-    /** Method to check if the player or bot folded. */
+    public void fold() {
+        
+    }
+
+    public void check() {
+
+    }
+
     public boolean hasFolded() {
         return hasFolded;
     }
